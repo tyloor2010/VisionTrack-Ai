@@ -18,6 +18,7 @@ export function MediaCycle({
 }) {
   const [i, setI] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
+  const [ready, setReady] = useState<number>(0);
 
   // Preload the next image so it's ready before it fades in.
   useEffect(() => {
@@ -39,12 +40,18 @@ export function MediaCycle({
     return () => clearInterval(id);
   }, [layers.length, intervalMs]);
 
+  // Safety net: if a file is slow, show it anyway after a moment.
+  useEffect(() => {
+    const t = setTimeout(() => setReady(i), 2500);
+    return () => clearTimeout(t);
+  }, [i]);
+
   // Unmount the old layer once its fade has finished.
   useEffect(() => {
-    if (prev === null) return;
+    if (prev === null || ready !== i) return;
     const t = setTimeout(() => setPrev(null), 1300);
     return () => clearTimeout(t);
-  }, [prev]);
+  }, [prev, ready, i]);
 
   return (
     <div className={`absolute inset-0 isolate overflow-hidden ${className}`} aria-hidden>
@@ -55,12 +62,16 @@ export function MediaCycle({
           <div
             key={l.src + k}
             className="absolute inset-0 will-change-[opacity]"
-            style={{ animation: active ? "vt-fade-in 1200ms ease-out both" : undefined, zIndex: active ? 1 : 0 }}
+            style={{
+              opacity: active && ready !== k ? 0 : 1,
+              animation: active && ready === k ? "vt-fade-in 1200ms ease-out both" : undefined,
+              zIndex: active ? 1 : 0,
+            }}
           >
             {l.kind === "video" ? (
-              <video src={l.src} poster={l.poster} autoPlay muted loop playsInline preload="auto" className="h-full w-full object-cover" />
+              <video src={l.src} poster={l.poster} autoPlay muted loop playsInline preload="auto" onLoadedData={() => setReady(k)} className="h-full w-full object-cover" />
             ) : (
-              <img src={l.src} alt="" decoding="async" className="h-full w-full object-cover" />
+              <img src={l.src} alt="" decoding="async" onLoad={() => setReady(k)} ref={(el) => { if (el?.complete && el.naturalWidth) setReady(k); }} className="h-full w-full object-cover" />
             )}
           </div>
         );
