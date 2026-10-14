@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 const variants = {
   primary: "bg-primary text-primary-foreground hover:glow-primary hover:brightness-110",
-  outline: "border border-primary/50 text-primary hover:bg-primary/10",
+  outline: "bg-card text-foreground border border-border hover:bg-secondary",
   alert: "bg-det-red text-foreground hover:glow-red",
   ghost: "text-muted-foreground hover:text-foreground hover:bg-secondary",
   success: "bg-success text-ink hover:brightness-110",
@@ -13,7 +13,7 @@ const variants = {
 export function btnClass(variant: keyof typeof variants = "primary", size: "sm" | "md" | "lg" = "md") {
   const s = { sm: "h-8 px-3 text-xs", md: "h-10 px-5 text-sm", lg: "h-12 px-7 text-sm" }[size];
   return cn(
-    "inline-flex items-center justify-center gap-2 rounded-sm font-mono font-semibold uppercase tracking-wider transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50",
+    "inline-flex items-center justify-center gap-2 rounded-full font-semibold uppercase tracking-wide shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50",
     s,
     variants[variant],
   );
@@ -58,11 +58,10 @@ export function Counter({ to, decimals = 0, suffix = "", prefix = "" }: { to: nu
 export function SectionHead({ tag, title, sub }: { tag: string; title: string; sub?: string }) {
   return (
     <Reveal className="mb-12 max-w-2xl">
-      <div className="mb-3 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-primary">
-        <span className="h-px w-8 bg-primary" />
+      <div className="mb-3 font-hand text-lg uppercase tracking-wider text-coral">
         {tag}
       </div>
-      <h2 className="text-3xl font-bold tracking-tight sm:text-5xl">{title}</h2>
+      <h2 className="text-4xl font-extrabold tracking-tight sm:text-6xl">{title}</h2>
       {sub && <p className="mt-4 text-lg text-muted-foreground">{sub}</p>}
     </Reveal>
   );
@@ -70,10 +69,8 @@ export function SectionHead({ tag, title, sub }: { tag: string; title: string; s
 
 export function Panel({ children, className, title, right }: { children: ReactNode; className?: string; title?: string; right?: ReactNode }) {
   return (
-    <div className={cn("relative border border-border bg-card/70 backdrop-blur", className)}>
-      <span className="absolute -start-px -top-px h-3 w-3 border-s-2 border-t-2 border-primary" />
-      <span className="absolute -end-px -bottom-px h-3 w-3 border-e-2 border-b-2 border-primary" />
-      {title && (
+    <div className={cn("relative rounded-2xl border border-border bg-card shadow-[0_20px_50px_-30px_oklch(0_0_0/0.35)] overflow-hidden", className)}>
+            {title && (
         <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
           <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">{title}</h3>
           {right}
@@ -85,4 +82,4 @@ export function Panel({ children, className, title, right }: { children: ReactNo
 }
 
 export const inputClass =
-  "w-full rounded-sm border border-input bg-background/60 px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary";
+  "w-full rounded-xl border border-input bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary";

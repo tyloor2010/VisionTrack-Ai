@@ -5,8 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: "Space Grotesk", "Cairo", system-ui, sans-serif;
+  --font-sans: "Inter Tight", "Cairo", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Cairo", ui-monospace, monospace;
+  --font-hand: "Caveat Brush", cursive;
   --font-pixel: "VT323", "JetBrains Mono", monospace;
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
@@ -39,40 +40,41 @@
   --color-warning: var(--warning);
   --color-success: var(--success);
   --color-ink: var(--ink);
+  --color-coral: var(--accent);
 }
 
 :root {
-  --radius: 0.25rem;
-  --background: oklch(0.13 0.015 260);
-  --foreground: oklch(0.95 0.01 230);
-  --card: oklch(0.17 0.02 255);
-  --card-foreground: oklch(0.95 0.01 230);
-  --popover: oklch(0.17 0.02 255);
-  --popover-foreground: oklch(0.95 0.01 230);
-  --primary: oklch(0.82 0.14 210);
-  --primary-foreground: oklch(0.13 0.015 260);
-  --secondary: oklch(0.22 0.025 255);
-  --secondary-foreground: oklch(0.95 0.01 230);
-  --muted: oklch(0.2 0.02 255);
-  --muted-foreground: oklch(0.68 0.03 240);
-  --accent: oklch(0.24 0.04 230);
-  --accent-foreground: oklch(0.95 0.01 230);
-  --destructive: oklch(0.65 0.23 20);
+  --radius: 0.9rem;
+  --background: oklch(0.955 0 0);
+  --foreground: oklch(0.16 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.16 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.16 0 0);
+  --primary: oklch(0.16 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.92 0 0);
+  --secondary-foreground: oklch(0.16 0 0);
+  --muted: oklch(0.93 0 0);
+  --muted-foreground: oklch(0.45 0 0);
+  --accent: oklch(0.68 0.17 18);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.6 0.22 20);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.82 0.14 210 / 16%);
-  --input: oklch(0.82 0.14 210 / 22%);
-  --ring: oklch(0.82 0.14 210);
-  --ink: oklch(0.13 0.015 260);
+  --border: oklch(0.16 0 0 / 10%);
+  --input: oklch(0.16 0 0 / 15%);
+  --ring: oklch(0.68 0.17 18);
+  --ink: oklch(0.16 0 0);
 
   --det-yellow: oklch(0.86 0.16 85);
   --det-magenta: oklch(0.68 0.25 320);
   --det-green: oklch(0.8 0.18 150);
   --det-cyan: oklch(0.74 0.14 230);
-  --det-red: oklch(0.65 0.23 20);
-  --warning: oklch(0.82 0.16 75);
-  --success: oklch(0.8 0.18 150);
+  --det-red: oklch(0.63 0.22 20);
+  --warning: oklch(0.72 0.16 60);
+  --success: oklch(0.6 0.15 155);
 
-  --glow-primary: 0 0 24px color-mix(in oklab, var(--primary) 45%, transparent);
+  --glow-primary: 0 10px 30px -10px oklch(0 0 0 / 35%);
   --glow-red: 0 0 22px color-mix(in oklab, var(--det-red) 60%, transparent);
 }
 
@@ -91,8 +93,8 @@
 
 @utility hud-grid {
   background-image:
-    linear-gradient(color-mix(in oklab, var(--primary) 7%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in oklab, var(--primary) 7%, transparent) 1px, transparent 1px);
+    linear-gradient(oklch(0 0 0 / 3%) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0 0 0 / 3%) 1px, transparent 1px);
   background-size: 44px 44px;
 }
 
@@ -102,7 +104,7 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: repeating-linear-gradient(0deg, transparent 0 2px, oklch(0 0 0 / 22%) 2px 3px);
+    background: repeating-linear-gradient(0deg, transparent 0 2px, oklch(0 0 0 / 6%) 2px 3px);
   }
 }
 
@@ -121,9 +123,12 @@
 
 @utility glow-primary { box-shadow: var(--glow-primary); }
 @utility glow-red { box-shadow: var(--glow-red); }
-@utility text-glow { text-shadow: 0 0 18px color-mix(in oklab, var(--primary) 60%, transparent); }
+@utility text-glow { text-shadow: none; }
+@utility hand-underline {
+  background-image: linear-gradient(transparent 82%, color-mix(in oklab, var(--accent) 85%, transparent) 82%, color-mix(in oklab, var(--accent) 85%, transparent) 92%, transparent 92%);
+}
 @utility cursor-crosshair-hud {
-  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><g stroke='%2329B6F6' stroke-width='1.5' fill='none'><circle cx='16' cy='16' r='7'/><path d='M16 2v8M16 22v8M2 16h8M22 16h8'/></g></svg>") 16 16, crosshair;
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><g stroke='%23E8536B' stroke-width='1.5' fill='none'><circle cx='16' cy='16' r='7'/><path d='M16 2v8M16 22v8M2 16h8M22 16h8'/></g></svg>") 16 16, crosshair;
 }
 
 @keyframes sweep { to { top: 110%; } }
