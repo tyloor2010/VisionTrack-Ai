@@ -6,7 +6,7 @@ import { useLang } from "@/lib/i18n";
 /** Loads saved demo state after hydration and keeps toast language in sync. */
 export function StoreSync() {
   const { lang } = useLang();
-  useEffect(() => { void useVT.persist.rehydrate(); }, []);
+  useEffect(() => { void Promise.resolve(useVT.persist.rehydrate()).then(() => useVT.getState().initClock()); }, []);
   useEffect(() => { setStoreLang(lang); }, [lang]);
   return null;
 }

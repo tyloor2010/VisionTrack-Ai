@@ -157,9 +157,12 @@ type Actions = {
   dispatch: (caseId: string, alertId?: string) => void;
   moveTask: (id: string, col: TaskCol) => void;
   markAllRead: () => void;
+  initClock: () => void;
 };
 
-const fresh = (): Data => ({ ...makeSeed(Date.now()), audit: [], notes: [], role: "supervisor", seq: 1 });
+/** Fixed clock for the initial (SSR-safe) state; re-seeded to the real clock after hydration. */
+const SEED_EPOCH = Date.UTC(2027, 3, 15, 12, 0, 0);
+export const fresh = (now = SEED_EPOCH): Data => ({ ...makeSeed(now), audit: [], notes: [], role: "supervisor", seq: 1 });
 let langRef: "en" | "ar" = "en";
 export const setStoreLang = (l: "en" | "ar") => { langRef = l; };
 const deny = (msg: Txt) => { toast.error(msg[langRef]); return false; };
@@ -169,7 +172,7 @@ export const useVT = create<Data & Actions>()(
     (set, get) => ({
       ...fresh(),
       setRole: (role) => { set({ role }); get().emit({ action: `ROLE switched to ${role}`, msg: { en: `Now acting as ${ROLE_LABEL[role].en}`, ar: `الدور الحالي: ${ROLE_LABEL[role].ar}` } }); },
-      reset: () => { set(fresh()); toast.success(langRef === "ar" ? "أُعيد ضبط البيانات التجريبية" : "Demo data reset"); },
+      reset: () => { set(fresh(Date.now())); toast.success(langRef === "ar" ? "أُعيد ضبط البيانات التجريبية" : "Demo data reset"); },
       emit: ({ action, msg, kind = "info", caseId }) => {
         const s = get(); const at = Date.now();
         set({
@@ -234,6 +237,7 @@ export const useVT = create<Data & Actions>()(
         const cl: Record<TaskCol, Txt> = { todo: { en: "To do", ar: "قيد الانتظار" }, doing: { en: "In progress", ar: "قيد التنفيذ" }, done: { en: "Done", ar: "منجزة" } };
         get().emit({ action: `TASK ${id} -> ${col}`, msg: { en: `Task "${tk.title.en}" → ${cl[col].en}`, ar: `المهمة «${tk.title.ar}» ← ${cl[col].ar}` }, caseId: tk.caseId });
       },
+      initClock: () => { if (get().seq === 1 && get().audit.length === 0) set(fresh(Date.now())); },
       markAllRead: () => set((s) => ({ notes: s.notes.map((n) => ({ ...n, read: true })) })),
     }),
     { name: "vt-store-v1", storage: createJSONStorage(() => localStorage), skipHydration: true },
