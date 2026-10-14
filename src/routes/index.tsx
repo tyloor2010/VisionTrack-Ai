@@ -8,6 +8,7 @@ import {
 import { DetectionBox } from "@/components/vt/DetectionBox";
 import { HudText } from "@/components/vt/HudText";
 import { SearchMap } from "@/components/vt/SearchMap";
+import { SectionBg } from "@/components/vt/SectionBg";
 import { LiveDemo } from "@/components/vt/LiveDemo";
 import { Counter, Panel, Reveal, SectionHead, btnClass, inputClass, Btn } from "@/components/vt/ui";
 import { media } from "@/data/mock";
@@ -148,8 +149,9 @@ function HowItWorks() {
     { tag: "human", c: "bg-det-green", h: t("A person decides", "إنسان هو اللي يقرر"), p: t("An authorized officer confirms or rejects before anyone is sent.", "ضابط مخوّل يأكد أو يرفض قبل إرسال أي حد.") },
   ];
   return (
-    <section className="border-y border-border py-24">
-      <div className="mx-auto max-w-6xl px-6">
+    <section className="relative overflow-hidden border-y border-border py-24">
+      <SectionBg src={media.crowdCv} position="object-top" />
+      <div className="relative mx-auto max-w-6xl px-6">
         <SectionHead tag={t("How it works", "كيف يعمل")} title={t("From a phone call to a camera frame.", "من مكالمة لكادر كاميرا.")} />
         <ol>
           {steps.map((s, k) => (
@@ -174,9 +176,12 @@ function HowItWorks() {
 function DemoSection() {
   const { t } = useLang();
   return (
-    <section className="mx-auto max-w-[1500px] px-4 py-24 sm:px-6">
-      <SectionHead tag={t("Live demo", "عرض مباشر")} title={t("Run a search yourself.", "جرّب البحث بنفسك.")} sub={t("Select a profile, start the search, and review the alert like an operator would.", "اختر حالة، ابدأ البحث، وراجع التنبيه كما يفعل المشغّل.")} />
-      <LiveDemo />
+    <section className="relative overflow-hidden mx-auto max-w-[1500px] px-4 py-24 sm:px-6">
+      <SectionBg src={media.walkGif} />
+      <div className="relative">
+        <SectionHead tag={t("Live demo", "عرض مباشر")} title={t("Run a search yourself.", "جرّب البحث بنفسك.")} sub={t("Select a profile, start the search, and review the alert like an operator would.", "اختر حالة، ابدأ البحث، وراجع التنبيه كما يفعل المشغّل.")} />
+        <LiveDemo />
+      </div>
     </section>
   );
 }
@@ -241,8 +246,9 @@ function Responsible() {
     [t("Data is deleted when the case closes", "البيانات بتتمسح لما القضية تتقفل"), t("Encrypted while open, role-based access, removed afterwards.", "مشفرة وهي مفتوحة، صلاحيات حسب الدور، وبتتشال بعدها.")],
   ];
   return (
-    <section className="border-y border-border bg-card/40 py-24">
-      <div className="mx-auto max-w-6xl px-6">
+    <section className="relative overflow-hidden border-y border-border bg-card/40 py-24">
+      <SectionBg src={media.nightCv} position="object-[50%_70%]" />
+      <div className="relative mx-auto max-w-6xl px-6">
         <SectionHead tag={t("Responsible AI", "ذكاء اصطناعي مسؤول")} title={t("The rules we built it around.", "القواعد اللي بنيناه عليها.")} />
         <dl className="grid gap-x-12 md:grid-cols-2">
           {r.map(([h, p], k) => (
@@ -269,7 +275,8 @@ function Impact() {
   ];
   return (
     <section className="relative overflow-hidden border-y border-border bg-card/30 py-24 hud-grid">
-      <div className="mx-auto max-w-7xl px-6">
+      <SectionBg src={media.streetCv} />
+      <div className="relative mx-auto max-w-7xl px-6">
         <SectionHead tag={t("Impact", "الأثر")} title={t("What we’re aiming for in the pilot.", "اللي بنستهدفه في التجربة.")} />
         <div className="grid gap-8 md:grid-cols-3">
           {m.map((x, k) => (

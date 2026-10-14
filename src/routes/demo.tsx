@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LiveDemo } from "@/components/vt/LiveDemo";
 import { SectionHead } from "@/components/vt/ui";
+import { SectionBg } from "@/components/vt/SectionBg";
+import { media } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/demo")({
@@ -18,9 +20,12 @@ export const Route = createFileRoute("/demo")({
 function DemoPage() {
   const { t } = useLang();
   return (
-    <section className="mx-auto max-w-[1500px] px-4 py-14 sm:px-6">
-      <SectionHead tag={t("Live demo", "عرض مباشر")} title={t("Search the city in seconds.", "ابحث في المدينة خلال ثوانٍ.")} sub={t("Pick a sample profile and start a search. All data is simulated.", "اختر حالة تجريبية وابدأ البحث. جميع البيانات تجريبية.")} />
-      <LiveDemo />
+    <section className="relative overflow-hidden px-4 py-14">
+      <SectionBg src={media.crowdCv} position="object-top" />
+      <div className="relative mx-auto max-w-[1500px]">
+        <SectionHead tag={t("Live demo", "عرض مباشر")} title={t("Search the city in seconds.", "ابحث في المدينة خلال ثوانٍ.")} sub={t("Pick a sample profile and start a search. All data is simulated.", "اختر حالة تجريبية وابدأ البحث. جميع البيانات تجريبية.")} />
+        <LiveDemo />
+      </div>
     </section>
   );
 }
