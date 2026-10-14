@@ -48,7 +48,7 @@ export const cameras: Camera[] = [
   { id: "CAM-022", name: { en: "Ramses St. — Night", ar: "شارع رمسيس — ليلاً" }, img: nightStreet,
     boxes: [ { label: "person", conf: 81, color: "magenta", x: 22, y: 60, w: 9, h: 28 }, { label: "car", conf: 93, color: "green", x: 36, y: 44, w: 16, h: 22 }, { label: "car", conf: 90, color: "green", x: 46, y: 64, w: 28, h: 34 } ],
     pos: { lat: 30.0535, lng: 31.2452 } },
-  { id: "CAM-031", name: { en: "Central Bus Station", ar: "محطة الأتوبيس المركزية" }, img: busStation,
+  { id: "CAM-031", name: { en: "Central Bus Station", ar: "موقف الحافلات الرئيسي" }, img: busStation,
     boxes: [ { label: "person", conf: 77, color: "yellow", x: 39, y: 34, w: 7, h: 22 }, { label: "bus", conf: 95, color: "cyan", x: 47, y: 18, w: 30, h: 26 }, { label: "person", conf: 58, color: "yellow", x: 30, y: 30, w: 6, h: 22 } ],
     match: { label: "MATCH", conf: 71, color: "red", x: 45, y: 42, w: 9, h: 37 }, pos: { lat: 30.0728, lng: 31.3230 } },
   { id: "CAM-047", name: { en: "Corniche Sidewalk", ar: "رصيف الكورنيش" }, img: sidewalk,
@@ -76,9 +76,9 @@ export type Profile = {
 };
 
 export const profiles: Profile[] = [
-  { id: "P-1", name: { en: "Subject A (child)", ar: "الحالة أ (طفل)" }, age: 7, type: "child", clothing: { en: "Red hoodie, blue jeans", ar: "هودي أحمر، جينز أزرق" }, lastSeen: { en: "Tahrir Square", ar: "ميدان التحرير" }, time: "14:20", condition: { en: "Autism — may avoid crowds", ar: "توحّد — قد يتجنب الزحام" }, speedKmh: 2.5, lastSeenPos: { lat: 30.0444, lng: 31.2357 } },
-  { id: "P-2", name: { en: "Subject B (elderly)", ar: "الحالة ب (مسن)" }, age: 74, type: "elderly", clothing: { en: "Grey coat, white cap", ar: "معطف رمادي، طاقية بيضاء" }, lastSeen: { en: "Ramses Street", ar: "شارع رمسيس" }, time: "09:05", condition: { en: "Alzheimer's — walks in straight lines", ar: "ألزهايمر — يسير في خطوط مستقيمة" }, speedKmh: 2, lastSeenPos: { lat: 30.0535, lng: 31.2452 } },
-  { id: "P-3", name: { en: "Subject C (adult)", ar: "الحالة ج (بالغ)" }, age: 31, type: "adult", clothing: { en: "Black jacket, backpack", ar: "جاكيت أسود، حقيبة ظهر" }, lastSeen: { en: "Central Bus Station", ar: "محطة الأتوبيس المركزية" }, time: "21:40", condition: { en: "None reported", ar: "لا يوجد" }, speedKmh: 4.5, lastSeenPos: { lat: 30.0728, lng: 31.3230 } },
+  { id: "P-1", name: { en: "Subject A (child)", ar: "الحالة أ (طفل)" }, age: 7, type: "child", clothing: { en: "Red hoodie, blue jeans", ar: "سترة حمراء بغطاء رأس، وبنطال جينز أزرق" }, lastSeen: { en: "Tahrir Square", ar: "ميدان التحرير" }, time: "14:20", condition: { en: "Autism — may avoid crowds", ar: "توحّد — قد يتجنّب الأماكن المزدحمة" }, speedKmh: 2.5, lastSeenPos: { lat: 30.0444, lng: 31.2357 } },
+  { id: "P-2", name: { en: "Subject B (elderly)", ar: "الحالة ب (مسن)" }, age: 74, type: "elderly", clothing: { en: "Grey coat, white cap", ar: "معطف رمادي، طاقية بيضاء" }, lastSeen: { en: "Ramses Street", ar: "شارع رمسيس" }, time: "09:05", condition: { en: "Alzheimer's — walks in straight lines", ar: "الزهايمر — يميل إلى السير في خط مستقيم" }, speedKmh: 2, lastSeenPos: { lat: 30.0535, lng: 31.2452 } },
+  { id: "P-3", name: { en: "Subject C (adult)", ar: "الحالة ج (بالغ)" }, age: 31, type: "adult", clothing: { en: "Black jacket, backpack", ar: "سترة سوداء، وحقيبة ظهر" }, lastSeen: { en: "Central Bus Station", ar: "موقف الحافلات الرئيسي" }, time: "21:40", condition: { en: "None reported", ar: "لا يوجد" }, speedKmh: 4.5, lastSeenPos: { lat: 30.0728, lng: 31.3230 } },
 ];
 
 export const cases = [
