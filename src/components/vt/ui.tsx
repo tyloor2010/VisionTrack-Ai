@@ -13,7 +13,7 @@ const variants = {
 export function btnClass(variant: keyof typeof variants = "primary", size: "sm" | "md" | "lg" = "md") {
   const s = { sm: "h-8 px-3 text-xs", md: "h-10 px-5 text-sm", lg: "h-12 px-7 text-sm" }[size];
   return cn(
-    "inline-flex items-center justify-center gap-2 rounded-full font-semibold uppercase tracking-wide shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50",
+    "inline-flex items-center justify-center gap-2 rounded-sm font-semibold uppercase tracking-wide shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50",
     s,
     variants[variant],
   );
@@ -69,7 +69,7 @@ export function SectionHead({ tag, title, sub }: { tag: string; title: string; s
 
 export function Panel({ children, className, title, right }: { children: ReactNode; className?: string; title?: string; right?: ReactNode }) {
   return (
-    <div className={cn("relative rounded-xl border border-border bg-card shadow-[0_20px_50px_-30px_oklch(0_0_0/0.6)] overflow-hidden", className)}>
+    <div className={cn("relative rounded-sm border border-border bg-card shadow-[0_20px_50px_-30px_oklch(0_0_0/0.6)] overflow-hidden", className)}>
             {title && (
         <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
           <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">{title}</h3>
@@ -82,4 +82,4 @@ export function Panel({ children, className, title, right }: { children: ReactNo
 }
 
 export const inputClass =
-  "w-full rounded-xl border border-input bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary";
+  "w-full rounded-sm border border-input bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary";

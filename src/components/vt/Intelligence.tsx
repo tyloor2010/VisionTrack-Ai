@@ -123,7 +123,7 @@ export function IntelligenceModule({ caseId }: { caseId: string }) {
         <div className="min-w-0">
           {tab === "case" || level === 0 ? (
             <p className="py-8 text-center text-sm text-muted-foreground">
-              {abduction ? t("Open the Intelligence tab. A judicial order is required first.", "افتح تبويب الاستخبارات. يلزم أولًا إدخال أمر قضائي.") : t("Flag the case as a suspected abduction to unlock telecom and vehicle intelligence.", "صنّف الحالة على أنها اشتباه اختطاف لإتاحة بيانات الاتصالات والمركبات.")}
+              {abduction ? t("Open the Intelligence tab. A judicial order is required first.", "افتح تبويب الاستخبارات. يلزم أولًا إدخال أمر قضائي.") : t("Flag the case as a suspected abduction to open telecom and vehicle records.", "صنّف الحالة على أنها اشتباه اختطاف لإتاحة بيانات الاتصالات والمركبات.")}
             </p>
           ) : (
             <IntelTabs level={level} log={log} />
@@ -150,7 +150,7 @@ export function IntelligenceModule({ caseId }: { caseId: string }) {
             onCancel={() => { log(`CANCELLED ${modal === "warrant" ? "legal gate" : "level 2 approval"}`); setModal(null); }}
             onDone={(ref) => {
               if (modal === "warrant") { setLevel(1); setTab("intel"); log(`AUTHORIZED level 1 (metadata) · order ${ref}`, { en: "Level 1 granted — metadata only", ar: "مُنح المستوى 1 — البيانات الوصفية فقط" }); }
-              else if (canApprove) { setLevel(2); log(`APPROVED level 2 (content) · requested by ${pending} · supervisor ${ref}`, { en: "Level 2 approved — content unlocked", ar: "اعتُمد المستوى 2 — أُتيح المحتوى" }); setPending(null); }
+              else if (canApprove) { setLevel(2); log(`APPROVED level 2 (content) · requested by ${pending} · supervisor ${ref}`, { en: "Level 2 approved. Content is now visible.", ar: "اعتُمد المستوى 2 — أُتيح المحتوى" }); setPending(null); }
               setModal(null);
             }}
           />
@@ -176,7 +176,7 @@ function AuthModal({ kind, onCancel, onDone }: { kind: "warrant" | "supervisor";
   };
   return (
     <motion.div className="fixed inset-0 z-[100] grid place-items-center bg-background/80 p-4 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-      <motion.div role="dialog" aria-modal="true" className="w-full max-w-md rounded-xl border border-primary/50 bg-card p-6" initial={{ scale: 0.95 }} animate={{ scale: 1 }}>
+      <motion.div role="dialog" aria-modal="true" className="w-full max-w-md rounded-sm border border-primary/50 bg-card p-6" initial={{ scale: 0.95 }} animate={{ scale: 1 }}>
         <div dir="ltr" className="mb-3 inline-block bg-primary px-1.5 font-mono text-xs font-semibold text-primary-foreground">{kind === "warrant" ? "LEGAL GATE · LEVEL 1" : "LEGAL GATE · LEVEL 2"}</div>
         <h3 className="text-xl font-bold">{kind === "warrant" ? t("Judicial authorization required", "يلزم إذن قضائي") : t("Supervisor approval", "موافقة المشرف")}</h3>
         <p className="mt-1 text-sm text-muted-foreground">{kind === "warrant" ? t("Grants metadata only: times, masked numbers, towers. No content.", "يتيح البيانات الوصفية فقط: الأوقات والأرقام المحجوبة والأبراج، دون أي محتوى.") : t("Grants access to message and call content for this case.", "يتيح الاطلاع على محتوى الرسائل والمكالمات لهذه الحالة.")}</p>
