@@ -12,6 +12,12 @@ import streetCam from "@/assets/street-cam.mp4.asset.json";
 import visionVideo from "@/assets/vision.mp4.asset.json";
 import heroVideo from "@/assets/hero-bg.mp4.asset.json";
 import walkGif from "@/assets/street-walk.gif.asset.json";
+import aerialV2x from "@/assets/aerial-v2x.jpg.asset.json";
+import zebraIds from "@/assets/zebra-ids.jpg.asset.json";
+import trafficHud from "@/assets/traffic-hud.jpg.asset.json";
+import avPerception from "@/assets/av-perception.jpg.asset.json";
+import crosswalkTop from "@/assets/crosswalk-top.jpg.asset.json";
+import camWall from "@/assets/cam-wall.png.asset.json";
 import type { DetColor } from "@/components/vt/DetectionBox";
 
 export const media = {
@@ -26,6 +32,12 @@ export const media = {
   walkGif: walkGif.url,
   trafficGif: trafficGif.url,
   streetCam: streetCam.url,
+  aerialV2x: aerialV2x.url,
+  zebraIds: zebraIds.url,
+  trafficHud: trafficHud.url,
+  avPerception: avPerception.url,
+  crosswalkTop: crosswalkTop.url,
+  camWall: camWall.url,
 };
 
 export type Box = { label: string; conf?: number; color: DetColor; x: number; y: number; w: number; h: number };
