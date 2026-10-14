@@ -5,6 +5,8 @@ import crosswalk from "@/assets/crosswalk.jpg";
 import streetCv from "@/assets/street-cv.jpg.asset.json";
 import nightCv from "@/assets/night-cv.jpg.asset.json";
 import crowdCv from "@/assets/crowd-cv.jpg.asset.json";
+import crosswalkCv from "@/assets/crosswalk-cv.jpg.asset.json";
+import nycGif from "@/assets/nyc-walk.gif.asset.json";
 import visionVideo from "@/assets/vision.mp4.asset.json";
 import heroVideo from "@/assets/hero-bg.mp4.asset.json";
 import walkGif from "@/assets/street-walk.gif.asset.json";
@@ -14,6 +16,8 @@ export const media = {
   streetCv: streetCv.url,
   nightCv: nightCv.url,
   crowdCv: crowdCv.url,
+  crosswalkCv: crosswalkCv.url,
+  nycGif: nycGif.url,
   video: visionVideo.url,
   heroVideo: heroVideo.url,
   crosswalk,
