@@ -158,7 +158,7 @@ function HowItWorks() {
               <div className="relative">
                 <div className="relative z-10 mb-4 flex h-16 w-16 items-center justify-center border border-border bg-background">
                   <s.i className={`h-7 w-7 ${s.c}`} />
-                  <span dir="ltr" className="absolute -top-2 -end-2 bg-primary px-1 font-mono text-[10px] font-bold text-ink">0{k + 1}</span>
+                  <span dir="ltr" className="absolute -top-2 -end-2 rounded-full bg-coral px-1.5 font-mono text-[10px] font-bold text-primary-foreground">0{k + 1}</span>
                 </div>
                 <h3 className="font-bold">{s.h}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{s.p}</p>
