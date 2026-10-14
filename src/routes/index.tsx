@@ -8,6 +8,7 @@ import {
 import { DetectionBox } from "@/components/vt/DetectionBox";
 import { HudText } from "@/components/vt/HudText";
 import { SearchMap } from "@/components/vt/SearchMap";
+import { SectionBg } from "@/components/vt/SectionBg";
 import { LiveDemo } from "@/components/vt/LiveDemo";
 import { Counter, Panel, Reveal, SectionHead, btnClass, inputClass, Btn } from "@/components/vt/ui";
 import { media } from "@/data/mock";

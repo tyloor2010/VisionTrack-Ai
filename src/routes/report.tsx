@@ -21,8 +21,12 @@ function ReportPage() {
   const { t } = useLang();
   const [tab, setTab] = useState<"sighting" | "missing">("sighting");
   return (
-    <section className="mx-auto max-w-4xl px-4 py-14 sm:px-6">
-      <SectionHead tag={t("Reporting", "الإبلاغ")} title={t("Help us find them faster.", "ساعدنا نوصل لهم أسرع.")} sub={t("This is a demo — no data is sent anywhere.", "هذا عرض تجريبي — لا يتم إرسال أي بيانات.")} />
+    <section className="relative overflow-hidden px-4 py-14">
+      <SectionBg src={media.nightCv} position="object-[50%_70%]" />
+      <div className="relative mx-auto max-w-4xl">
+        <SectionHead tag={t("Reporting", "الإبلاغ")} title={t("Help us find them faster.", "ساعدنا نوصل لهم أسرع.")} sub={t("This is a demo — no data is sent anywhere.", "هذا عرض تجريبي — لا يتم إرسال أي بيانات.")} />
+      </div>
+      <div className="relative mx-auto mt-6 max-w-4xl sm:px-0">
       <div className="mb-6 flex gap-2" role="tablist">
         {(["sighting", "missing"] as const).map((k) => (
           <button key={k} role="tab" aria-selected={tab === k} onClick={() => setTab(k)}
