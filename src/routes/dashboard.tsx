@@ -11,11 +11,16 @@ export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
       { title: "Command Dashboard — VisionTrack AI" },
-      { name: "description", content: "Authority ops-center view: active cases, live alerts, heat map, camera health and human-review controls." },
+      { name: "description", content: "The operations view for a search team: open cases, live potential-match alerts, the search-radius map, camera health and the human-review queue." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://visiontrack2027.lovable.app/dashboard" },
       { property: "og:title", content: "Command Dashboard — VisionTrack AI" },
       { property: "og:description", content: "Ops-center for missing person cases with human-in-the-loop review." },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://visiontrack2027.lovable.app/dashboard" }],
   }),
+
   component: Dashboard,
 });
 

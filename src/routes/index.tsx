@@ -8,6 +8,8 @@ import {
 import { DetectionBox } from "@/components/vt/DetectionBox";
 import { HudText } from "@/components/vt/HudText";
 import { SearchMap } from "@/components/vt/SearchMap";
+import { MediaCycle, type CycleLayer } from "@/components/vt/MediaCycle";
+
 import { SectionBg } from "@/components/vt/SectionBg";
 import { LiveDemo } from "@/components/vt/LiveDemo";
 import { Counter, Panel, Reveal, SectionHead, btnClass, inputClass, Btn } from "@/components/vt/ui";
@@ -18,15 +20,33 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "VisionTrack AI — Every Minute Counts" },
-      { name: "description", content: "AI + computer vision platform helping authorities find missing persons during the critical Golden Hours." },
+      { name: "description", content: "VisionTrack AI searches live camera feeds for a missing person: face and clothing matching, a predicted search radius that grows with time, and potential-match alerts a human reviewer confirms." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://visiontrack2027.lovable.app/" },
       { property: "og:title", content: "VisionTrack AI — Every Minute Counts" },
       { property: "og:description", content: "Real-time potential-match alerts with confidence scores, geo search-radius prediction and human review." },
+      { name: "twitter:card", content: "summary_large_image" },
+
     ],
+    links: [{ rel: "canonical", href: "https://visiontrack2027.lovable.app/" }],
+
   }),
   component: Index,
 });
 
+/** Every photo and clip the site owns, flipped through behind the headline. */
+const HERO_LAYERS: CycleLayer[] = [
+  { kind: "video", src: media.heroVideo, poster: media.crosswalk },
+  { kind: "img", src: media.walkGif },
+  { kind: "img", src: media.streetCv },
+  { kind: "img", src: media.nycGif },
+  { kind: "img", src: media.crowdCv },
+  { kind: "img", src: media.nightCv },
+  { kind: "img", src: media.crosswalkCv },
+];
+
 function Index() {
+
   return (
     <>
       <Hero />
@@ -56,28 +76,31 @@ function Hero() {
   const { t } = useLang();
   const n = useTicker();
   const boxes = [
-    { label: "person", conf: 91, x: 10, y: 34, w: 5, h: 18 },
-    { label: "person", conf: 76, x: 24, y: 52, w: 5, h: 18 },
-    { label: "person", conf: 62, x: 43, y: 27, w: 5, h: 17 },
-    { label: "person", conf: 42, x: 66, y: 40, w: 5, h: 17 },
-    { label: "person", conf: 88, x: 78, y: 54, w: 5, h: 18 },
-    { label: "person", conf: 33, x: 36, y: 70, w: 5, h: 17 },
+    { label: "person", conf: 91, x: 66, y: 14, w: 5, h: 18 },
+    { label: "person", conf: 76, x: 77, y: 28, w: 5, h: 18 },
+    { label: "person", conf: 62, x: 88, y: 18, w: 5, h: 17 },
+    { label: "person", conf: 42, x: 70, y: 76, w: 5, h: 17 },
+    { label: "person", conf: 88, x: 82, y: 62, w: 5, h: 18 },
+    { label: "person", conf: 33, x: 92, y: 44, w: 5, h: 17 },
   ];
+
   return (
     <section className="relative min-h-[calc(100vh-4rem)] overflow-hidden scanlines">
-      <video src={media.heroVideo} poster={media.crosswalk} autoPlay muted loop playsInline aria-hidden className="absolute inset-0 h-full w-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/55 to-background/40" />
+      <MediaCycle layers={HERO_LAYERS} />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/75 to-background/60" />
+
       <div className="absolute inset-0 hidden sm:block">
-        {boxes.map((b, i) => <DetectionBox key={i} {...b} confidence={b.conf} color="yellow" jitter delay={2 + i * 0.2} />)}
-        <DetectionBox label="POTENTIAL MATCH" confidence={87} color="red" x={53} y={48} w={5.5} h={19} delay={3.4} alert />
+        {boxes.map((b, i) => <DetectionBox key={i} {...b} confidence={b.conf} color="yellow" jitter delay={1 + i * 0.2} />)}
+        <DetectionBox label="POTENTIAL MATCH" confidence={87} color="red" x={74} y={46} w={5.5} h={19} delay={2.2} alert />
         <svg className="absolute inset-0 h-full w-full" aria-hidden>
-          <motion.line x1="58.5%" y1="48%" x2="80%" y2="54%" stroke="var(--det-red)" strokeWidth="1" strokeDasharray="4 4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 3.8, duration: 1 }} />
-          <motion.line x1="53%" y1="58%" x2="29%" y2="60%" stroke="var(--det-yellow)" strokeOpacity="0.5" strokeWidth="1" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 3.9, duration: 1 }} />
+          <motion.line x1="79.5%" y1="48%" x2="94%" y2="52%" stroke="var(--det-red)" strokeWidth="1" strokeDasharray="4 4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 2.6, duration: 1 }} />
+          <motion.line x1="74%" y1="65%" x2="87%" y2="70%" stroke="var(--det-yellow)" strokeOpacity="0.5" strokeWidth="1" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 2.7, duration: 1 }} />
+
         </svg>
       </div>
 
       <div className="relative mx-auto flex min-h-[calc(100vh-4rem)] max-w-7xl flex-col justify-center px-6 py-20">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2, duration: 0.8 }} className="max-w-3xl">
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8 }} className="max-w-3xl">
           <div dir="ltr" className="mb-5 inline-block bg-det-magenta px-1.5 font-mono text-xs font-semibold leading-5 text-ink">
             ⚠ {t("Golden Hours protocol", "بروتوكول الساعات الذهبية")}
           </div>
