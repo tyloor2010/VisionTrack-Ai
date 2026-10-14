@@ -200,6 +200,7 @@ function Gallery() {
         <Reveal delay={0.1}><Panel className="overflow-hidden"><img src={media.streetCv} alt="Street scene with object detection labels" loading="lazy" className="aspect-square w-full object-cover" /></Panel></Reveal>
         <Reveal delay={0.2}><Panel className="overflow-hidden"><img src={media.crowdCv} alt="Crowd crossing with person confidence labels" loading="lazy" className="aspect-square w-full object-cover object-top" /></Panel></Reveal>
         <Reveal delay={0.3} className="md:col-span-2"><Panel className="overflow-hidden"><img src={media.nightCv} alt="Night sidewalk with detection boxes" loading="lazy" className="aspect-[2/1] w-full object-cover object-[50%_70%]" /></Panel></Reveal>
+        <Reveal delay={0.35}><Panel className="overflow-hidden"><img src={media.crosswalkCv} alt="Crosswalk with person, bicycle and car detection labels" loading="lazy" className="aspect-square w-full object-cover" /></Panel></Reveal>
       </div>
     </section>
   );
@@ -321,7 +322,8 @@ function Team() {
   const { t } = useLang();
   const [sent, setSent] = useState(false);
   return (
-    <section className="border-t border-border py-24">
+    <section className="relative overflow-hidden border-t border-border py-24">
+      <SectionBg src={media.nycGif} />
       <div className="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-2">
         <SectionHead tag={t("Contact", "تواصل")} title={t("Running a pilot? Talk to us.", "عندك تجربة؟ كلمنا.")} sub={t("We're looking for camera partners and agencies for Phase 2.", "بندوّر على شركاء كاميرات وجهات للمرحلة التانية.")} />
         <div>
