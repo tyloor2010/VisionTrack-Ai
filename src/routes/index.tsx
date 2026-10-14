@@ -25,7 +25,11 @@ export const Route = createFileRoute("/")({
       { property: "og:url", content: "https://visiontrack2027.lovable.app/" },
       { property: "og:title", content: "VisionTrack AI — Every Minute Counts" },
       { property: "og:description", content: "Real-time potential-match alerts with confidence scores, geo search-radius prediction and human review." },
+      { property: "og:image", content: "https://visiontrack2027.lovable.app/og-logo.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "640" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://visiontrack2027.lovable.app/og-logo.png" },
 
     ],
     links: [{ rel: "canonical", href: "https://visiontrack2027.lovable.app/" }],
