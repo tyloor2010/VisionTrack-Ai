@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useState, type FormEvent } from "react";
 import { Upload, ShieldCheck, Check, Loader2 } from "lucide-react";
 import { Btn, Panel, SectionHead, inputClass } from "@/components/vt/ui";
+import { SearchMap } from "@/components/vt/SearchMap";
 import { SectionBg } from "@/components/vt/SectionBg";
 import { media } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
