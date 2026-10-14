@@ -9,6 +9,7 @@ import {
   type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { MotionConfig } from "framer-motion";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -102,6 +103,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <MotionConfig reducedMotion="user">
       <LangProvider>
         <Navbar />
         <main>
@@ -111,6 +113,7 @@ function RootComponent() {
         <StoreSync />
         <Toaster position="bottom-left" theme="dark" />
       </LangProvider>
+      </MotionConfig>
     </QueryClientProvider>
   );
 }
