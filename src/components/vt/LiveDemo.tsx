@@ -32,8 +32,7 @@ export function LiveDemo() {
     setTimeout(() => setPhase("found"), 3200);
   };
 
-  // radius in map units: speed (km/h) * hours, scaled
-  const radius = 4 + profile.speedKmh * hours * 0.9;
+  // radius in km: speed (km/h) × hours elapsed
   const top = cameras.find((c) => c.id === matchCams[0])!;
 
   return (
@@ -93,7 +92,7 @@ export function LiveDemo() {
       {/* Map + alert */}
       <div className="space-y-4">
         <Panel title={t("Geo-analysis", "التحليل الجغرافي")}>
-          <SearchMap radius={radius} matches={phase === "found" ? matchCams : []} />
+          <SearchMap origin={profile.lastSeenPos} radiusKm={Math.max(0.4, profile.speedKmh * hours)} matches={phase === "found" ? matchCams : []} />
           <div className="p-4">
             <label htmlFor="elapsed" className="flex justify-between font-mono text-xs uppercase text-muted-foreground">
               <span>{t("Time elapsed", "الوقت المنقضي")}</span>

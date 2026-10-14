@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useState, type FormEvent } from "react";
 import { Upload, ShieldCheck, Check, Loader2 } from "lucide-react";
 import { Btn, Panel, SectionHead, inputClass } from "@/components/vt/ui";
+import { SearchMap } from "@/components/vt/SearchMap";
 import { SectionBg } from "@/components/vt/SectionBg";
 import { media } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
@@ -92,14 +93,19 @@ function PhotoInput() {
 
 function PinPicker() {
   const { t } = useLang();
-  const [pin, setPin] = useState<{ x: number; y: number } | null>(null);
+  const [pin, setPin] = useState<{ lat: number; lng: number } | null>(null);
   return (
     <div>
       <span className="mb-1 block font-mono text-xs uppercase text-muted-foreground">{t("Location — tap the map", "الموقع — اضغط على الخريطة")}</span>
-      <div className="relative aspect-[3/1] cursor-crosshair-hud bg-background hud-grid border border-border" onClick={(e) => { const r = e.currentTarget.getBoundingClientRect(); setPin({ x: ((e.clientX - r.left) / r.width) * 100, y: ((e.clientY - r.top) / r.height) * 100 }); }} role="button" aria-label="Pick location on map">
-        <svg viewBox="0 0 100 33" className="absolute inset-0 h-full w-full" preserveAspectRatio="none"><g stroke="var(--muted-foreground)" strokeOpacity="0.35" strokeWidth="0.3" fill="none"><path d="M0 10 L100 14" /><path d="M0 24 L100 20" /><path d="M30 0 L34 33" /><path d="M70 0 L66 33" /></g></svg>
-        {pin && <div className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-det-red glow-red" style={{ left: `${pin.x}%`, top: `${pin.y}%` }} />}
-      </div>
+      <SearchMap
+        interactive
+        origin={{ lat: 30.0450, lng: 31.2400 }}
+        radiusKm={pin ? 0.3 : 0}
+        pin={pin}
+        onPick={setPin}
+        className="aspect-[3/1] w-full"
+      />
+      <p dir="ltr" className="mt-1 font-mono text-[10px] text-muted-foreground">{pin ? `PIN ${pin.lat.toFixed(5)}, ${pin.lng.toFixed(5)}` : t("Tap anywhere on the map to drop the pin.", "اضغط في أي مكان على الخريطة لتحديد الموقع.")}</p>
     </div>
   );
 }

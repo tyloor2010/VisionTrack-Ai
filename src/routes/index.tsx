@@ -124,7 +124,7 @@ function Problem() {
           <p className="col-span-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">* {t("Illustrative figures", "أرقام توضيحية")}</p>
         </div>
         <Panel title={t("Search radius over time", "نطاق البحث عبر الوقت")}>
-          <SearchMap radius={4 + steps[i]! * 0.75} compact />
+          <SearchMap origin={{ lat: 30.0444, lng: 31.2357 }} radiusKm={0.5 + steps[i]! * 1.2} compact />
           <div className="flex items-center gap-2 p-4" dir="ltr">
             {steps.map((s, k) => (
               <button key={s} onClick={() => setI(k)} className="flex-1 text-center" aria-label={`${s} hours`}>

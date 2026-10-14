@@ -51,10 +51,14 @@ export function SearchMap({ origin, radiusKm, matches = [], compact = false, int
         touchZoom: interactive,
         zoomSnap: 0.1,
       });
-      L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
-        subdomains: "abcd",
-        maxZoom: 20,
+      L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
+        attribution: "Imagery &copy; Esri, Maxar, Earthstar Geographics",
+        maxZoom: 19,
+      }).addTo(map);
+      L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}", {
+        attribution: "",
+        opacity: 0.55,
+        maxZoom: 19,
       }).addTo(map);
 
       const lt = layers.current;
