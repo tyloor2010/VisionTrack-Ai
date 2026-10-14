@@ -14,12 +14,12 @@ export type GeoPos = { lat: number; lng: number };
 export type TimelineEntry = { at: number; msg: Txt };
 export type Case = {
   id: string; name: Txt; age: number; profile: Profile; status: CaseStatus;
-  openedAt: number; firstMatchAt?: number; resolvedAt?: number;
+  openedAt: number; firstMatchAt?: number | undefined; resolvedAt?: number | undefined;
   lastSeen: GeoPos; clothing: Txt; timeline: TimelineEntry[];
 };
 export type AlertState = "open" | "confirmed" | "rejected" | "dispatched";
 export type Alert = { id: string; caseId: string; cam: string; conf: number; at: number; state: AlertState; truth: boolean };
-export type Unit = { id: string; name: string; pos: GeoPos; busyWith?: string };
+export type Unit = { id: string; name: string; pos: GeoPos; busyWith?: string | undefined };
 export type Agency = "police" | "traffic" | "ambulance" | "prosecution";
 export type TaskCol = "todo" | "doing" | "done";
 export type Task = { id: string; caseId: string; agency: Agency; title: Txt; col: TaskCol; at: number };
