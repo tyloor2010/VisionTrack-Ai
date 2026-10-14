@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 const variants = {
   primary: "bg-primary text-primary-foreground hover:glow-primary hover:brightness-110",
-  outline: "bg-card text-foreground border border-border hover:bg-secondary",
+  outline: "bg-transparent text-foreground border border-primary hover:bg-primary/10",
   alert: "bg-det-red text-foreground hover:glow-red",
   ghost: "text-muted-foreground hover:text-foreground hover:bg-secondary",
   success: "bg-success text-ink hover:brightness-110",
@@ -58,8 +58,8 @@ export function Counter({ to, decimals = 0, suffix = "", prefix = "" }: { to: nu
 export function SectionHead({ tag, title, sub }: { tag: string; title: string; sub?: string }) {
   return (
     <Reveal className="mb-12 max-w-2xl">
-      <div className="mb-3 font-hand text-lg uppercase tracking-wider text-coral">
-        {tag}
+      <div dir="ltr" className="mb-4 inline-block bg-primary px-1.5 font-mono text-xs font-semibold leading-5 text-primary-foreground">
+        {tag.toLowerCase()} 9{Math.min(9, tag.length % 10)}%
       </div>
       <h2 className="text-4xl font-extrabold tracking-tight sm:text-6xl">{title}</h2>
       {sub && <p className="mt-4 text-lg text-muted-foreground">{sub}</p>}
@@ -69,7 +69,7 @@ export function SectionHead({ tag, title, sub }: { tag: string; title: string; s
 
 export function Panel({ children, className, title, right }: { children: ReactNode; className?: string; title?: string; right?: ReactNode }) {
   return (
-    <div className={cn("relative rounded-2xl border border-border bg-card shadow-[0_20px_50px_-30px_oklch(0_0_0/0.35)] overflow-hidden", className)}>
+    <div className={cn("relative rounded-xl border border-border bg-card shadow-[0_20px_50px_-30px_oklch(0_0_0/0.6)] overflow-hidden", className)}>
             {title && (
         <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
           <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">{title}</h3>

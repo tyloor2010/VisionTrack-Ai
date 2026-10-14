@@ -65,7 +65,7 @@ function Hero() {
   return (
     <section className="relative min-h-[calc(100vh-4rem)] overflow-hidden scanlines">
       <video src={media.heroVideo} poster={media.crosswalk} autoPlay muted loop playsInline aria-hidden className="absolute inset-0 h-full w-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/75 to-background/60" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/55 to-background/40" />
       <div className="absolute inset-0 hidden sm:block">
         {boxes.map((b, i) => <DetectionBox key={i} {...b} confidence={b.conf} color="yellow" jitter delay={2 + i * 0.2} />)}
         <DetectionBox label="POTENTIAL MATCH" confidence={87} color="red" x={53} y={48} w={5.5} h={19} delay={3.4} alert />
@@ -77,8 +77,8 @@ function Hero() {
 
       <div className="relative mx-auto flex min-h-[calc(100vh-4rem)] max-w-7xl flex-col justify-center px-6 py-20">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2, duration: 0.8 }} className="max-w-3xl">
-          <div className="mb-4 font-hand text-xl uppercase tracking-wider text-coral">
-            {t("Golden Hours protocol", "بروتوكول الساعات الذهبية")}
+          <div dir="ltr" className="mb-5 inline-block bg-det-magenta px-1.5 font-mono text-xs font-semibold leading-5 text-ink">
+            ⚠ {t("Golden Hours protocol", "بروتوكول الساعات الذهبية")}
           </div>
           <h1 className="text-6xl font-extrabold leading-[0.92] tracking-tighter sm:text-8xl lg:text-9xl">
             {t("Every Minute", "كل دقيقة")}<br /><span className="hand-underline">{t("Counts.", "فارقة.")}</span>
