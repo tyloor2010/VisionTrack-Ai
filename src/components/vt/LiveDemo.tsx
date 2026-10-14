@@ -32,8 +32,7 @@ export function LiveDemo() {
     setTimeout(() => setPhase("found"), 3200);
   };
 
-  // radius in map units: speed (km/h) * hours, scaled
-  const radius = 4 + profile.speedKmh * hours * 0.9;
+  // radius in km: speed (km/h) × hours elapsed
   const top = cameras.find((c) => c.id === matchCams[0])!;
 
   return (
