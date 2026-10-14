@@ -81,7 +81,7 @@ function Dashboard() {
             </ul>
           </Panel>
           <Panel title={t("Search zones", "مناطق البحث")}>
-            <SearchMap radius={22} matches={["CAM-014", "CAM-031"]} />
+            <SearchMap origin={cameras[0].pos} radiusKm={6} matches={["CAM-014", "CAM-031"]} />
             <div className="grid grid-cols-3 gap-px bg-border font-mono text-[10px]">
               {cameras.map((cm, k) => (
                 <div key={cm.id} dir="ltr" className="flex items-center gap-1.5 bg-card px-2 py-1.5">

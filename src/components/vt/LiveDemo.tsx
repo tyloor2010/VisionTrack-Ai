@@ -93,7 +93,7 @@ export function LiveDemo() {
       {/* Map + alert */}
       <div className="space-y-4">
         <Panel title={t("Geo-analysis", "التحليل الجغرافي")}>
-          <SearchMap radius={radius} matches={phase === "found" ? matchCams : []} />
+          <SearchMap origin={profile.lastSeenPos} radiusKm={Math.max(0.4, profile.speedKmh * hours)} matches={phase === "found" ? matchCams : []} />
           <div className="p-4">
             <label htmlFor="elapsed" className="flex justify-between font-mono text-xs uppercase text-muted-foreground">
               <span>{t("Time elapsed", "الوقت المنقضي")}</span>
