@@ -228,6 +228,7 @@ function Gallery() {
         <Reveal delay={0.2}><Panel className="overflow-hidden"><img src={media.crowdCv} alt="Crowd crossing with person confidence labels" loading="lazy" className="aspect-square w-full object-cover object-top" /></Panel></Reveal>
         <Reveal delay={0.3} className="md:col-span-2"><Panel className="overflow-hidden"><img src={media.nightCv} alt="Night sidewalk with detection boxes" loading="lazy" className="aspect-[2/1] w-full object-cover object-[50%_70%]" /></Panel></Reveal>
         <Reveal delay={0.35}><Panel className="overflow-hidden"><img src={media.crosswalkCv} alt="Crosswalk with person, bicycle and car detection labels" loading="lazy" className="aspect-square w-full object-cover" /></Panel></Reveal>
+        <Reveal delay={0.4} className="md:col-span-2"><Panel className="overflow-hidden"><img src={media.trafficGif} alt="Animated traffic camera view with car, rider and person detection boxes" loading="lazy" className="aspect-[2/1] w-full object-cover" /></Panel></Reveal>
       </div>
     </section>
   );
