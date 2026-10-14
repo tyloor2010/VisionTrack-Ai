@@ -40,6 +40,12 @@ export function MediaCycle({
     return () => clearInterval(id);
   }, [layers.length, intervalMs]);
 
+  // Safety net: if a file is slow, show it anyway after a moment.
+  useEffect(() => {
+    const t = setTimeout(() => setReady(i), 2500);
+    return () => clearTimeout(t);
+  }, [i]);
+
   // Unmount the old layer once its fade has finished.
   useEffect(() => {
     if (prev === null || ready !== i) return;
