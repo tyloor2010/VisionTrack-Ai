@@ -1,0 +1,2 @@
+- [x] Build VisionTrack AI site
+- [x] Hero background video (user's clip)

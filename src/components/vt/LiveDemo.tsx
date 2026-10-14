@@ -11,7 +11,7 @@ type Phase = "idle" | "scanning" | "found";
 
 export function LiveDemo() {
   const { t, lang } = useLang();
-  const [pid, setPid] = useState(profiles[0].id);
+  const [pid, setPid] = useState(profiles[0]!.id);
   const [phase, setPhase] = useState<Phase>("idle");
   const [hours, setHours] = useState(2);
   const [decision, setDecision] = useState<null | "confirmed" | "rejected" | "dispatched">(null);
