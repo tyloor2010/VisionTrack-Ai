@@ -158,3 +158,5 @@
 }
 .leaflet-hud .leaflet-control-attribution a { color: var(--muted-foreground); }
 .leaflet-hud .leaflet-marker-icon { background: transparent; border: none; }
+
+@keyframes vt-fade-in { from { opacity: 0; } to { opacity: 1; } }
