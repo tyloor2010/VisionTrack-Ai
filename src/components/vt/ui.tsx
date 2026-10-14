@@ -59,7 +59,7 @@ export function SectionHead({ tag, title, sub }: { tag: string; title: string; s
   return (
     <Reveal className="mb-12 max-w-2xl">
       <div dir="ltr" className="mb-4 inline-block bg-primary px-1.5 font-mono text-xs font-semibold leading-5 text-primary-foreground">
-        {tag.toLowerCase()} 9{Math.min(9, tag.length % 10)}%
+        {tag}
       </div>
       <h2 className="text-4xl font-extrabold tracking-tight sm:text-6xl">{title}</h2>
       {sub && <p className="mt-4 text-lg text-muted-foreground">{sub}</p>}
