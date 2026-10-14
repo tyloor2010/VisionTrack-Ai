@@ -22,13 +22,15 @@ export const media = {
 
 export type Box = { label: string; conf?: number; color: DetColor; x: number; y: number; w: number; h: number };
 
+export type GeoPos = { lat: number; lng: number };
+
 export type Camera = {
   id: string;
   name: { en: string; ar: string };
   img: string;
   boxes: Box[];
   match?: Box;
-  mapPos: { x: number; y: number };
+  pos: GeoPos;
 };
 
 export const cameras: Camera[] = [
