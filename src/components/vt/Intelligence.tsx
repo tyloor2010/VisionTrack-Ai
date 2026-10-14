@@ -297,7 +297,7 @@ function Anpr({ log }: { log: (a: string) => void }) {
       <div className="grid grid-cols-3 gap-2">
         {tiles.map((c, k) => (
           <div key={c.id} className="relative aspect-video overflow-hidden bg-muted">
-            <img src={c.img} alt={c.id} className="h-full w-full object-cover opacity-80" />
+            <img src={c.img} alt={c.id} loading="lazy" decoding="async" className="h-full w-full object-cover opacity-80" />
             <DetectionBox label={k === 1 ? "car" : "suv"} confidence={88 + k * 3} color="green" x={30} y={45} w={36} h={34} />
             <DetectionBox label={`plate ${93 - k * 4}%`} color="yellow" x={42} y={70} w={12} h={7} />
             <span dir="ltr" className="absolute bottom-1 end-1 bg-background/80 px-1 font-mono text-[10px]">{c.id} · {vehicles[k]!.plate}</span>

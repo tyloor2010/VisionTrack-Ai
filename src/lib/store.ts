@@ -1,5 +1,16 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
+import { persist, createJSONStorage, type StateStorage } from "zustand/middleware";
+
+/** Writes to localStorage at most every 400ms (and on tab hide) instead of on every change. */
+const pendingWrites = new Map<string, string>();
+let writeTimer: ReturnType<typeof setTimeout> | undefined;
+const flushWrites = () => { writeTimer = undefined; pendingWrites.forEach((v, k) => localStorage.setItem(k, v)); pendingWrites.clear(); };
+if (typeof document !== "undefined") document.addEventListener("visibilitychange", () => { if (document.hidden) flushWrites(); });
+const debouncedLocalStorage: StateStorage = {
+  getItem: (k) => pendingWrites.get(k) ?? localStorage.getItem(k),
+  setItem: (k, v) => { pendingWrites.set(k, v); if (!writeTimer) writeTimer = setTimeout(flushWrites, 400); },
+  removeItem: (k) => { pendingWrites.delete(k); localStorage.removeItem(k); },
+};
 import seedrandom from "seedrandom";
 import { toast } from "sonner";
 import { cameras as baseCams } from "@/data/mock";
@@ -241,6 +252,6 @@ export const useVT = create<Data & Actions>()(
       initClock: () => { if (get().seq === 1 && get().audit.length === 0) set(fresh(Date.now())); },
       markAllRead: () => set((s) => ({ notes: s.notes.map((n) => ({ ...n, read: true })) })),
     }),
-    { name: "vt-store-v1", storage: createJSONStorage(() => localStorage), skipHydration: true },
+    { name: "vt-store-v1", storage: createJSONStorage(() => debouncedLocalStorage), skipHydration: true },
   ),
 );

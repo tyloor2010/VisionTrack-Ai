@@ -90,7 +90,7 @@ function CasePage() {
 
         <Panel title={t("Drone feed — D1", "بث الطائرة المسيّرة — D1")} right={<label className="flex items-center gap-1.5 font-mono text-[10px]"><input type="checkbox" checked={follow} onChange={(e) => setFollow(e.target.checked)} className="accent-[var(--primary)]" /><Crosshair className="h-3 w-3" />{t("Follow target", "تتبّع الهدف")}</label>}>
           <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-            <img src={media.aerialV2x} alt={t("Aerial view", "منظر جوي")} className={`h-full w-full object-cover transition-transform duration-1000 ${follow ? "scale-150" : ""}`} style={{ transformOrigin: "55% 45%" }} />
+            <img src={media.aerialV2x} decoding="async" alt={t("Aerial view", "منظر جوي")} className={`h-full w-full object-cover transition-transform duration-1000 ${follow ? "scale-150" : ""}`} style={{ transformOrigin: "55% 45%" }} />
             <DetectionBox label="person" confidence={82} color="yellow" x={50} y={38} w={8} h={14} jitter />
             <DetectionBox label="car" confidence={91} color="green" x={22} y={58} w={18} h={14} />
             <div dir="ltr" className="absolute start-2 top-2 space-y-0.5 bg-background/70 px-1.5 py-1 font-mono text-[10px]">
@@ -131,7 +131,7 @@ function CasePage() {
             <div className="mb-5 grid grid-cols-2 gap-2">
               {[media.crosswalkCv, cameras[why % cameras.length]!.img].map((src, k) => (
                 <div key={k} className="relative aspect-[3/4] overflow-hidden bg-muted">
-                  <img src={src} alt="" className="h-full w-full object-cover" />
+                  <img src={src} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
                   <DetectionBox label={k ? "candidate" : "reference"} color={k ? "red" : "yellow"} x={30} y={25} w={40} h={50} />
                 </div>
               ))}
