@@ -13,16 +13,16 @@ const colorVar: Record<DetColor, string> = {
 
 type Props = {
   label: string;
-  confidence?: number;
-  color?: DetColor;
+  confidence?: number | undefined;
+  color?: DetColor | undefined;
   /** percentage coordinates */
   x: number;
   y: number;
   w: number;
   h: number;
-  delay?: number;
-  jitter?: boolean;
-  alert?: boolean;
+  delay?: number | undefined;
+  jitter?: boolean | undefined;
+  alert?: boolean | undefined;
 };
 
 /** Animated YOLO-style bounding box positioned with % coordinates inside a relative container. */
@@ -55,8 +55,8 @@ export function DetectionBox({ label, confidence, color = "yellow", x, y, w, h, 
           border: `${strong ? 2 : 1}px solid ${c}`,
           boxShadow: strong ? `0 0 14px color-mix(in oklab, ${c} 55%, transparent)` : undefined,
         }}
-        animate={alert ? { opacity: [1, 0.45, 1] } : undefined}
-        transition={alert ? { repeat: Infinity, duration: 1.1 } : undefined}
+        animate={alert ? { opacity: [1, 0.45, 1] } : { opacity: 1 }}
+        transition={alert ? { repeat: Infinity, duration: 1.1 } : {}}
       />
       <div
         dir="ltr"

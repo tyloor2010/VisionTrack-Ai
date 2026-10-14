@@ -35,7 +35,7 @@ function Dashboard() {
     { l: t("Cases resolved", "قضايا محلولة"), v: "27" }, { l: t("Avg. response", "متوسط الاستجابة"), v: "19m" },
   ];
   const act = (a: string) => setLog((l) => [`${new Date().toISOString().slice(11, 19)} OFFICER ${a} ${c.id}`, ...l]);
-  const cam = cameras[0];
+  const cam = cameras[0]!;
 
   return (
     <div className="flex min-h-[calc(100vh-4rem)]">
@@ -103,14 +103,14 @@ function Dashboard() {
                 <div className="flex justify-between"><dt className="text-muted-foreground">{t("Name", "الاسم")}</dt><dd>{c.name[lang]}</dd></div>
                 <div className="flex justify-between"><dt className="text-muted-foreground">{t("Age", "العمر")}</dt><dd>{c.age}</dd></div>
                 <div className="flex justify-between"><dt className="text-muted-foreground">{t("Elapsed", "المنقضي")}</dt><dd dir="ltr">{c.elapsed}</dd></div>
-                <div className="flex justify-between"><dt className="text-muted-foreground">{t("Clothing", "الملابس")}</dt><dd>{profiles[0].clothing[lang]}</dd></div>
+                <div className="flex justify-between"><dt className="text-muted-foreground">{t("Clothing", "الملابس")}</dt><dd>{profiles[0]!.clothing[lang]}</dd></div>
               </dl>
             </div>
             <div>
               <h4 className="mb-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">{t("Ranked candidates", "المرشحون حسب الثقة")}</h4>
               {[c.top, c.top - 16, c.top - 29].filter((v) => v > 0).map((v, k) => (
                 <div key={k} className="mb-3 border border-border p-3">
-                  <div dir="ltr" className="flex justify-between font-mono text-xs"><span>{cameras[k].id}</span><span className={v >= 70 ? "text-det-red" : "text-warning"}>{v}%</span></div>
+                  <div dir="ltr" className="flex justify-between font-mono text-xs"><span>{cameras[k]!.id}</span><span className={v >= 70 ? "text-det-red" : "text-warning"}>{v}%</span></div>
                   <div className="mt-2 h-1 bg-secondary"><div className="h-full bg-primary" style={{ width: `${v}%` }} /></div>
                 </div>
               ))}
