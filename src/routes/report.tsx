@@ -29,7 +29,7 @@ function ReportPage() {
   const { t } = useLang();
   const [tab, setTab] = useState<"sighting" | "missing">("sighting");
   return (
-    <section className="relative overflow-hidden px-4 py-14">
+    <section className="relative isolate overflow-hidden px-4 py-14">
       <SectionBg video={media.video} poster={media.nightCv} position="object-[50%_70%]" />
       <div className="relative mx-auto max-w-4xl">
         <SectionHead tag={t("Reporting", "الإبلاغ")} title={t("Help us find them faster.", "ساعدنا نوصل لهم أسرع.")} sub={t("This is a demo — no data is sent anywhere.", "هذا عرض تجريبي — لا يتم إرسال أي بيانات.")} />
