@@ -8,6 +8,8 @@ import {
 import { DetectionBox } from "@/components/vt/DetectionBox";
 import { HudText } from "@/components/vt/HudText";
 import { SearchMap } from "@/components/vt/SearchMap";
+import { MediaCycle, type CycleLayer } from "@/components/vt/MediaCycle";
+
 import { SectionBg } from "@/components/vt/SectionBg";
 import { LiveDemo } from "@/components/vt/LiveDemo";
 import { Counter, Panel, Reveal, SectionHead, btnClass, inputClass, Btn } from "@/components/vt/ui";
@@ -65,8 +67,9 @@ function Hero() {
   ];
   return (
     <section className="relative min-h-[calc(100vh-4rem)] overflow-hidden scanlines">
-      <video src={media.heroVideo} poster={media.crosswalk} autoPlay muted loop playsInline aria-hidden className="absolute inset-0 h-full w-full object-cover" />
+      <MediaCycle layers={HERO_LAYERS} />
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/55 to-background/40" />
+
       <div className="absolute inset-0 hidden sm:block">
         {boxes.map((b, i) => <DetectionBox key={i} {...b} confidence={b.conf} color="yellow" jitter delay={2 + i * 0.2} />)}
         <DetectionBox label="POTENTIAL MATCH" confidence={87} color="red" x={53} y={48} w={5.5} h={19} delay={3.4} alert />
