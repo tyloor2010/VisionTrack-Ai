@@ -11,12 +11,17 @@ import { useLang } from "@/lib/i18n";
 export const Route = createFileRoute("/report")({
   head: () => ({
     meta: [
-      { title: "Report — VisionTrack AI" },
-      { name: "description", content: "Submit a sighting or report a missing person. Submissions are checked before reaching authorities." },
+      { title: "Report a Missing Person or Sighting — VisionTrack AI" },
+      { name: "description", content: "File a report or pass on a sighting: a photo, when and where the person was last seen, and what they wore. Every submission is checked by a person before it reaches authorities." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://visiontrack2027.lovable.app/report" },
       { property: "og:title", content: "Report a Sighting or Missing Person — VisionTrack AI" },
       { property: "og:description", content: "Citizen sightings and family reports, verified before reaching authorities." },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://visiontrack2027.lovable.app/report" }],
   }),
+
   component: ReportPage,
 });
 

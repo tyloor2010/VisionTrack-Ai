@@ -20,15 +20,33 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "VisionTrack AI — Every Minute Counts" },
-      { name: "description", content: "AI + computer vision platform helping authorities find missing persons during the critical Golden Hours." },
+      { name: "description", content: "VisionTrack AI searches live camera feeds for a missing person: face and clothing matching, a predicted search radius that grows with time, and potential-match alerts a human reviewer confirms." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://visiontrack2027.lovable.app/" },
       { property: "og:title", content: "VisionTrack AI — Every Minute Counts" },
       { property: "og:description", content: "Real-time potential-match alerts with confidence scores, geo search-radius prediction and human review." },
+      { name: "twitter:card", content: "summary_large_image" },
+
     ],
+    links: [{ rel: "canonical", href: "https://visiontrack2027.lovable.app/" }],
+
   }),
   component: Index,
 });
 
+/** Every photo and clip the site owns, flipped through behind the headline. */
+const HERO_LAYERS: CycleLayer[] = [
+  { kind: "video", src: media.heroVideo, poster: media.crosswalk },
+  { kind: "img", src: media.walkGif },
+  { kind: "img", src: media.streetCv },
+  { kind: "img", src: media.nycGif },
+  { kind: "img", src: media.crowdCv },
+  { kind: "img", src: media.nightCv },
+  { kind: "img", src: media.crosswalkCv },
+];
+
 function Index() {
+
   return (
     <>
       <Hero />

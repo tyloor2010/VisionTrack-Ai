@@ -9,11 +9,16 @@ export const Route = createFileRoute("/demo")({
   head: () => ({
     meta: [
       { title: "Live Demo — VisionTrack AI" },
-      { name: "description", content: "Interactive camera wall, search-radius map and human-review alerts for missing person search." },
+      { name: "description", content: "Run a search yourself: pick a case, watch the camera wall flag potential matches, and see the predicted search radius grow with time before a reviewer confirms." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://visiontrack2027.lovable.app/demo" },
       { property: "og:title", content: "Live Demo — VisionTrack AI" },
       { property: "og:description", content: "Watch VisionTrack AI scan camera feeds and flag potential matches for human review." },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://visiontrack2027.lovable.app/demo" }],
   }),
+
   component: DemoPage,
 });
 
