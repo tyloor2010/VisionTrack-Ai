@@ -221,7 +221,7 @@ function Gallery() {
       <div className="grid gap-4 md:grid-cols-3">
         <Reveal className="md:row-span-2">
           <Panel className="h-full overflow-hidden">
-            <video src={media.video} autoPlay muted loop playsInline className="h-full w-full object-cover" aria-label="Aerial street footage" />
+            <video src={media.video} poster={media.crowdCv} autoPlay muted loop playsInline className="h-full w-full object-cover" aria-label="Aerial street footage" />
           </Panel>
         </Reveal>
         <Reveal delay={0.1}><Panel className="overflow-hidden"><img src={media.streetCv} alt="Street scene with object detection labels" loading="lazy" className="aspect-square w-full object-cover" /></Panel></Reveal>
