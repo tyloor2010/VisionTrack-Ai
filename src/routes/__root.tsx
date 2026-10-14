@@ -13,7 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LangProvider } from "@/lib/i18n";
-import { Navbar, Footer, Intro } from "@/components/vt/Shell";
+import { Navbar, Footer } from "@/components/vt/Shell";
 import { btnClass } from "@/components/vt/ui";
 
 function NotFoundComponent() {
@@ -95,7 +95,6 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LangProvider>
-        <Intro />
         <Navbar />
         <main>
           <Outlet />
