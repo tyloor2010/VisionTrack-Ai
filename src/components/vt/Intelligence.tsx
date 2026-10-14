@@ -5,6 +5,7 @@ import { Btn, Panel, inputClass } from "./ui";
 import { DetectionBox } from "./DetectionBox";
 import { IntelMap, type IntelLayer, type LL } from "./IntelMap";
 import { useLang } from "@/lib/i18n";
+import { useVT, ROLE_LABEL, type Role, type Txt } from "@/lib/store";
 import { cameras } from "@/data/mock";
 
 /* ---------- MOCK DATA (no real people, numbers or plates) ---------- */
@@ -44,41 +45,51 @@ const vehicles = [
 
 const now = () => new Date().toISOString().slice(11, 19);
 
-export function IntelligenceModule({ caseId, officer = "OFC-217" }: { caseId: string; officer?: string }) {
+const INTEL_ROLES: Role[] = ["investigator", "supervisor", "prosecutor"];
+
+export function IntelligenceModule({ caseId }: { caseId: string }) {
   const { t, lang } = useLang();
-  const [role, setRole] = useState<"analyst" | "authorized">("authorized");
+  const role = useVT((s) => s.role);
+  const emit = useVT((s) => s.emit);
+  const allAudit = useVT((s) => s.audit);
   const [abduction, setAbduction] = useState(false);
   const [level, setLevel] = useState<0 | 1 | 2>(0);
+  const [pending, setPending] = useState<Role | null>(null);
   const [modal, setModal] = useState<null | "warrant" | "supervisor">(null);
   const [tab, setTab] = useState<"case" | "intel">("case");
-  const [audit, setAudit] = useState<{ ts: string; who: string; a: string }[]>([]);
-  const log = (a: string, who = officer) => setAudit((l) => [{ ts: now(), who, a: `${a} [${caseId}]` }, ...l]);
+  const tag = `[${caseId}]`;
+  const audit = allAudit.filter((e) => e.action.startsWith("INTEL ") && e.action.endsWith(tag));
+  /** Append-only: every action goes through the shared audit log; entries are never edited or removed. */
+  const log = (a: string, msg?: Txt) => emit({ action: `INTEL ${a}`, msg: msg ?? { en: a, ar: a }, caseId, quiet: !msg, kind: "warning" });
+
+  const canFlag = role === "investigator" || role === "supervisor";
+  const canGate = INTEL_ROLES.includes(role);
+  const canApprove = pending !== null && role === "supervisor" && role !== pending;
 
   const openIntel = () => {
-    if (level === 0) setModal("warrant");
-    else setTab("intel");
+    if (level > 0) { setTab("intel"); log("OPENED intelligence tab"); return; }
+    if (!canGate) { log(`DENIED legal gate (role ${role})`, { en: "Your role cannot request judicial access.", ar: "دورك لا يسمح بطلب الإذن القضائي." }); return; }
+    setModal("warrant");
+  };
+  const requestL2 = () => {
+    setPending(role);
+    log(`REQUESTED level 2 by ${role}`, { en: "Level 2 requested — waiting for a supervisor (different role) to approve.", ar: "طُلب المستوى 2 — بانتظار موافقة مشرف (بدور مختلف)." });
   };
 
   return (
     <Panel title={t("Kidnapping response mode", "وضع الاستجابة لحالات الاختطاف")} right={<span dir="ltr" className="font-mono text-[10px] text-muted-foreground">MOCK DATA</span>}>
-      <div className="flex items-center gap-2 border-b border-warning/40 bg-warning/10 px-4 py-2 text-xs text-warning">
+      <div role="status" className="flex items-center gap-2 border-b border-warning/40 bg-warning/10 px-4 py-2 text-xs text-warning">
         <ShieldAlert className="h-4 w-4 shrink-0" />
         {t("Lawful access only. All actions are logged.", "الوصول القانوني فقط. تُسجَّل جميع الإجراءات.")}
       </div>
 
       <div className="flex flex-wrap items-center gap-4 border-b border-border px-4 py-3 text-sm">
-        <label className="flex items-center gap-2 font-mono text-xs">
-          {t("Role", "الدور")}
-          <select value={role} onChange={(e) => setRole(e.target.value as typeof role)} className="rounded border border-input bg-background px-2 py-1">
-            <option value="authorized">{t("Authorized officer", "ضابط مخوَّل")}</option>
-            <option value="analyst">{t("Analyst", "محلل")}</option>
-          </select>
-        </label>
-        <label className={`flex items-center gap-2 ${role !== "authorized" ? "opacity-50" : ""}`}>
-          <input type="checkbox" disabled={role !== "authorized"} checked={abduction} onChange={(e) => { setAbduction(e.target.checked); log(e.target.checked ? "FLAGGED suspected abduction" : "CLEARED abduction flag"); if (!e.target.checked) setTab("case"); }} className="h-4 w-4 accent-[var(--det-red)]" />
+        <span className="font-mono text-xs text-muted-foreground">{t("Acting as", "الدور الحالي")}: <span className="text-primary">{ROLE_LABEL[role][lang]}</span></span>
+        <label className={`flex items-center gap-2 ${!canFlag ? "opacity-50" : ""}`} title={canFlag ? undefined : t("Only an investigator or supervisor can set this flag.", "لا يملك تفعيل هذه العلامة إلا المحقّق أو المشرف.")}>
+          <input type="checkbox" disabled={!canFlag} checked={abduction} onChange={(e) => { setAbduction(e.target.checked); log(e.target.checked ? "FLAGGED suspected abduction" : "CLEARED abduction flag", e.target.checked ? { en: `${caseId} flagged as suspected abduction`, ar: `صُنّفت ${caseId} اشتباه اختطاف` } : undefined); if (!e.target.checked) { setTab("case"); setLevel(0); setPending(null); } }} className="h-4 w-4 accent-[var(--det-red)]" />
           <span className="font-semibold">{t("Suspected abduction", "اشتباه في اختطاف")}</span>
         </label>
-        {role !== "authorized" && <span className="text-xs text-muted-foreground">{t("Only an authorized officer can set this flag.", "لا يملك تفعيل هذه العلامة إلا ضابط مخوَّل.")}</span>}
+        {!canFlag && <span className="text-xs text-muted-foreground">{t("Only an investigator or supervisor can set this flag.", "لا يملك تفعيل هذه العلامة إلا المحقّق أو المشرف.")}</span>}
         <div className="ms-auto flex gap-1">
           <button onClick={() => setTab("case")} className={`px-3 py-1.5 font-mono text-xs uppercase ${tab === "case" ? "bg-primary/15 text-primary" : "text-muted-foreground"}`}>{t("Overview", "نظرة عامة")}</button>
           {abduction && (
@@ -90,23 +101,41 @@ export function IntelligenceModule({ caseId, officer = "OFC-217" }: { caseId: st
         </div>
       </div>
 
+      {level === 1 && (
+        <div className="flex flex-wrap items-center gap-3 border-b border-border px-4 py-2 text-xs">
+          {pending === null ? (
+            <Btn size="sm" variant="outline" disabled={!canGate} onClick={requestL2}><Lock className="h-3 w-3" />{t("Request level 2 (content)", "طلب المستوى 2 (المحتوى)")}</Btn>
+          ) : (
+            <>
+              <span className="text-warning">{t("Level 2 pending — requested by", "المستوى 2 قيد الانتظار — طلبه")} {ROLE_LABEL[pending][lang]}</span>
+              {canApprove ? (
+                <Btn size="sm" onClick={() => setModal("supervisor")}>{t("Review & approve", "مراجعة واعتماد")}</Btn>
+              ) : (
+                <span className="text-muted-foreground">{role === pending ? t("The requester cannot approve their own request. Switch to a Supervisor in the top bar.", "لا يجوز لمقدّم الطلب اعتماده بنفسه. بدّل إلى دور المشرف من الشريط العلوي.") : t("Only a Supervisor can approve.", "لا يعتمد الطلب إلا المشرف.")}</span>
+              )}
+              {pending === "supervisor" && <span className="text-muted-foreground">{t("A supervisor requested it, so a second approver is required — switch to another supervisor account in a live system.", "الطلب مقدَّم من مشرف، لذا يلزم معتمِد ثانٍ — في النظام الفعلي يعتمده مشرف آخر.")}</span>}
+            </>
+          )}
+        </div>
+      )}
+
       <div className="grid gap-4 p-4 xl:grid-cols-[1fr_280px]">
         <div className="min-w-0">
-          {tab === "case" ? (
+          {tab === "case" || level === 0 ? (
             <p className="py-8 text-center text-sm text-muted-foreground">
               {abduction ? t("Open the Intelligence tab. A judicial order is required first.", "افتح تبويب الاستخبارات. يلزم أولًا إدخال أمر قضائي.") : t("Flag the case as a suspected abduction to unlock telecom and vehicle intelligence.", "صنّف الحالة على أنها اشتباه اختطاف لإتاحة بيانات الاتصالات والمركبات.")}
             </p>
           ) : (
-            <IntelTabs level={level} onLevel2={() => setModal("supervisor")} log={log} />
+            <IntelTabs level={level} log={log} />
           )}
         </div>
         <div>
           <h4 className="mb-2 font-mono text-xs uppercase tracking-widest text-muted-foreground">{t("Audit log — append only", "سجل التدقيق — إضافة فقط")}</h4>
-          <ul dir="ltr" className="max-h-96 space-y-1 overflow-auto border border-border bg-background/60 p-2 font-mono text-[10px]">
-            {audit.length === 0 && <li className="text-muted-foreground">— no entries —</li>}
+          <ul dir="ltr" aria-live="polite" className="max-h-96 space-y-1 overflow-auto border border-border bg-background/60 p-2 font-mono text-[10px]">
+            {audit.length === 0 && <li className="text-muted-foreground">— {t("no entries", "لا توجد سجلات")} —</li>}
             {audit.map((e, k) => (
-              <li key={audit.length - k} className={k === 0 ? "text-foreground" : "text-muted-foreground"}>
-                <span className="text-primary">{e.ts}</span> {e.who} · {e.a}
+              <li key={e.id} className={k === 0 ? "text-foreground" : "text-muted-foreground"}>
+                <span className="text-primary">#{e.id} {new Date(e.at).toLocaleTimeString("en-GB")}</span> {e.role.toUpperCase()} · {e.action.slice(6, -tag.length - 1)}
               </li>
             ))}
           </ul>
@@ -118,16 +147,15 @@ export function IntelligenceModule({ caseId, officer = "OFC-217" }: { caseId: st
         {modal && (
           <AuthModal
             kind={modal}
-            onCancel={() => setModal(null)}
+            onCancel={() => { log(`CANCELLED ${modal === "warrant" ? "legal gate" : "level 2 approval"}`); setModal(null); }}
             onDone={(ref) => {
-              if (modal === "warrant") { setLevel(1); setTab("intel"); log(`AUTHORIZED level 1 (metadata) · order ${ref}`); }
-              else { setLevel(2); log(`AUTHORIZED level 2 (content) · supervisor ${ref}`, ref); }
+              if (modal === "warrant") { setLevel(1); setTab("intel"); log(`AUTHORIZED level 1 (metadata) · order ${ref}`, { en: "Level 1 granted — metadata only", ar: "مُنح المستوى 1 — البيانات الوصفية فقط" }); }
+              else if (canApprove) { setLevel(2); log(`APPROVED level 2 (content) · requested by ${pending} · supervisor ${ref}`, { en: "Level 2 approved — content unlocked", ar: "اعتُمد المستوى 2 — أُتيح المحتوى" }); setPending(null); }
               setModal(null);
             }}
           />
         )}
       </AnimatePresence>
-      {lang && null}
     </Panel>
   );
 }
@@ -171,7 +199,7 @@ function AuthModal({ kind, onCancel, onDone }: { kind: "warrant" | "supervisor";
   );
 }
 
-function IntelTabs({ level, onLevel2, log }: { level: 0 | 1 | 2; onLevel2: () => void; log: (a: string) => void }) {
+function IntelTabs({ level, log }: { level: 0 | 1 | 2; log: (a: string) => void }) {
   const { t } = useLang();
   const [sub, setSub] = useState<"telecom" | "anpr" | "fusion">("telecom");
   const tabs = [["telecom", t("Telecom timeline", "الخط الزمني للاتصالات")], ["anpr", t("Vehicle intelligence", "معلومات المركبات")], ["fusion", t("Movement fusion", "دمج مسار الحركة")]] as const;
@@ -181,7 +209,6 @@ function IntelTabs({ level, onLevel2, log }: { level: 0 | 1 | 2; onLevel2: () =>
         {tabs.map(([k, l]) => (
           <button key={k} onClick={() => { setSub(k); log(`VIEWED ${k}`); }} className={`-mb-px border-b-2 px-3 py-2 font-mono text-xs uppercase ${sub === k ? "border-primary text-primary" : "border-transparent text-muted-foreground"}`}>{l}</button>
         ))}
-        {level === 1 && <Btn size="sm" variant="outline" className="ms-auto mb-1" onClick={onLevel2}><Lock className="h-3 w-3" />{t("Request level 2", "طلب المستوى 2")}</Btn>}
       </div>
       {sub === "telecom" && <Telecom level={level} />}
       {sub === "anpr" && <Anpr log={log} />}
@@ -190,11 +217,12 @@ function IntelTabs({ level, onLevel2, log }: { level: 0 | 1 | 2; onLevel2: () =>
   );
 }
 
-function Locked({ children, open }: { children: React.ReactNode; open: boolean }) {
+/** At Level 1 the protected content is never rendered — only a placeholder. */
+function Locked({ children, open, label }: { children: React.ReactNode; open: boolean; label: string }) {
+  if (open) return <motion.span initial={{ opacity: 0, filter: "blur(6px)" }} animate={{ opacity: 1, filter: "blur(0px)" }} className="inline-block">{children}</motion.span>;
   return (
-    <span className="relative inline-block">
-      <span className={open ? "" : "select-none blur-sm"}>{children}</span>
-      {!open && <Lock className="absolute inset-0 m-auto h-3.5 w-3.5 text-primary" />}
+    <span className="inline-flex items-center gap-1.5 border border-dashed border-primary/40 px-2 py-0.5 font-mono text-[10px] text-primary" aria-label={label}>
+      <Lock className="h-3 w-3" />{label}
     </span>
   );
 }
@@ -225,11 +253,11 @@ function Telecom({ level }: { level: 0 | 1 | 2 }) {
               <span className={`absolute -start-[21px] top-1 h-2.5 w-2.5 rounded-full ${e.kind === "off" ? "bg-det-red" : "bg-primary"}`} />
               <div className="flex items-center gap-2"><span dir="ltr" className="font-mono text-primary">{e.t}</span><I className="h-3.5 w-3.5" />{lbl(e.kind)}</div>
               {e.num && <div dir="ltr" className="mt-0.5 font-mono text-muted-foreground">{e.num}{e.dur && ` · ${e.dur}`}</div>}
-              {e.kind.startsWith("sms") && <div className="mt-1 text-muted-foreground"><Locked open={level === 2}>{t("Message content (mock) — redacted sample text", "محتوى الرسالة (تجريبي) — نص نموذجي")}</Locked></div>}
+              {e.kind.startsWith("sms") && <div className="mt-1 text-muted-foreground"><Locked open={level === 2} label={t("Content locked — level 2", "المحتوى مقفل — المستوى 2")}>{t("Message content (mock) — redacted sample text", "محتوى الرسالة (تجريبي) — نص نموذجي")}</Locked></div>}
               {e.kind === "call" && (
                 <div className="mt-1.5">
                   <div className="mb-1 font-mono text-[10px] text-muted-foreground">{t("Last 3 minutes of audio", "آخر 3 دقائق من الصوت")}</div>
-                  <Locked open={level === 2}>
+                  <Locked open={level === 2} label={t("Audio locked — level 2", "الصوت مقفل — المستوى 2")}>
                     <span className="flex h-6 items-end gap-[2px]">{Array.from({ length: 36 }, (_, j) => <span key={j} className="w-[3px] bg-det-cyan" style={{ height: `${20 + Math.abs(Math.sin(j * 1.7)) * 80}%` }} />)}</span>
                   </Locked>
                 </div>
