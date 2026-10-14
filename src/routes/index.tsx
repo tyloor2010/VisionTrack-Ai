@@ -86,7 +86,7 @@ function Hero() {
   return (
     <section className="relative min-h-[calc(100vh-4rem)] overflow-hidden scanlines">
       <MediaCycle layers={HERO_LAYERS} />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/55 to-background/40" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/75 to-background/60" />
 
       <div className="absolute inset-0 hidden sm:block">
         {boxes.map((b, i) => <DetectionBox key={i} {...b} confidence={b.conf} color="yellow" jitter delay={2 + i * 0.2} />)}
