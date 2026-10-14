@@ -1,7 +1,9 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { HelpCircle, X, Printer, Battery, Crosshair } from "lucide-react";
-import { cases, cameras, profiles, media } from "@/data/mock";
+import { cameras, profiles, media } from "@/data/mock";
+import { useVT, STATUS_LABEL, TRANSITIONS, canTransition, can, type CaseStatus } from "@/lib/store";
+import { statusClass } from "./dashboard.index";
 import { DetectionBox } from "@/components/vt/DetectionBox";
 import { Btn, Panel } from "@/components/vt/ui";
 import { IntelligenceModule } from "@/components/vt/Intelligence";
@@ -9,11 +11,6 @@ import { IntelMap } from "@/components/vt/IntelMap";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/dashboard/case/$id")({
-  loader: ({ params }) => {
-    const c = cases.find((x) => x.id === params.id);
-    if (!c) throw notFound();
-    return { id: c.id };
-  },
   head: ({ params }) => ({
     meta: [
       { title: `Case ${params.id} — VisionTrack AI` },
@@ -25,26 +22,27 @@ export const Route = createFileRoute("/dashboard/case/$id")({
     ],
   }),
   component: CasePage,
-  notFoundComponent: () => <p className="p-10 text-center font-mono text-muted-foreground">NO CASE DETECTED</p>,
-  errorComponent: () => <p className="p-10 text-center font-mono text-det-red">ERROR LOADING CASE</p>,
 });
 
 function CasePage() {
-  const { id } = Route.useLoaderData();
-  const { t, lang } = useLang();
-  const c = cases.find((x) => x.id === id)!;
-  const idx = cases.indexOf(c);
-  const p = profiles[idx % profiles.length]!;
+  const { id } = Route.useParams();
   const [why, setWhy] = useState<number | null>(null);
   const [follow, setFollow] = useState(false);
   const [report, setReport] = useState(false);
-  const cands = [c.top, c.top - 16, c.top - 29].filter((v) => v > 0);
-  const timeline = [
-    ["14:20", t("Case opened by Officer #217", "فتح الحالة بواسطة الضابط رقم 217")],
-    ["14:24", t("Search radius set to 0.6 km", "تحديد نطاق البحث بـ0.6 كم")],
-    ["14:41", t("Camera hit CAM-053 (64%)", "رصد بالكاميرا CAM-053 (64%)")],
-    ["14:52", t("Potential match CAM-014 (87%)", "تطابق محتمل CAM-014 (87%)")],
-  ];
+  const { t, lang } = useLang();
+  const { cases, alerts, role, transition, dispatch, confirmAlert, rejectAlert } = useVT();
+  const c = cases.find((x) => x.id === id);
+  if (!c) return <p className="p-10 text-center font-mono text-muted-foreground">NO CASE DETECTED — {id}</p>;
+  const idx = cases.indexOf(c);
+  const p0 = profiles[idx % profiles.length]!;
+  const p = { ...p0, clothing: c.clothing, lastSeenPos: c.lastSeen };
+  const caseAlerts = alerts.filter((a) => a.caseId === c.id).sort((a, b) => b.conf - a.conf);
+  const nexts = Object.keys(TRANSITIONS[c.status] ?? {}) as CaseStatus[];
+  const top = caseAlerts[0]?.conf ?? 0;
+  const cands = caseAlerts.map((a) => a.conf);
+  const fmt = (ms: number) => new Date(ms).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+  const timeline = c.timeline.map((e) => [fmt(e.at), e.msg[lang]] as const);
+  const elapsed = (() => { const m = Math.round(((c.resolvedAt ?? Date.now()) - c.openedAt) / 60000); return `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`; })();
   const hospitals = [
     { n: t("Kasr Al Ainy Hospital", "مستشفى القصر العيني"), s: t("No match", "لا يوجد تطابق"), ok: false },
     { n: t("Al Demerdash Hospital", "مستشفى الدمرداش"), s: t("Pending reply", "بانتظار الرد"), ok: null },
@@ -56,14 +54,18 @@ function CasePage() {
       <div className="flex flex-wrap items-center gap-3">
         <Link to="/dashboard" className="font-mono text-xs text-muted-foreground hover:text-primary">← {t("Dashboard", "لوحة القيادة")}</Link>
         <h1 className="text-2xl font-bold"><span dir="ltr" className="font-mono text-primary">{c.id}</span> · {c.name[lang]}</h1>
-        <span className="border border-border px-2 py-0.5 font-mono text-[10px] uppercase">{c.status}</span>
+        <span className={`border px-2 py-0.5 font-mono text-[10px] uppercase ${statusClass[c.status]}`}>{STATUS_LABEL[c.status][lang]}</span>
+        {nexts.map((to) => { const ok = canTransition(c.status, to, role); return (
+          <Btn key={to} size="sm" variant={to === "resolved" ? "success" : "outline"} disabled={!ok} title={ok ? undefined : t("Your role can't make this move.", "دورك لا يسمح بهذا الإجراء.")} onClick={() => transition(c.id, to)}>→ {STATUS_LABEL[to][lang]}</Btn>
+        ); })}
+        {c.status !== "resolved" && <Btn size="sm" variant="alert" disabled={!can(role, "dispatch")} title={can(role, "dispatch") ? undefined : t("Only a field officer or supervisor can dispatch.", "لا يملك التوجيه إلا الضابط الميداني أو المشرف.")} onClick={() => dispatch(c.id)}>{t("Dispatch nearest unit", "توجيه أقرب فريق")}</Btn>}
         {c.status === "resolved" && <Btn size="sm" variant="outline" className="ms-auto" onClick={() => setReport(true)}><Printer className="h-3.5 w-3.5" />{t("After-action report", "تقرير ما بعد الحالة")}</Btn>}
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
         <Panel title={t("Profile", "الملف")} className="p-0">
           <dl className="space-y-1.5 p-4 font-mono text-xs">
-            {[[t("Age", "العمر"), String(c.age)], [t("Clothing", "الملابس"), p.clothing[lang]], [t("Last seen", "آخر رؤية"), `${p.lastSeen[lang]} · ${p.time}`], [t("Condition", "الحالة الصحية"), p.condition[lang]], [t("Elapsed", "الوقت المنقضي"), c.elapsed]].map(([k, v]) => (
+            {[[t("Age", "العمر"), String(c.age)], [t("Clothing", "الملابس"), p.clothing[lang]], [t("Last seen", "آخر رؤية"), `${p.lastSeen[lang]} · ${p.time}`], [t("Condition", "الحالة الصحية"), p.condition[lang]], [t("Elapsed", "الوقت المنقضي"), elapsed]].map(([k, v]) => (
               <div key={k} className="flex justify-between gap-3"><dt className="text-muted-foreground">{k}</dt><dd className="text-end">{v}</dd></div>
             ))}
           </dl>
@@ -73,10 +75,12 @@ function CasePage() {
 
         <Panel title={t("Ranked potential matches", "التطابقات المحتملة مرتبة")}>
           <div className="space-y-3 p-4">
+            {cands.length === 0 && <p className="text-xs text-muted-foreground">{t("No potential matches yet.", "لا توجد تطابقات محتملة بعد.")}</p>}
             {cands.map((v, k) => (
               <div key={k} className="border border-border p-3">
-                <div dir="ltr" className="flex justify-between font-mono text-xs"><span>{cameras[k]!.id}</span><span className={v >= 70 ? "text-det-red" : "text-warning"}>{v}%</span></div>
+                <div dir="ltr" className="flex justify-between font-mono text-xs"><span>{caseAlerts[k]!.cam} · <span className="text-muted-foreground">{caseAlerts[k]!.state}</span></span><span className={v >= 70 ? "text-det-red" : "text-warning"}>{v}%</span></div>
                 <div className="mt-2 h-1 bg-secondary"><div className="h-full bg-primary" style={{ width: `${v}%` }} /></div>
+                {caseAlerts[k]!.state === "open" && <span className="mt-2 flex gap-1"><Btn size="sm" variant="success" className="h-6 px-2 text-[10px]" disabled={!can(role, "reviewAlert")} onClick={() => confirmAlert(caseAlerts[k]!.id)}>{t("Confirm", "تأكيد")}</Btn><Btn size="sm" variant="ghost" className="h-6 border border-border px-2 text-[10px]" disabled={!can(role, "reviewAlert")} onClick={() => rejectAlert(caseAlerts[k]!.id)}>{t("Reject", "رفض")}</Btn></span>}
                 <button onClick={() => setWhy(k)} className="mt-2 flex items-center gap-1 font-mono text-[11px] text-primary hover:underline"><HelpCircle className="h-3 w-3" />{t("Why this match?", "لماذا هذا التطابق؟")}</button>
               </div>
             ))}
@@ -125,7 +129,7 @@ function CasePage() {
           <aside role="dialog" aria-modal="true" className="h-full w-full max-w-md overflow-auto border-s border-border bg-card p-5" onClick={(e) => e.stopPropagation()}>
             <div className="mb-4 flex items-center justify-between"><h3 className="font-bold">{t("Why this match?", "لماذا هذا التطابق؟")} <span dir="ltr" className="font-mono text-primary">{cands[why]}%</span></h3><button onClick={() => setWhy(null)} aria-label={t("Close", "إغلاق")}><X className="h-4 w-4" /></button></div>
             <div className="mb-5 grid grid-cols-2 gap-2">
-              {[media.crosswalkCv, cameras[why]!.img].map((src, k) => (
+              {[media.crosswalkCv, cameras[why % cameras.length]!.img].map((src, k) => (
                 <div key={k} className="relative aspect-[3/4] overflow-hidden bg-muted">
                   <img src={src} alt="" className="h-full w-full object-cover" />
                   <DetectionBox label={k ? "candidate" : "reference"} color={k ? "red" : "yellow"} x={30} y={25} w={40} h={50} />
@@ -148,9 +152,9 @@ function CasePage() {
           <div className="w-full max-w-lg border border-border bg-card p-6" onClick={(e) => e.stopPropagation()}>
             <h3 className="text-xl font-bold">{t("After-action report", "تقرير ما بعد الحالة")} — <span dir="ltr">{c.id}</span></h3>
             <ul className="mt-4 space-y-1.5 text-sm">
-              <li>{t("Total duration", "المدة الإجمالية")}: <span dir="ltr" className="font-mono">{c.elapsed}</span></li>
-              <li>{t("Potential matches reviewed", "تطابقات محتملة رُوجعت")}: {c.matches}</li>
-              <li>{t("Top confidence", "أعلى نسبة ثقة")}: <span dir="ltr" className="font-mono">{c.top}%</span></li>
+              <li>{t("Total duration", "المدة الإجمالية")}: <span dir="ltr" className="font-mono">{elapsed}</span></li>
+              <li>{t("Potential matches reviewed", "تطابقات محتملة رُوجعت")}: {caseAlerts.length}</li>
+              <li>{t("Top confidence", "أعلى نسبة ثقة")}: <span dir="ltr" className="font-mono">{top}%</span></li>
               <li>{t("Response time after alert", "زمن الاستجابة بعد التنبيه")}: <span dir="ltr" className="font-mono">14m</span></li>
             </ul>
             <ol className="mt-4 space-y-1 text-xs text-muted-foreground">{timeline.map(([tm, l]) => <li key={tm}><span dir="ltr" className="font-mono">{tm}</span> · {l}</li>)}</ol>
