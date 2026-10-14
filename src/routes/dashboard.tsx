@@ -32,12 +32,12 @@ function Dashboard() {
   const [log, setLog] = useState<string[]>(["14:52:08 SYSTEM  alert raised CAM-014 (87%)", "14:20:00 INTAKE  case opened by Officer #217"]);
   const c = cases.find((x) => x.id === sel)!;
   const nav = [
-    { i: FolderOpen, l: t("Cases", "القضايا") }, { i: Bell, l: t("Alerts", "التنبيهات") }, { i: Cctv, l: t("Cameras", "الكاميرات") },
+    { i: FolderOpen, l: t("Cases", "الحالات") }, { i: Bell, l: t("Alerts", "التنبيهات") }, { i: Cctv, l: t("Cameras", "الكاميرات") },
     { i: Map, l: t("Map", "الخريطة") }, { i: BarChart3, l: t("Analytics", "التحليلات") }, { i: Settings, l: t("Settings", "الإعدادات") },
   ];
   const kpis = [
-    { l: t("Time to first match", "الوقت لأول تطابق"), v: "11m 42s" }, { l: t("Alert precision", "دقة التنبيهات"), v: "88.6%" },
-    { l: t("Cases resolved", "قضايا محلولة"), v: "27" }, { l: t("Avg. response", "متوسط الاستجابة"), v: "19m" },
+    { l: t("Time to first match", "الزمن حتى أول تطابق"), v: "11m 42s" }, { l: t("Alert precision", "دقة التنبيهات"), v: "88.6%" },
+    { l: t("Cases resolved", "حالات مُغلقة"), v: "27" }, { l: t("Avg. response", "متوسط الاستجابة"), v: "19m" },
   ];
   const act = (a: string) => setLog((l) => [`${new Date().toISOString().slice(11, 19)} OFFICER ${a} ${c.id}`, ...l]);
   const cam = cameras[0]!;
@@ -62,7 +62,7 @@ function Dashboard() {
         </div>
 
         <div className="grid gap-4 xl:grid-cols-3">
-          <Panel title={t("Active cases", "القضايا النشطة")}>
+          <Panel title={t("Active cases", "الحالات النشطة")}>
             <ul>
               {cases.map((x) => (
                 <li key={x.id}>
@@ -74,7 +74,7 @@ function Dashboard() {
               ))}
             </ul>
           </Panel>
-          <Panel title={t("Live alerts", "تنبيهات مباشرة")} right={<span className="h-2 w-2 rounded-full bg-det-red animate-blink" />}>
+          <Panel title={t("Live alerts", "تنبيهات حيّة")} right={<span className="h-2 w-2 rounded-full bg-det-red animate-blink" />}>
             <ul className="p-2">
               {alerts.map((a, k) => (
                 <li key={k} className="px-2 py-2.5">
@@ -97,7 +97,7 @@ function Dashboard() {
           </Panel>
         </div>
 
-        <Panel title={`${t("Case detail", "تفاصيل القضية")} — ${c.id}`}>
+        <Panel title={`${t("Case detail", "تفاصيل الحالة")} — ${c.id}`}>
           <div className="grid gap-6 p-4 lg:grid-cols-3">
             <div>
               <div className="relative aspect-[4/3] overflow-hidden bg-muted">
@@ -107,12 +107,12 @@ function Dashboard() {
               <dl className="mt-3 space-y-1 font-mono text-xs">
                 <div className="flex justify-between"><dt className="text-muted-foreground">{t("Name", "الاسم")}</dt><dd>{c.name[lang]}</dd></div>
                 <div className="flex justify-between"><dt className="text-muted-foreground">{t("Age", "العمر")}</dt><dd>{c.age}</dd></div>
-                <div className="flex justify-between"><dt className="text-muted-foreground">{t("Elapsed", "المنقضي")}</dt><dd dir="ltr">{c.elapsed}</dd></div>
+                <div className="flex justify-between"><dt className="text-muted-foreground">{t("Elapsed", "الوقت المنقضي")}</dt><dd dir="ltr">{c.elapsed}</dd></div>
                 <div className="flex justify-between"><dt className="text-muted-foreground">{t("Clothing", "الملابس")}</dt><dd>{profiles[0]!.clothing[lang]}</dd></div>
               </dl>
             </div>
             <div>
-              <h4 className="mb-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">{t("Ranked candidates", "المرشحون حسب الثقة")}</h4>
+              <h4 className="mb-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">{t("Ranked candidates", "المرشحون حسب نسبة الثقة")}</h4>
               {[c.top, c.top - 16, c.top - 29].filter((v) => v > 0).map((v, k) => (
                 <div key={k} className="mb-3 border border-border p-3">
                   <div dir="ltr" className="flex justify-between font-mono text-xs"><span>{cameras[k]!.id}</span><span className={v >= 70 ? "text-det-red" : "text-warning"}>{v}%</span></div>
@@ -123,7 +123,7 @@ function Dashboard() {
               <div className="flex flex-wrap gap-2">
                 <Btn size="sm" variant="success" onClick={() => act("CONFIRMED top candidate for")}><Check className="h-3.5 w-3.5" />{t("Confirm", "تأكيد")}</Btn>
                 <Btn size="sm" variant="ghost" className="border border-border" onClick={() => act("REJECTED top candidate for")}><X className="h-3.5 w-3.5" />{t("Reject", "رفض")}</Btn>
-                <Btn size="sm" variant="alert" onClick={() => act("DISPATCHED unit for")}>{t("Dispatch", "إرسال وحدة")}</Btn>
+                <Btn size="sm" variant="alert" onClick={() => act("DISPATCHED unit for")}>{t("Dispatch", "توجيه فريق")}</Btn>
               </div>
             </div>
             <div>

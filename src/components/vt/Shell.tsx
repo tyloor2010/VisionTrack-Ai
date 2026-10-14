@@ -11,7 +11,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const links = [
     { to: "/", label: t("Overview", "نظرة عامة") },
-    { to: "/demo", label: t("Live Demo", "عرض مباشر") },
+    { to: "/demo", label: t("Live Demo", "عرض حي") },
     { to: "/dashboard", label: t("Command", "مركز القيادة") },
     { to: "/report", label: t("Report", "إبلاغ") },
   ] as const;
@@ -32,7 +32,7 @@ export function Navbar() {
         <div className="ms-auto flex items-center gap-3 md:ms-0">
           <div className="hidden items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-success lg:flex">
             <span className="relative flex h-2 w-2"><span className="absolute inset-0 rounded-full bg-success animate-ping-soft" /><span className="relative h-2 w-2 rounded-full bg-success" /></span>
-            {t("System Online", "النظام يعمل")}
+            {t("System Online", "النظام متصل")}
           </div>
           <button onClick={() => setLang(lang === "en" ? "ar" : "en")} className={btnClass("outline", "sm")} aria-label="Toggle language">
             {lang === "en" ? "عربي" : "EN"}
@@ -64,18 +64,18 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-8 px-6 py-12 md:grid-cols-3">
         <div>
           <div className="flex items-center gap-2"><Logo /><span className="font-bold">VisionTrack AI</span></div>
-          <p className="mt-3 text-sm text-muted-foreground">{t("Computer vision for the Golden Hours.", "رؤية حاسوبية للساعات الذهبية.")}</p>
+          <p className="mt-3 text-sm text-muted-foreground">{t("Computer vision for the Golden Hours.", "رؤية حاسوبية في خدمة الساعات الأولى الحاسمة.")}</p>
         </div>
         <div className="font-mono text-xs uppercase tracking-wider text-muted-foreground space-y-2">
-          <Link to="/demo" className="block hover:text-primary">{t("Live Demo", "عرض مباشر")}</Link>
+          <Link to="/demo" className="block hover:text-primary">{t("Live Demo", "عرض حي")}</Link>
           <Link to="/dashboard" className="block hover:text-primary">{t("Command Dashboard", "لوحة القيادة")}</Link>
           <Link to="/report" className="block hover:text-primary">{t("Report", "إبلاغ")}</Link>
         </div>
         <div className="text-sm">
           <p className="border-s-2 border-warning ps-3 text-muted-foreground">
-            {t("VisionTrack AI assists authorities; it never replaces human judgment.", "VisionTrack AI يساعد الجهات المختصة، ولا يحل أبدًا محل التقدير البشري.")}
+            {t("VisionTrack AI assists authorities; it never replaces human judgment.", "VisionTrack AI أداة مساندة للجهات المختصة، ولا تحلّ محل التقدير البشري بأي حال.")}
           </p>
-          <p className="mt-4 font-mono text-xs uppercase tracking-widest text-primary">{t("Built for ITC", "صُمم لمسابقة ITC")} · 2026</p>
+          <p className="mt-4 font-mono text-xs uppercase tracking-widest text-primary">{t("Built for ITC", "طُوِّر لمسابقة ITC")} · 2026</p>
         </div>
       </div>
     </footer>

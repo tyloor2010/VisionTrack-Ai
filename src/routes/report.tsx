@@ -32,14 +32,14 @@ function ReportPage() {
     <section className="relative isolate overflow-hidden px-4 py-14">
       <SectionBg video={media.video} poster={media.nightCv} position="object-[50%_70%]" />
       <div className="relative mx-auto max-w-4xl">
-        <SectionHead tag={t("Reporting", "الإبلاغ")} title={t("Help us find them faster.", "ساعدنا نوصل لهم أسرع.")} sub={t("This is a demo — no data is sent anywhere.", "هذا عرض تجريبي — لا يتم إرسال أي بيانات.")} />
+        <SectionHead tag={t("Reporting", "الإبلاغ")} title={t("Help us find them faster.", "ساعدنا في الوصول إليهم أسرع.")} sub={t("This is a demo — no data is sent anywhere.", "هذه نسخة تجريبية، ولن تُرسَل أي بيانات.")} />
       </div>
       <div className="relative mx-auto mt-6 max-w-4xl sm:px-0">
       <div className="mb-6 flex gap-2" role="tablist">
         {(["sighting", "missing"] as const).map((k) => (
           <button key={k} role="tab" aria-selected={tab === k} onClick={() => setTab(k)}
             className={`flex-1 border px-4 py-3 font-mono text-xs uppercase tracking-wider ${tab === k ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground"}`}>
-            {k === "sighting" ? t("Submit a sighting", "إبلاغ عن مشاهدة") : t("Report a missing person", "الإبلاغ عن مفقود")}
+            {k === "sighting" ? t("Submit a sighting", "إبلاغ عن مشاهدة") : t("Report a missing person", "أبلِغ عن شخص مفقود")}
           </button>
         ))}
       </div>
@@ -61,10 +61,10 @@ function useSubmit() {
 
 function Verification({ step, onReset }: { step: number; onReset: () => void }) {
   const { t } = useLang();
-  const checks = [t("Image quality & duplicates", "جودة الصورة والتكرار"), t("Location & time consistency", "اتساق الموقع والوقت"), t("Spam / abuse screening", "فحص البلاغات المزعجة")];
+  const checks = [t("Image quality & duplicates", "جودة الصورة والتكرار"), t("Location & time consistency", "اتساق الموقع والوقت"), t("Spam / abuse screening", "تصفية البلاغات الوهمية والمسيئة")];
   return (
     <Panel className="p-8" title={t("Verification", "التحقق")}>
-      <div className="flex items-center gap-3 text-sm text-muted-foreground"><ShieldCheck className="h-5 w-5 text-success" />{t("Submission checked before reaching authorities.", "يتم فحص البلاغ قبل وصوله للجهات المختصة.")}</div>
+      <div className="flex items-center gap-3 text-sm text-muted-foreground"><ShieldCheck className="h-5 w-5 text-success" />{t("Submission checked before reaching authorities.", "يُراجَع كل بلاغ قبل إحالته إلى الجهات المختصة.")}</div>
       <ul className="mt-6 space-y-3 font-mono text-sm">
         {checks.map((c, i) => (
           <motion.li key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.2 }} className="flex items-center gap-3">
@@ -75,7 +75,7 @@ function Verification({ step, onReset }: { step: number; onReset: () => void }) 
       </ul>
       {step >= 3 && (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-8 border border-success/50 bg-success/10 p-4">
-          <p className="font-mono text-sm uppercase text-success">✓ {t("Forwarded for human review", "أُرسل للمراجعة البشرية")}</p>
+          <p className="font-mono text-sm uppercase text-success">✓ {t("Forwarded for human review", "أُحيل البلاغ للمراجعة البشرية")}</p>
           <p dir="ltr" className="mt-1 font-mono text-xs text-muted-foreground">REF #VT-{Math.floor(Math.random() * 9000 + 1000)}</p>
           <Btn variant="ghost" size="sm" className="mt-3" onClick={onReset}>{t("New report", "بلاغ جديد")}</Btn>
         </motion.div>
@@ -90,7 +90,7 @@ function PhotoInput() {
   return (
     <label className="flex cursor-pointer flex-col items-center justify-center gap-2 border border-dashed border-primary/40 bg-background/40 p-8 text-center text-sm text-muted-foreground hover:border-primary">
       <Upload className="h-6 w-6 text-primary" />
-      {name || t("Upload photo(s)", "ارفع صورة")}
+      {name || t("Upload photo(s)", "ارفع صورة أو أكثر")}
       <input type="file" accept="image/*" multiple className="sr-only" onChange={(e) => setName(Array.from(e.target.files ?? []).map((f) => f.name).join(", "))} />
     </label>
   );
@@ -110,7 +110,7 @@ function PinPicker() {
         onPick={setPin}
         className="aspect-[3/1] w-full"
       />
-      <p dir="ltr" className="mt-1 font-mono text-[10px] text-muted-foreground">{pin ? `PIN ${pin.lat.toFixed(5)}, ${pin.lng.toFixed(5)}` : t("Tap anywhere on the map to drop the pin.", "اضغط في أي مكان على الخريطة لتحديد الموقع.")}</p>
+      <p dir="ltr" className="mt-1 font-mono text-[10px] text-muted-foreground">{pin ? `PIN ${pin.lat.toFixed(5)}, ${pin.lng.toFixed(5)}` : t("Tap anywhere on the map to drop the pin.", "اضغط على الخريطة لتحديد الموقع.")}</p>
     </div>
   );
 }
@@ -148,7 +148,7 @@ function MissingForm() {
         <select aria-label="Health condition" className={inputClass} defaultValue="">
           <option value="" disabled>{t("Health condition", "الحالة الصحية")}</option>
           <option>{t("None", "لا يوجد")}</option>
-          <option>{t("Alzheimer's / dementia", "ألزهايمر / خرف")}</option>
+          <option>{t("Alzheimer's / dementia", "الزهايمر / الخَرَف")}</option>
           <option>{t("Autism", "توحّد")}</option>
           <option>{t("Other", "أخرى")}</option>
         </select>

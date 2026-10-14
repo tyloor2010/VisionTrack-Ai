@@ -63,13 +63,13 @@ export function LiveDemo() {
             ))}
           </dl>
           <Btn className="w-full" onClick={start} disabled={phase === "scanning"}>
-            {phase === "scanning" ? <><Search className="h-4 w-4 animate-pulse" />{t("Scanning…", "جارٍ المسح…")}</> : phase === "found" ? <><RotateCcw className="h-4 w-4" />{t("Search again", "بحث جديد")}</> : <><Search className="h-4 w-4" />{t("Start search", "ابدأ البحث")}</>}
+            {phase === "scanning" ? <><Search className="h-4 w-4 animate-pulse" />{t("Scanning…", "جارٍ البحث…")}</> : phase === "found" ? <><RotateCcw className="h-4 w-4" />{t("Search again", "بحث جديد")}</> : <><Search className="h-4 w-4" />{t("Start search", "ابدأ البحث")}</>}
           </Btn>
         </div>
       </Panel>
 
       {/* Camera wall */}
-      <Panel title={t("Camera wall", "جدار الكاميرات")} right={<span dir="ltr" className="font-mono text-[10px] text-det-red">● REC {clock}</span>} className="cursor-crosshair-hud">
+      <Panel title={t("Camera wall", "شاشات المراقبة")} right={<span dir="ltr" className="font-mono text-[10px] text-det-red">● REC {clock}</span>} className="cursor-crosshair-hud">
         <div className="grid grid-cols-2 gap-1.5 p-1.5 md:grid-cols-3">
           {cameras.map((c) => {
             const flagged = phase === "found" && c.match;
@@ -116,9 +116,9 @@ export function LiveDemo() {
                     <div dir="ltr">{top.id} · {clock}</div>
                     <div>{top.name[lang]}</div>
                   </dl>
-                  <p className="mt-3 border-s-2 border-warning ps-2 text-xs text-warning">{t("Requires human review — not a confirmed identification.", "يتطلب مراجعة بشرية — ليس تعرفًا مؤكدًا.")}</p>
+                  <p className="mt-3 border-s-2 border-warning ps-2 text-xs text-warning">{t("Requires human review — not a confirmed identification.", "يستلزم مراجعة بشرية، ولا يُعدّ تعرّفًا مؤكدًا.")}</p>
                   {decision ? (
-                    <p className="mt-4 font-mono text-sm uppercase text-success">✓ {decision === "confirmed" ? t("Confirmed by reviewer", "تم التأكيد من المراجع") : decision === "rejected" ? t("Rejected — logged as false positive", "مرفوض — سُجل كإنذار خاطئ") : t("Unit dispatched", "تم إرسال وحدة")}</p>
+                    <p className="mt-4 font-mono text-sm uppercase text-success">✓ {decision === "confirmed" ? t("Confirmed by reviewer", "أكّده المراجِع") : decision === "rejected" ? t("Rejected — logged as false positive", "مرفوض، وسُجّل كإنذار كاذب") : t("Unit dispatched", "تم توجيه فريق ميداني")}</p>
                   ) : (
                     <div className="mt-4 grid grid-cols-3 gap-2">
                       <Btn size="sm" variant="success" onClick={() => setDecision("confirmed")}><Check className="h-3.5 w-3.5" />{t("Confirm", "تأكيد")}</Btn>
