@@ -37,13 +37,13 @@ export const Route = createFileRoute("/")({
 /** Every photo and clip the site owns, flipped through behind the headline. */
 const HERO_LAYERS: CycleLayer[] = [
   { kind: "video", src: media.heroVideo, poster: media.crosswalk },
-  { kind: "img", src: media.walkGif },
+  { kind: "video", src: media.walkGif, poster: media.streetCv },
   { kind: "img", src: media.streetCv },
-  { kind: "img", src: media.nycGif },
+  { kind: "video", src: media.nycGif, poster: media.nightCv },
   { kind: "img", src: media.crowdCv },
   { kind: "img", src: media.nightCv },
   { kind: "img", src: media.crosswalkCv },
-  { kind: "img", src: media.trafficGif },
+  { kind: "video", src: media.trafficGif, poster: media.trafficHud },
   { kind: "video", src: media.streetCam, poster: media.streetCv },
 ];
 
@@ -130,7 +130,7 @@ function Problem() {
   useEffect(() => { const id = setInterval(() => setI((v) => (v + 1) % steps.length), 1600); return () => clearInterval(id); }, []);
   return (
     <section className="relative isolate mx-auto max-w-7xl overflow-hidden px-6 py-24">
-      <SectionBg src={media.walkGif} />
+      <SectionBg video={media.walkGif} poster={media.streetCv} />
 
       <SectionHead tag={t("The problem", "المشكلة")} title={t("The search radius grows with every minute.", "كل دقيقة تمر تُوسّع دائرة البحث.")} sub={t("The first hours decide most outcomes. Manual review of hundreds of cameras simply can't keep up.", "الساعات الأولى هي التي تحسم معظم الحالات، ومراجعة تسجيلات مئات الكاميرات يدويًا لا تواكب هذا السباق.")} />
       <div className="grid gap-8 lg:grid-cols-2">
@@ -177,7 +177,7 @@ function HowItWorks() {
   ];
   return (
     <section className="relative isolate overflow-hidden border-y border-border py-24">
-      <SectionBg src={media.nycGif} position="object-top" />
+      <SectionBg video={media.nycGif} poster={media.nightCv} position="object-top" />
       <div className="relative mx-auto max-w-6xl px-6">
         <SectionHead tag={t("How it works", "آلية العمل")} title={t("From a phone call to a camera frame.", "من البلاغ إلى لقطة الكاميرا.")} />
         <ol>
@@ -204,7 +204,7 @@ function DemoSection() {
   const { t } = useLang();
   return (
     <section className="relative isolate overflow-hidden mx-auto max-w-[1500px] px-4 py-24 sm:px-6">
-      <SectionBg src={media.walkGif} />
+      <SectionBg video={media.walkGif} poster={media.streetCv} />
       <div className="relative">
         <SectionHead tag={t("Live demo", "عرض حي")} title={t("Run a search yourself.", "جرّب البحث بنفسك.")} sub={t("Select a profile, start the search, and review the alert like an operator would.", "اختر حالة، وابدأ البحث، ثم راجع التنبيه كما يفعل المشغّل تمامًا.")} />
         <LiveDemo />
@@ -228,7 +228,7 @@ function Gallery() {
         <Reveal delay={0.2}><Panel className="overflow-hidden"><img src={media.crowdCv} alt="Crowd crossing with person confidence labels" loading="lazy" className="aspect-square w-full object-cover object-top" /></Panel></Reveal>
         <Reveal delay={0.3} className="md:col-span-2"><Panel className="overflow-hidden"><img src={media.nightCv} alt="Night sidewalk with detection boxes" loading="lazy" className="aspect-[2/1] w-full object-cover object-[50%_70%]" /></Panel></Reveal>
         <Reveal delay={0.35}><Panel className="overflow-hidden"><img src={media.crosswalkCv} alt="Crosswalk with person, bicycle and car detection labels" loading="lazy" className="aspect-square w-full object-cover" /></Panel></Reveal>
-        <Reveal delay={0.4} className="md:col-span-2"><Panel className="overflow-hidden"><img src={media.trafficGif} alt="Animated traffic camera view with car, rider and person detection boxes" loading="lazy" className="aspect-[2/1] w-full object-cover" /></Panel></Reveal>
+        <Reveal delay={0.4} className="md:col-span-2"><Panel className="overflow-hidden"><video src={media.trafficGif} poster={media.trafficHud} autoPlay muted loop playsInline preload="metadata" aria-label="Animated traffic camera view with car, rider and person detection boxes" className="aspect-[2/1] w-full object-cover" /></Panel></Reveal>
         <Reveal delay={0.45}><Panel className="overflow-hidden"><img src={media.aerialV2x} alt="Aerial intersection with vehicle path lines and signal waves" loading="lazy" className="aspect-square w-full object-cover" /></Panel></Reveal>
         <Reveal delay={0.5}><Panel className="overflow-hidden"><img src={media.zebraIds} alt="Pedestrians on a zebra crossing with numbered tracking boxes" loading="lazy" className="aspect-square w-full object-cover object-top" /></Panel></Reveal>
         <Reveal delay={0.55}><Panel className="overflow-hidden"><img src={media.avPerception} alt="Driving scene with 3D boxes around vehicles and sensor path lines" loading="lazy" className="aspect-square w-full object-cover object-center" /></Panel></Reveal>
@@ -284,7 +284,7 @@ function Responsible() {
   ];
   return (
     <section className="relative isolate overflow-hidden border-y border-border bg-card/40 py-24">
-      <SectionBg src={media.nycGif} position="object-[50%_70%]" />
+      <SectionBg video={media.nycGif} poster={media.nightCv} position="object-[50%_70%]" />
       <div className="relative mx-auto max-w-6xl px-6">
         <SectionHead tag={t("Responsible AI", "ذكاء اصطناعي مسؤول")} title={t("The rules we built it around.", "المبادئ التي يقوم عليها النظام.")} />
         <dl className="grid gap-x-12 md:grid-cols-2">
@@ -312,7 +312,7 @@ function Impact() {
   ];
   return (
     <section className="relative isolate overflow-hidden border-y border-border bg-card/30 py-24 hud-grid">
-      <SectionBg src={media.walkGif} />
+      <SectionBg video={media.walkGif} poster={media.streetCv} />
       <div className="relative mx-auto max-w-7xl px-6">
         <SectionHead tag={t("Impact", "الأثر المتوقع")} title={t("What we’re aiming for in the pilot.", "ما نستهدفه في المرحلة التجريبية.")} />
         <div className="grid gap-8 md:grid-cols-3">
@@ -361,7 +361,7 @@ function Team() {
   const [sent, setSent] = useState(false);
   return (
     <section className="relative isolate overflow-hidden border-t border-border py-24">
-      <SectionBg src={media.nycGif} />
+      <SectionBg video={media.nycGif} poster={media.nightCv} />
       <div className="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-2">
         <SectionHead tag={t("Contact", "تواصل معنا")} title={t("Running a pilot? Talk to us.", "هل تودّ المشاركة في التجربة؟ تواصل معنا.")} sub={t("We're looking for camera partners and agencies for Phase 2.", "نبحث عن شركاء من مالكي الكاميرات والجهات المعنية للمرحلة الثانية.")} />
         <div>
