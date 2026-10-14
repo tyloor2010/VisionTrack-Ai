@@ -27,3 +27,6 @@
 - [x] Lazy/async images, debounced saving, reduced-motion, hover preloading
 - [ ] Offline/app caching (service worker) — needs user OK; never runs in preview
 - [ ] Lighthouse mobile numbers — measure on the published site
+
+## Polish brief
+- [ ] Look-and-read polish pass (see uploaded brief)
