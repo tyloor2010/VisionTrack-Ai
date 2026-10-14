@@ -13,7 +13,7 @@ const variants = {
 export function btnClass(variant: keyof typeof variants = "primary", size: "sm" | "md" | "lg" = "md") {
   const s = { sm: "h-8 px-3 text-xs", md: "h-10 px-5 text-sm", lg: "h-12 px-7 text-sm" }[size];
   return cn(
-    "inline-flex items-center justify-center gap-2 rounded-full font-semibold uppercase tracking-wide shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50",
+    "inline-flex items-center justify-center gap-2 rounded-sm font-semibold uppercase tracking-wide shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50",
     s,
     variants[variant],
   );

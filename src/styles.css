@@ -44,7 +44,7 @@
 }
 
 :root {
-  --radius: 0.9rem;
+  --radius: 0.25rem;
   --background: oklch(0.22 0.006 260);
   --foreground: oklch(0.97 0 0);
   --card: oklch(0.27 0.006 260);
@@ -89,6 +89,7 @@
   }
   [dir="rtl"] body { font-family: "Cairo", var(--font-sans); }
   ::selection { background: var(--primary); color: var(--primary-foreground); }
+  .font-mono { font-variant-numeric: tabular-nums; }
 }
 
 @utility hud-grid {

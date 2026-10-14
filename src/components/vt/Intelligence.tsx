@@ -123,7 +123,7 @@ export function IntelligenceModule({ caseId }: { caseId: string }) {
         <div className="min-w-0">
           {tab === "case" || level === 0 ? (
             <p className="py-8 text-center text-sm text-muted-foreground">
-              {abduction ? t("Open the Intelligence tab. A judicial order is required first.", "افتح تبويب الاستخبارات. يلزم أولًا إدخال أمر قضائي.") : t("Flag the case as a suspected abduction to unlock telecom and vehicle intelligence.", "صنّف الحالة على أنها اشتباه اختطاف لإتاحة بيانات الاتصالات والمركبات.")}
+              {abduction ? t("Open the Intelligence tab. A judicial order is required first.", "افتح تبويب الاستخبارات. يلزم أولًا إدخال أمر قضائي.") : t("Flag the case as a suspected abduction to open telecom and vehicle records.", "صنّف الحالة على أنها اشتباه اختطاف لإتاحة بيانات الاتصالات والمركبات.")}
             </p>
           ) : (
             <IntelTabs level={level} log={log} />
@@ -150,7 +150,7 @@ export function IntelligenceModule({ caseId }: { caseId: string }) {
             onCancel={() => { log(`CANCELLED ${modal === "warrant" ? "legal gate" : "level 2 approval"}`); setModal(null); }}
             onDone={(ref) => {
               if (modal === "warrant") { setLevel(1); setTab("intel"); log(`AUTHORIZED level 1 (metadata) · order ${ref}`, { en: "Level 1 granted — metadata only", ar: "مُنح المستوى 1 — البيانات الوصفية فقط" }); }
-              else if (canApprove) { setLevel(2); log(`APPROVED level 2 (content) · requested by ${pending} · supervisor ${ref}`, { en: "Level 2 approved — content unlocked", ar: "اعتُمد المستوى 2 — أُتيح المحتوى" }); setPending(null); }
+              else if (canApprove) { setLevel(2); log(`APPROVED level 2 (content) · requested by ${pending} · supervisor ${ref}`, { en: "Level 2 approved. Content is now visible.", ar: "اعتُمد المستوى 2 — أُتيح المحتوى" }); setPending(null); }
               setModal(null);
             }}
           />
