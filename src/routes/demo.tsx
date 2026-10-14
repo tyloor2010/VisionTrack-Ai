@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LiveDemo } from "@/components/vt/LiveDemo";
 import { SectionHead } from "@/components/vt/ui";
+import { SectionBg } from "@/components/vt/SectionBg";
+import { media } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/demo")({
