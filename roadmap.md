@@ -1,2 +1,3 @@
 - [x] Build VisionTrack AI site
 - [x] Hero background video (user's clip)
+- [ ] Light Procreate-style theme (keep hero video)
