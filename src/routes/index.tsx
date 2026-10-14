@@ -101,7 +101,7 @@ function Hero() {
         </svg>
       </div>
 
-      <div className="relative mx-auto flex min-h-[calc(100vh-4rem)] max-w-7xl flex-col justify-center px-6 py-20">
+      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-4rem)] max-w-7xl flex-col justify-center px-6 py-20">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8 }} className="max-w-3xl">
           <div dir="ltr" className="mb-5 inline-block bg-det-magenta px-1.5 font-mono text-xs font-semibold leading-5 text-ink">
             ⚠ {t("Golden Hours protocol", "بروتوكول الساعات الذهبية")}

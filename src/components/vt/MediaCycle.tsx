@@ -47,7 +47,7 @@ export function MediaCycle({
   }, [prev]);
 
   return (
-    <div className={`absolute inset-0 overflow-hidden ${className}`} aria-hidden>
+    <div className={`absolute inset-0 isolate overflow-hidden ${className}`} aria-hidden>
       {layers.map((l, k) => {
         if (k !== i && k !== prev) return null;
         const active = k === i;
