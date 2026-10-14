@@ -7,6 +7,8 @@ import nightCv from "@/assets/night-cv.jpg.asset.json";
 import crowdCv from "@/assets/crowd-cv.jpg.asset.json";
 import crosswalkCv from "@/assets/crosswalk-cv.jpg.asset.json";
 import nycGif from "@/assets/nyc-walk.gif.asset.json";
+import trafficGif from "@/assets/traffic-cv.gif.asset.json";
+import streetCam from "@/assets/street-cam.mp4.asset.json";
 import visionVideo from "@/assets/vision.mp4.asset.json";
 import heroVideo from "@/assets/hero-bg.mp4.asset.json";
 import walkGif from "@/assets/street-walk.gif.asset.json";
@@ -22,6 +24,8 @@ export const media = {
   heroVideo: heroVideo.url,
   crosswalk,
   walkGif: walkGif.url,
+  trafficGif: trafficGif.url,
+  streetCam: streetCam.url,
 };
 
 export type Box = { label: string; conf?: number; color: DetColor; x: number; y: number; w: number; h: number };

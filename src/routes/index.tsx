@@ -43,6 +43,8 @@ const HERO_LAYERS: CycleLayer[] = [
   { kind: "img", src: media.crowdCv },
   { kind: "img", src: media.nightCv },
   { kind: "img", src: media.crosswalkCv },
+  { kind: "img", src: media.trafficGif },
+  { kind: "video", src: media.streetCam, poster: media.streetCv },
 ];
 
 function Index() {
