@@ -6,6 +6,7 @@ import { SearchMap } from "@/components/vt/SearchMap";
 import { DetectionBox } from "@/components/vt/DetectionBox";
 import { Btn, Panel } from "@/components/vt/ui";
 import { useLang } from "@/lib/i18n";
+import { IntelligenceModule } from "@/components/vt/Intelligence";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
@@ -136,6 +137,8 @@ function Dashboard() {
             </div>
           </div>
         </Panel>
+
+        <IntelligenceModule key={c.id} caseId={c.id} />
       </div>
     </div>
   );
