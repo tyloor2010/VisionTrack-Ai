@@ -14,6 +14,8 @@ export function Navbar() {
     { to: "/demo", label: t("Live Demo", "عرض حي") },
     { to: "/dashboard", label: t("Command", "مركز القيادة") },
     { to: "/report", label: t("Report", "إبلاغ") },
+    { to: "/registry", label: t("Registry", "السجل الآمن") },
+    { to: "/security", label: t("Security", "الأمان") },
   ] as const;
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
@@ -25,7 +27,7 @@ export function Navbar() {
         </Link>
         <nav className="ms-auto hidden items-center gap-1 md:flex" aria-label="Main">
           {links.map((l) => (
-            <Link key={l.to} to={l.to} activeOptions={{ exact: true }} className="px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-primary" }}>
+            <Link key={l.to} to={l.to} activeOptions={{ exact: l.to !== "/dashboard" }} className="px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-primary" }}>
               {l.label}
             </Link>
           ))}
@@ -71,6 +73,8 @@ export function Footer() {
           <Link to="/demo" className="block hover:text-primary">{t("Live Demo", "عرض حي")}</Link>
           <Link to="/dashboard" className="block hover:text-primary">{t("Command Dashboard", "لوحة القيادة")}</Link>
           <Link to="/report" className="block hover:text-primary">{t("Report", "إبلاغ")}</Link>
+          <Link to="/registry" className="block hover:text-primary">{t("Safe registry", "السجل الآمن")}</Link>
+          <Link to="/security" className="block hover:text-primary">{t("Security", "الأمان")}</Link>
         </div>
         <div className="text-sm">
           <p className="border-s-2 border-warning ps-3 text-muted-foreground">
