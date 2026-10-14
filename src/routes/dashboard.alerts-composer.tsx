@@ -44,7 +44,7 @@ function Composer() {
             </div>
           </Panel>
           <div className="mx-auto w-56 rounded-[2rem] border-4 border-border bg-background p-3">
-            <div className="rounded-xl border border-det-red/50 bg-card p-3 text-xs">
+            <div className="rounded-sm border border-det-red/50 bg-card p-3 text-xs">
               <p className="font-bold text-det-red">⚠ {t("Public safety alert", "تنبيه للسلامة العامة")}</p>
               <p className="mt-1">{msg}</p>
             </div>
