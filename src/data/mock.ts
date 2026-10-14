@@ -68,9 +68,9 @@ export type Profile = {
 };
 
 export const profiles: Profile[] = [
-  { id: "P-1", name: { en: "Subject A (child)", ar: "الحالة أ (طفل)" }, age: 7, type: "child", clothing: { en: "Red hoodie, blue jeans", ar: "هودي أحمر، جينز أزرق" }, lastSeen: { en: "Tahrir Square", ar: "ميدان التحرير" }, time: "14:20", condition: { en: "Autism — may avoid crowds", ar: "توحّد — قد يتجنب الزحام" }, speedKmh: 2.5 },
-  { id: "P-2", name: { en: "Subject B (elderly)", ar: "الحالة ب (مسن)" }, age: 74, type: "elderly", clothing: { en: "Grey coat, white cap", ar: "معطف رمادي، طاقية بيضاء" }, lastSeen: { en: "Ramses Street", ar: "شارع رمسيس" }, time: "09:05", condition: { en: "Alzheimer's — walks in straight lines", ar: "ألزهايمر — يسير في خطوط مستقيمة" }, speedKmh: 2 },
-  { id: "P-3", name: { en: "Subject C (adult)", ar: "الحالة ج (بالغ)" }, age: 31, type: "adult", clothing: { en: "Black jacket, backpack", ar: "جاكيت أسود، حقيبة ظهر" }, lastSeen: { en: "Central Bus Station", ar: "محطة الأتوبيس المركزية" }, time: "21:40", condition: { en: "None reported", ar: "لا يوجد" }, speedKmh: 4.5 },
+  { id: "P-1", name: { en: "Subject A (child)", ar: "الحالة أ (طفل)" }, age: 7, type: "child", clothing: { en: "Red hoodie, blue jeans", ar: "هودي أحمر، جينز أزرق" }, lastSeen: { en: "Tahrir Square", ar: "ميدان التحرير" }, time: "14:20", condition: { en: "Autism — may avoid crowds", ar: "توحّد — قد يتجنب الزحام" }, speedKmh: 2.5, lastSeenPos: { lat: 30.0444, lng: 31.2357 } },
+  { id: "P-2", name: { en: "Subject B (elderly)", ar: "الحالة ب (مسن)" }, age: 74, type: "elderly", clothing: { en: "Grey coat, white cap", ar: "معطف رمادي، طاقية بيضاء" }, lastSeen: { en: "Ramses Street", ar: "شارع رمسيس" }, time: "09:05", condition: { en: "Alzheimer's — walks in straight lines", ar: "ألزهايمر — يسير في خطوط مستقيمة" }, speedKmh: 2, lastSeenPos: { lat: 30.0535, lng: 31.2452 } },
+  { id: "P-3", name: { en: "Subject C (adult)", ar: "الحالة ج (بالغ)" }, age: 31, type: "adult", clothing: { en: "Black jacket, backpack", ar: "جاكيت أسود، حقيبة ظهر" }, lastSeen: { en: "Central Bus Station", ar: "محطة الأتوبيس المركزية" }, time: "21:40", condition: { en: "None reported", ar: "لا يوجد" }, speedKmh: 4.5, lastSeenPos: { lat: 30.0728, lng: 31.3230 } },
 ];
 
 export const cases = [
