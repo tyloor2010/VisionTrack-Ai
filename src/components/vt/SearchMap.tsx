@@ -13,13 +13,15 @@ type Props = {
   pin?: GeoPos | null;
   onPick?: (p: GeoPos) => void;
   className?: string;
+  /** Keep the view fixed at this radius (km) so the map doesn't re-zoom and reload tiles on every radius change. */
+  fitKm?: number;
 };
 
 /**
  * Real dark map (CARTO tiles via Leaflet) with the VisionTrack HUD on top:
  * last-seen point, animated search radius, camera pins that turn red on match.
  */
-export function SearchMap({ origin, radiusKm, matches = [], compact = false, interactive = false, pin = null, onPick, className }: Props) {
+export function SearchMap({ origin, radiusKm, matches = [], compact = false, interactive = false, pin = null, onPick, className, fitKm }: Props) {
   const holder = useRef<HTMLDivElement>(null);
   const lib = useRef<{ L: typeof import("leaflet"); map: LeafletMap } | null>(null);
   const layers = useRef<{
@@ -54,11 +56,15 @@ export function SearchMap({ origin, radiusKm, matches = [], compact = false, int
       L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
         attribution: "Imagery &copy; Esri, Maxar, Earthstar Geographics",
         maxZoom: 19,
+        keepBuffer: 6,
+        updateWhenZooming: false,
       }).addTo(map);
       L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}", {
         attribution: "",
         opacity: 0.55,
         maxZoom: 19,
+        keepBuffer: 6,
+        updateWhenZooming: false,
       }).addTo(map);
 
       const lt = layers.current;
@@ -95,7 +101,7 @@ export function SearchMap({ origin, radiusKm, matches = [], compact = false, int
       map.setView([origin.lat, origin.lng], 14);
       lib.current = { L, map };
       // Position the view on the search radius once measured
-      requestAnimationFrame(() => fit(map, origin, radiusKm));
+      requestAnimationFrame(() => fit(map, origin, fitKm ?? radiusKm, false));
     })();
     return () => {
       cancelled = true;
@@ -106,13 +112,13 @@ export function SearchMap({ origin, radiusKm, matches = [], compact = false, int
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function fit(map: LeafletMap, o: GeoPos, km: number) {
+  function fit(map: LeafletMap, o: GeoPos, km: number, animate = true) {
     map.fitBounds(
       [
         [o.lat - km / 111, o.lng - km / (111 * Math.cos((o.lat * Math.PI) / 180))],
         [o.lat + km / 111, o.lng + km / (111 * Math.cos((o.lat * Math.PI) / 180))],
       ],
-      { padding: [12, 12], animate: true },
+      { padding: [12, 12], animate },
     );
   }
 
@@ -149,7 +155,7 @@ export function SearchMap({ origin, radiusKm, matches = [], compact = false, int
         }),
       }).addTo(map);
     }
-    fit(map, origin, radiusKm);
+    if (fitKm === undefined) fit(map, origin, radiusKm);
   }, [origin.lat, origin.lng, radiusKm, matches.join("|"), compact, pin?.lat, pin?.lng]);
 
   return (

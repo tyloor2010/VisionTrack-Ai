@@ -141,11 +141,13 @@
 @utility animate-ping-soft { animation: ping-soft 1.8s ease-out infinite; }
 
 /* --- Real map (Leaflet) HUD styling --- */
+.leaflet-hud.leaflet-container,
 .leaflet-hud .leaflet-container {
-  background: var(--background);
+  background: var(--background) !important;
   font: inherit;
   z-index: 0;
 }
+.leaflet-hud .leaflet-tile { background: var(--background); }
 .leaflet-hud .leaflet-tile-pane {
   filter: brightness(0.72) saturate(0.85) contrast(1.05);
 }
