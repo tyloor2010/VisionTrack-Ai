@@ -7,6 +7,7 @@ import nightCv from "@/assets/night-cv.jpg.asset.json";
 import crowdCv from "@/assets/crowd-cv.jpg.asset.json";
 import visionVideo from "@/assets/vision.mp4.asset.json";
 import heroVideo from "@/assets/hero-bg.mp4.asset.json";
+import walkGif from "@/assets/street-walk.gif.asset.json";
 import type { DetColor } from "@/components/vt/DetectionBox";
 
 export const media = {
@@ -16,6 +17,7 @@ export const media = {
   video: visionVideo.url,
   heroVideo: heroVideo.url,
   crosswalk,
+  walkGif: walkGif.url,
 };
 
 export type Box = { label: string; conf?: number; color: DetColor; x: number; y: number; w: number; h: number };
