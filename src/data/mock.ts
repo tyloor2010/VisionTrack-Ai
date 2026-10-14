@@ -6,6 +6,7 @@ import streetCv from "@/assets/street-cv.jpg.asset.json";
 import nightCv from "@/assets/night-cv.jpg.asset.json";
 import crowdCv from "@/assets/crowd-cv.jpg.asset.json";
 import visionVideo from "@/assets/vision.mp4.asset.json";
+import heroVideo from "@/assets/hero-bg.mp4.asset.json";
 import type { DetColor } from "@/components/vt/DetectionBox";
 
 export const media = {
@@ -13,6 +14,7 @@ export const media = {
   nightCv: nightCv.url,
   crowdCv: crowdCv.url,
   video: visionVideo.url,
+  heroVideo: heroVideo.url,
   crosswalk,
 };
 

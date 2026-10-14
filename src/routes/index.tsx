@@ -64,7 +64,7 @@ function Hero() {
   ];
   return (
     <section className="relative min-h-[calc(100vh-4rem)] overflow-hidden scanlines">
-      <img src={media.crosswalk} alt="Aerial view of a busy city crosswalk" width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover opacity-60" />
+      <video src={media.heroVideo} poster={media.crosswalk} autoPlay muted loop playsInline aria-hidden className="absolute inset-0 h-full w-full object-cover opacity-60" />
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/70" />
       <div className="absolute inset-0 hidden sm:block">
         {boxes.map((b, i) => <DetectionBox key={i} {...b} confidence={b.conf} color="yellow" jitter delay={2 + i * 0.2} />)}
@@ -123,7 +123,7 @@ function Problem() {
           <p className="col-span-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">* {t("Illustrative figures", "أرقام توضيحية")}</p>
         </div>
         <Panel title={t("Search radius over time", "نطاق البحث عبر الوقت")}>
-          <SearchMap radius={4 + steps[i] * 0.75} compact />
+          <SearchMap radius={4 + steps[i]! * 0.75} compact />
           <div className="flex items-center gap-2 p-4" dir="ltr">
             {steps.map((s, k) => (
               <button key={s} onClick={() => setI(k)} className="flex-1 text-center" aria-label={`${s} hours`}>
