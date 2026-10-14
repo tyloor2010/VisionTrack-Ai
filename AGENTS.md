@@ -12,3 +12,5 @@
 ## Architecture rules
 - Maps use Leaflet with Esri World Imagery satellite tiles (+ World_Transportation overlay), loaded via dynamic import inside useEffect in `src/components/vt/SearchMap.tsx` (Leaflet is browser-only; SSR must not import it). Why: real map imagery replaced the abstract SVG map; CARTO tiles now require an API key.
 - Camera locations and last-seen points are real Cairo coordinates in `src/data/mock.ts` (`pos` / `lastSeenPos`); map radii are in km.
+- All demo state (cases, alerts, units, tasks, audit, notifications, role) lives in one persisted Zustand store in `src/lib/store.ts`; every action goes through store actions and `emit()` so dashboard, board, bell and audit stay in sync. Why: features must be interconnected, not isolated mockups.
+- Store starts from a fixed seed epoch (SSR-safe) and re-seeds to the real clock after hydration in `StoreSync`. Why: Date.now() during SSR caused hydration mismatches.
