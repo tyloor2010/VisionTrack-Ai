@@ -22,3 +22,8 @@
 - [ ] 8. Report wizard with case ID/QR, registry edit/delete + map, pattern detection
 - [ ] 9. Interactive security page and settings (deployment modes, retention timer)
 - [ ] 10. More tests, Demo Guide (?), Judge Mode (Shift+J)
+
+## Speed brief (optimize pass)
+- [x] Lazy/async images, debounced saving, reduced-motion, hover preloading
+- [ ] Offline/app caching (service worker) — needs user OK; never runs in preview
+- [ ] Lighthouse mobile numbers — measure on the published site
