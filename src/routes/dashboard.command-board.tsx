@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Lock, Send } from "lucide-react";
 import { Panel, inputClass, Btn } from "@/components/vt/ui";
 import { useLang } from "@/lib/i18n";
+import { useVT, type Agency, type TaskCol } from "@/lib/store";
 
 export const Route = createFileRoute("/dashboard/command-board")({
   head: () => ({
@@ -19,14 +20,12 @@ export const Route = createFileRoute("/dashboard/command-board")({
 });
 
 function Board() {
-  const { t } = useLang();
-  const cols = [
-    { k: t("Police", "الشرطة"), items: [[t("Sweep Tahrir Sq. sector B", "تمشيط القطاع B بميدان التحرير"), "active"], [t("Interview witness at CAM-014", "سؤال الشاهد عند CAM-014"), "done"]] },
-    { k: t("Traffic", "المرور"), items: [[t("Checkpoints on Ramses St.", "نقاط تفتيش بشارع رمسيس"), "active"], [t("Pull plate ABC 12•• history", "سجل اللوحة ABC 12••"), "pending"]] },
-    { k: t("Ambulance", "الإسعاف"), items: [[t("Standby near Downtown", "الاستعداد قرب وسط البلد"), "active"]] },
-    { k: t("Prosecution", "النيابة"), items: [[t("Telecom order VT-2041", "أمر الاتصالات VT-2041"), "done"], [t("Content access request", "طلب الاطلاع على المحتوى"), "pending"]] },
-  ];
-  const chip = { active: "text-primary border-primary/50", done: "text-success border-success/50", pending: "text-warning border-warning/50" } as Record<string, string>;
+  const { t, lang } = useLang();
+  const { tasks, moveTask } = useVT();
+  const [drag, setDrag] = useState<string | null>(null);
+  const AG: Record<Agency, string> = { police: t("Police", "الشرطة"), traffic: t("Traffic", "المرور"), ambulance: t("Ambulance", "الإسعاف"), prosecution: t("Prosecution", "النيابة") };
+  const cols: { k: TaskCol; l: string }[] = [{ k: "todo", l: t("To do", "قيد الانتظار") }, { k: "doing", l: t("In progress", "قيد التنفيذ") }, { k: "done", l: t("Done", "منجزة") }];
+  const order: TaskCol[] = ["todo", "doing", "done"];
   const [msgs, setMsgs] = useState([{ who: "POLICE · Lt.", m: t("Sector B clear.", "القطاع B خالٍ.") }, { who: "TRAFFIC · Sgt.", m: t("Checkpoint 2 is live.", "نقطة التفتيش 2 تعمل.") }]);
   const [text, setText] = useState("");
   const hubs = [
@@ -37,18 +36,26 @@ function Board() {
   return (
     <div className="space-y-4 p-4 sm:p-6">
       <h1 className="text-2xl font-bold">{t("Multi-agency command board", "لوحة التنسيق بين الجهات")}</h1>
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-3">
         {cols.map((c) => (
-          <Panel key={c.k} title={c.k}>
-            <ul className="space-y-2 p-3">
-              {c.items.map(([l, s]) => (
-                <li key={l} className="border border-border bg-background/50 p-2.5 text-sm">
-                  {l}
-                  <span className={`mt-2 block w-fit border px-1.5 font-mono text-[10px] uppercase ${chip[s!]}`}>{s}</span>
+          <div key={c.k} onDragOver={(e) => e.preventDefault()} onDrop={() => { if (drag) moveTask(drag, c.k); setDrag(null); }}>
+          <Panel title={`${c.l} · ${tasks.filter((x) => x.col === c.k).length}`} className="h-full">
+            <ul className="min-h-32 space-y-2 p-3">
+              {tasks.filter((x) => x.col === c.k).map((x) => {
+                const i = order.indexOf(x.col);
+                return (
+                <li key={x.id} draggable onDragStart={() => setDrag(x.id)} className="cursor-grab border border-border bg-background/50 p-2.5 text-sm">
+                  <div className="flex items-center justify-between gap-2"><span className="border border-primary/50 px-1.5 font-mono text-[10px] uppercase text-primary">{AG[x.agency]}</span><span dir="ltr" className="font-mono text-[10px] text-muted-foreground">{x.caseId}</span></div>
+                  <p className="mt-1.5">{x.title[lang]}</p>
+                  <div className="mt-2 flex gap-1">
+                    <button disabled={i === 0} onClick={() => moveTask(x.id, order[i - 1]!)} className="border border-border px-1.5 font-mono text-[10px] disabled:opacity-30" aria-label={t("Move back", "نقل للخلف")}>{lang === "ar" ? "→" : "←"}</button>
+                    <button disabled={i === 2} onClick={() => moveTask(x.id, order[i + 1]!)} className="border border-border px-1.5 font-mono text-[10px] disabled:opacity-30" aria-label={t("Move forward", "نقل للأمام")}>{lang === "ar" ? "←" : "→"}</button>
+                  </div>
                 </li>
-              ))}
+              ); })}
             </ul>
           </Panel>
+          </div>
         ))}
       </div>
       <div className="grid gap-4 lg:grid-cols-2">

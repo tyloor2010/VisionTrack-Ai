@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import { Logo } from "./HudText";
 import { btnClass } from "./ui";
 import { useLang } from "@/lib/i18n";
+import { RoleSwitch, NoteBell } from "./OpsBar";
 
 export function Navbar() {
   const { t, lang, setLang } = useLang();
@@ -37,6 +38,8 @@ export function Navbar() {
             <span className="relative flex h-2 w-2"><span className="absolute inset-0 rounded-full bg-success animate-ping-soft" /><span className="relative h-2 w-2 rounded-full bg-success" /></span>
             {t("System Online", "النظام متصل")}
           </div>
+          <RoleSwitch />
+          <NoteBell />
           <button onClick={() => setLang(lang === "en" ? "ar" : "en")} className={btnClass("outline", "sm")} aria-label="Toggle language">
             {lang === "en" ? "عربي" : "EN"}
           </button>

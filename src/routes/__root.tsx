@@ -15,6 +15,8 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LangProvider } from "@/lib/i18n";
 import { Navbar, Footer } from "@/components/vt/Shell";
 import { btnClass } from "@/components/vt/ui";
+import { Toaster } from "@/components/ui/sonner";
+import { StoreSync } from "@/components/vt/OpsBar";
 
 function NotFoundComponent() {
   return (
@@ -106,6 +108,8 @@ function RootComponent() {
           <Outlet />
         </main>
         <Footer />
+        <StoreSync />
+        <Toaster position="bottom-left" theme="dark" />
       </LangProvider>
     </QueryClientProvider>
   );
