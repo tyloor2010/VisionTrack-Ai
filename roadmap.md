@@ -30,3 +30,6 @@
 
 ## Polish brief
 - [ ] Look-and-read polish pass (see uploaded brief)
+- [x] Responsive: top bar fits 320px+ (no sideways scroll on any page, EN/AR); tablets use menu button
+- [x] Polish: sharper 4px corners, flat buttons, aligned numbers, cleaner wording
+- [ ] Larger redesign items (bento home layout, full copy rewrite, phone bottom tab bar, drag alternatives) — waiting for user to pick priorities
