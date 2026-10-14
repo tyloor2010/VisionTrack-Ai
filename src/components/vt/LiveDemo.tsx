@@ -92,13 +92,13 @@ export function LiveDemo() {
       {/* Map + alert */}
       <div className="space-y-4">
         <Panel title={t("Geo-analysis", "التحليل الجغرافي")}>
-          <SearchMap origin={profile.lastSeenPos} radiusKm={Math.min(2.5, Math.max(0.4, profile.speedKmh * hours * 0.15))} matches={phase === "found" ? matchCams : []} />
+          <SearchMap origin={profile.lastSeenPos} radiusKm={Math.min(2.5, Math.max(0.4, profile.speedKmh * hours * 0.15))} matches={phase === "found" ? matchCams : []} fitKm={2.5} />
           <div className="p-4">
             <label htmlFor="elapsed" className="flex justify-between font-mono text-xs uppercase text-muted-foreground">
               <span>{t("Time elapsed", "الوقت المنقضي")}</span>
               <span dir="ltr" className="text-warning">{hours}h · r≈{Math.min(2.5, Math.max(0.4, profile.speedKmh * hours * 0.15)).toFixed(1)} km</span>
             </label>
-            <input id="elapsed" type="range" min={0} max={24} value={hours} onChange={(e) => setHours(+e.target.value)} className="mt-2 w-full accent-[var(--warning)]" />
+            <input id="elapsed" type="range" min={0} max={24} value={hours} onChange={(e) => setHours(+e.target.value)} className="mt-2 w-full accent-[var(--warning)] outline-none focus:outline-none focus-visible:ring-0 bg-transparent" />
           </div>
         </Panel>
 

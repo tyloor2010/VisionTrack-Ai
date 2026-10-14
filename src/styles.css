@@ -162,3 +162,11 @@
 .leaflet-hud .leaflet-marker-icon { background: transparent; border: none; }
 
 @keyframes vt-fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* Leaflet attribution: dark, matches theme */
+.leaflet-container .leaflet-control-attribution {
+  background: color-mix(in oklab, var(--background) 80%, transparent) !important;
+  color: var(--muted-foreground) !important;
+}
+.leaflet-container .leaflet-control-attribution a { color: var(--muted-foreground) !important; }
+.leaflet-container { background: var(--background) !important; }
