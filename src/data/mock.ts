@@ -36,22 +36,22 @@ export type Camera = {
 export const cameras: Camera[] = [
   { id: "CAM-014", name: { en: "Tahrir Sq. — Crosswalk", ar: "ميدان التحرير — معبر المشاة" }, img: crosswalk,
     boxes: [ { label: "person", conf: 74, color: "yellow", x: 10, y: 27, w: 8, h: 26 }, { label: "person", conf: 62, color: "yellow", x: 33, y: 40, w: 8, h: 25 }, { label: "person", conf: 48, color: "yellow", x: 60, y: 42, w: 8, h: 24 } ],
-    match: { label: "MATCH", conf: 87, color: "red", x: 52, y: 30, w: 7, h: 24 }, mapPos: { x: 46, y: 42 } },
+    match: { label: "MATCH", conf: 87, color: "red", x: 52, y: 30, w: 7, h: 24 }, pos: { lat: 30.0444, lng: 31.2357 } },
   { id: "CAM-022", name: { en: "Ramses St. — Night", ar: "شارع رمسيس — ليلاً" }, img: nightStreet,
     boxes: [ { label: "person", conf: 81, color: "magenta", x: 22, y: 60, w: 9, h: 28 }, { label: "car", conf: 93, color: "green", x: 36, y: 44, w: 16, h: 22 }, { label: "car", conf: 90, color: "green", x: 46, y: 64, w: 28, h: 34 } ],
-    mapPos: { x: 62, y: 30 } },
+    pos: { lat: 30.0535, lng: 31.2452 } },
   { id: "CAM-031", name: { en: "Central Bus Station", ar: "محطة الأتوبيس المركزية" }, img: busStation,
     boxes: [ { label: "person", conf: 77, color: "yellow", x: 39, y: 34, w: 7, h: 22 }, { label: "bus", conf: 95, color: "cyan", x: 47, y: 18, w: 30, h: 26 }, { label: "person", conf: 58, color: "yellow", x: 30, y: 30, w: 6, h: 22 } ],
-    match: { label: "MATCH", conf: 71, color: "red", x: 45, y: 42, w: 9, h: 37 }, mapPos: { x: 30, y: 58 } },
+    match: { label: "MATCH", conf: 71, color: "red", x: 45, y: 42, w: 9, h: 37 }, pos: { lat: 30.0728, lng: 31.3230 } },
   { id: "CAM-047", name: { en: "Corniche Sidewalk", ar: "رصيف الكورنيش" }, img: sidewalk,
     boxes: [ { label: "person", conf: 66, color: "magenta", x: 71, y: 18, w: 4, h: 12 }, { label: "light", color: "yellow", x: 14, y: 46, w: 6, h: 9 }, { label: "bench", conf: 84, color: "green", x: 37, y: 50, w: 11, h: 15 } ],
-    mapPos: { x: 72, y: 62 } },
+    pos: { lat: 30.0430, lng: 31.2245 } },
   { id: "CAM-053", name: { en: "Downtown Junction", ar: "تقاطع وسط البلد" }, img: crosswalk,
     boxes: [ { label: "person", conf: 91, color: "yellow", x: 70, y: 52, w: 7, h: 26 }, { label: "person", conf: 42, color: "yellow", x: 20, y: 60, w: 8, h: 26 } ],
-    mapPos: { x: 50, y: 74 } },
+    pos: { lat: 30.0505, lng: 31.2450 } },
   { id: "CAM-068", name: { en: "Metro Exit B", ar: "مخرج المترو B" }, img: busStation,
     boxes: [ { label: "person", conf: 69, color: "magenta", x: 20, y: 58, w: 13, h: 26 }, { label: "person", conf: 55, color: "yellow", x: 26, y: 26, w: 5, h: 18 } ],
-    mapPos: { x: 22, y: 34 } },
+    pos: { lat: 30.0452, lng: 31.2358 } },
 ];
 
 export type Profile = {
@@ -64,6 +64,7 @@ export type Profile = {
   time: string;
   condition: { en: string; ar: string };
   speedKmh: number;
+  lastSeenPos: GeoPos;
 };
 
 export const profiles: Profile[] = [
