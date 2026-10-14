@@ -285,6 +285,9 @@ function Responsible() {
     [t("Tested across ages and backgrounds", "مُختبَر على مختلف الأعمار والفئات"), t("We check accuracy separately for children, elderly people and different groups.", "نقيس الدقة بشكل منفصل للأطفال وكبار السن ومختلف الفئات.")],
     [t("Cameras only with permission", "لا وصول إلى الكاميرات دون إذن"), t("Access through official partnerships. Every view is in the audit log.", "يتم الوصول عبر شراكات رسمية، وتُوثَّق كل مشاهدة في سجل التدقيق.")],
     [t("Data is deleted when the case closes", "حذف البيانات فور إغلاق الحالة"), t("Encrypted while open, role-based access, removed afterwards.", "مشفّرة طوال فترة البحث، وصلاحيات الاطلاع محددة بالدور، ثم تُحذف نهائيًا.")],
+    [t("Abduction mode: metadata first", "وضع الاختطاف: البيانات الوصفية أولًا"), t("Telecom data opens only with a judicial order, at metadata level. Message and call content needs a second, supervisor approval.", "لا تُتاح بيانات الاتصالات إلا بأمر قضائي، وعلى مستوى البيانات الوصفية فقط. أما محتوى الرسائل والمكالمات فيستلزم موافقة ثانية من المشرف.")],
+    [t("Full audit trail, minimum data", "سجل تدقيق كامل وحدّ أدنى من البيانات"), t("Every access is logged with officer and time. Only data tied to the case window is pulled.", "تُسجَّل كل عملية اطلاع باسم الضابط ووقتها، ولا تُستدعى إلا البيانات المرتبطة بالإطار الزمني للحالة.")],
+    [t("Plate matches reviewed for bias", "مراجعة مطابقات اللوحات للتحقق من الانحياز"), t("Vehicle and plate links are audited for false positives before any checkpoint alert.", "تخضع روابط المركبات واللوحات لمراجعة الإيجابيات الكاذبة قبل إرسال أي تنبيه إلى نقاط التفتيش.")],
   ];
   return (
     <section className="relative isolate overflow-hidden border-y border-border bg-card/40 py-24">
