@@ -85,7 +85,7 @@ function Hero() {
   ];
 
   return (
-    <section className="relative min-h-[calc(100vh-4rem)] overflow-hidden scanlines">
+    <section className="relative isolate min-h-[calc(100vh-4rem)] overflow-hidden scanlines">
       <MediaCycle layers={HERO_LAYERS} />
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/75 to-background/60" />
 
@@ -127,7 +127,7 @@ function Problem() {
   const [i, setI] = useState(0);
   useEffect(() => { const id = setInterval(() => setI((v) => (v + 1) % steps.length), 1600); return () => clearInterval(id); }, []);
   return (
-    <section className="relative mx-auto max-w-7xl overflow-hidden px-6 py-24">
+    <section className="relative isolate mx-auto max-w-7xl overflow-hidden px-6 py-24">
       <SectionBg src={media.walkGif} />
 
       <SectionHead tag={t("The problem", "المشكلة")} title={t("The search radius grows with every minute.", "نطاق البحث يتسع مع كل دقيقة.")} sub={t("The first hours decide most outcomes. Manual review of hundreds of cameras simply can't keep up.", "الساعات الأولى تحسم أغلب النتائج. والمراجعة اليدوية لمئات الكاميرات لا تستطيع المواكبة.")} />
@@ -174,7 +174,7 @@ function HowItWorks() {
     { tag: "human", c: "bg-det-green", h: t("A person decides", "إنسان هو اللي يقرر"), p: t("An authorized officer confirms or rejects before anyone is sent.", "ضابط مخوّل يأكد أو يرفض قبل إرسال أي حد.") },
   ];
   return (
-    <section className="relative overflow-hidden border-y border-border py-24">
+    <section className="relative isolate overflow-hidden border-y border-border py-24">
       <SectionBg src={media.nycGif} position="object-top" />
       <div className="relative mx-auto max-w-6xl px-6">
         <SectionHead tag={t("How it works", "كيف يعمل")} title={t("From a phone call to a camera frame.", "من مكالمة لكادر كاميرا.")} />
@@ -201,7 +201,7 @@ function HowItWorks() {
 function DemoSection() {
   const { t } = useLang();
   return (
-    <section className="relative overflow-hidden mx-auto max-w-[1500px] px-4 py-24 sm:px-6">
+    <section className="relative isolate overflow-hidden mx-auto max-w-[1500px] px-4 py-24 sm:px-6">
       <SectionBg src={media.walkGif} />
       <div className="relative">
         <SectionHead tag={t("Live demo", "عرض مباشر")} title={t("Run a search yourself.", "جرّب البحث بنفسك.")} sub={t("Select a profile, start the search, and review the alert like an operator would.", "اختر حالة، ابدأ البحث، وراجع التنبيه كما يفعل المشغّل.")} />
@@ -244,7 +244,7 @@ function Features() {
     [t("Measured outcomes", "نتائج قابلة للقياس"), "bg-det-magenta"],
   ];
   return (
-    <section className="relative mx-auto max-w-6xl overflow-hidden px-6 py-24">
+    <section className="relative isolate mx-auto max-w-6xl overflow-hidden px-6 py-24">
       <SectionBg video={media.video} poster={media.crowdCv} />
 
       <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
@@ -274,7 +274,7 @@ function Responsible() {
     [t("Data is deleted when the case closes", "البيانات بتتمسح لما القضية تتقفل"), t("Encrypted while open, role-based access, removed afterwards.", "مشفرة وهي مفتوحة، صلاحيات حسب الدور، وبتتشال بعدها.")],
   ];
   return (
-    <section className="relative overflow-hidden border-y border-border bg-card/40 py-24">
+    <section className="relative isolate overflow-hidden border-y border-border bg-card/40 py-24">
       <SectionBg src={media.nycGif} position="object-[50%_70%]" />
       <div className="relative mx-auto max-w-6xl px-6">
         <SectionHead tag={t("Responsible AI", "ذكاء اصطناعي مسؤول")} title={t("The rules we built it around.", "القواعد اللي بنيناه عليها.")} />
@@ -302,7 +302,7 @@ function Impact() {
     { v: 60, s: "%", l: t("Reduction in search time", "تقليل وقت البحث") },
   ];
   return (
-    <section className="relative overflow-hidden border-y border-border bg-card/30 py-24 hud-grid">
+    <section className="relative isolate overflow-hidden border-y border-border bg-card/30 py-24 hud-grid">
       <SectionBg src={media.walkGif} />
       <div className="relative mx-auto max-w-7xl px-6">
         <SectionHead tag={t("Impact", "الأثر")} title={t("What we’re aiming for in the pilot.", "اللي بنستهدفه في التجربة.")} />
@@ -328,7 +328,7 @@ function Roadmap() {
     { h: t("Phase 3 — National scale", "المرحلة 3 — التوسع الوطني"), d: t("Integration with national authorities and multi-city scaling.", "التكامل مع الجهات الوطنية والتوسع لعدة مدن."), s: t("Planned", "مخطط") },
   ];
   return (
-    <section className="relative mx-auto max-w-7xl overflow-hidden px-6 py-24">
+    <section className="relative isolate mx-auto max-w-7xl overflow-hidden px-6 py-24">
       <SectionBg video={media.video} poster={media.streetCv} />
 
       <SectionHead tag={t("Roadmap", "خارطة الطريق")} title={t("Three phases.", "تلات مراحل.")} />
@@ -351,7 +351,7 @@ function Team() {
   const { t } = useLang();
   const [sent, setSent] = useState(false);
   return (
-    <section className="relative overflow-hidden border-t border-border py-24">
+    <section className="relative isolate overflow-hidden border-t border-border py-24">
       <SectionBg src={media.nycGif} />
       <div className="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-2">
         <SectionHead tag={t("Contact", "تواصل")} title={t("Running a pilot? Talk to us.", "عندك تجربة؟ كلمنا.")} sub={t("We're looking for camera partners and agencies for Phase 2.", "بندوّر على شركاء كاميرات وجهات للمرحلة التانية.")} />
