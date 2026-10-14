@@ -141,41 +141,41 @@ function Problem() {
 function HowItWorks() {
   const { t } = useLang();
   const steps = [
-    { i: FileInput, c: "text-det-yellow", h: t("Report intake", "استلام البلاغ"), p: t("Photos, last-seen location & time, clothing, age, and conditions like Alzheimer's or autism that change movement.", "صور، آخر مكان ووقت، الملابس، العمر، وحالات مثل ألزهايمر أو التوحد التي تغيّر نمط الحركة.") },
-    { i: BrainCircuit, c: "text-det-magenta", h: t("AI matching engine", "محرك المطابقة"), p: t("Face embeddings plus clothing, appearance and body-shape matching — faces are often unclear on CCTV.", "بصمات الوجه مع مطابقة الملابس والمظهر وشكل الجسم — فالوجوه غالبًا غير واضحة في الكاميرات.") },
-    { i: MapPinned, c: "text-det-cyan", h: t("Geo-analysis", "التحليل الجغرافي"), p: t("Search radius from elapsed time, expected speed by profile and area type.", "حساب نطاق البحث من الوقت المنقضي والسرعة المتوقعة حسب الفئة ونوع المنطقة.") },
-    { i: BellRing, c: "text-det-red", h: t("Smart alerts", "تنبيهات ذكية"), p: t("Confidence score, snapshot, location and timestamp — instantly.", "درجة الثقة، لقطة، الموقع والتوقيت — فورًا.") },
-    { i: UserCheck, c: "text-det-green", h: t("Human verification", "تحقق بشري"), p: t("An authorized officer confirms before any action is taken.", "ضابط مخوّل يؤكد قبل اتخاذ أي إجراء.") },
+    { tag: "intake", c: "bg-det-yellow", h: t("A family files a report", "الأسرة تقدّم بلاغًا"), p: t("Photos, where and when the person was last seen, what they wore, their age — and any condition like Alzheimer's or autism, because it changes how someone moves.", "صور، آخر مكان ووقت، الملابس، العمر — وأي حالة مثل ألزهايمر أو التوحد، لأنها تغيّر طريقة حركة الشخص.") },
+    { tag: "match", c: "bg-det-magenta", h: t("It compares more than faces", "يقارن أكتر من الوجه"), p: t("CCTV faces are usually blurry, so it also matches clothing, build and how the person walks.", "الوجوه في الكاميرات غالبًا مش واضحة، فبيقارن كمان الملابس والجسم وطريقة المشي.") },
+    { tag: "radius", c: "bg-det-cyan", h: t("It works out where to look", "يحدد فين ندوّر"), p: t("A seven-year-old walks slower than an adult. Time passed × expected speed = the area worth searching.", "طفل عنده سبع سنين بيمشي أبطأ من الكبير. الوقت × السرعة المتوقعة = المنطقة اللي تستاهل البحث.") },
+    { tag: "alert", c: "bg-det-red", h: t("Operators get a snapshot", "المشغّل يستلم لقطة"), p: t("Camera, time, place and a confidence score. Nothing happens automatically.", "الكاميرا، الوقت، المكان ودرجة الثقة. ولا حاجة بتحصل تلقائيًا.") },
+    { tag: "human", c: "bg-det-green", h: t("A person decides", "إنسان هو اللي يقرر"), p: t("An authorized officer confirms or rejects before anyone is sent.", "ضابط مخوّل يأكد أو يرفض قبل إرسال أي حد.") },
   ];
   return (
-    <section className="border-y border-border bg-card/30 py-24 hud-grid">
-      <div className="mx-auto max-w-7xl px-6">
-        <SectionHead tag={t("How it works", "كيف يعمل")} title={t("From report to response.", "من البلاغ إلى الاستجابة.")} />
-        <div className="relative grid gap-4 md:grid-cols-5">
-          <motion.div className="absolute top-8 hidden h-px bg-gradient-to-r from-det-yellow via-det-cyan to-det-green md:block" style={{ insetInlineStart: "10%", insetInlineEnd: "10%" }} initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 1.4 }} />
+    <section className="border-y border-border py-24">
+      <div className="mx-auto max-w-6xl px-6">
+        <SectionHead tag={t("How it works", "كيف يعمل")} title={t("From a phone call to a camera frame.", "من مكالمة لكادر كاميرا.")} />
+        <ol>
           {steps.map((s, k) => (
-            <Reveal key={k} delay={k * 0.15}>
-              <div className="relative">
-                <div className="relative z-10 mb-4 flex h-16 w-16 items-center justify-center border border-border bg-background">
-                  <s.i className={`h-7 w-7 ${s.c}`} />
-                  <span dir="ltr" className="absolute -top-2 -end-2 rounded-full bg-coral px-1.5 font-mono text-[10px] font-bold text-primary-foreground">0{k + 1}</span>
+            <Reveal key={k}>
+              <li className="grid gap-4 border-t border-border py-8 md:grid-cols-[120px_1fr_1.2fr] md:items-baseline">
+                <span dir="ltr" className="font-pixel text-5xl text-muted-foreground">{String(k + 1).padStart(2, "0")}</span>
+                <div>
+                  <span dir="ltr" className={`mb-2 inline-block px-1.5 font-mono text-[11px] font-semibold leading-5 text-ink ${s.c}`}>{s.tag}</span>
+                  <h3 className="text-2xl font-bold tracking-tight">{s.h}</h3>
                 </div>
-                <h3 className="font-bold">{s.h}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{s.p}</p>
-              </div>
+                <p className="text-muted-foreground">{s.p}</p>
+              </li>
             </Reveal>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );
 }
 
+
 function DemoSection() {
   const { t } = useLang();
   return (
     <section className="mx-auto max-w-[1500px] px-4 py-24 sm:px-6">
-      <SectionHead tag={t("Live demo", "عرض مباشر")} title={t("Try it now.", "جرّبه الآن.")} sub={t("Select a profile, start the search, and review the alert like an operator would.", "اختر حالة، ابدأ البحث، وراجع التنبيه كما يفعل المشغّل.")} />
+      <SectionHead tag={t("Live demo", "عرض مباشر")} title={t("Run a search yourself.", "جرّب البحث بنفسك.")} sub={t("Select a profile, start the search, and review the alert like an operator would.", "اختر حالة، ابدأ البحث، وراجع التنبيه كما يفعل المشغّل.")} />
       <LiveDemo />
     </section>
   );
@@ -203,28 +203,29 @@ function Gallery() {
 function Features() {
   const { t } = useLang();
   const f = [
-    { i: ScanFace, h: t("Face + appearance matching", "مطابقة الوجه والمظهر") },
-    { i: Radar, h: t("Geo search-radius prediction", "توقع نطاق البحث جغرافيًا") },
-    { i: BellRing, h: t("Real-time alerts", "تنبيهات لحظية") },
-    { i: Users, h: t("Citizen sightings", "بلاغات المواطنين") },
-    { i: Hourglass, h: t("Age progression (long-term cases)", "محاكاة التقدم في العمر") },
-    { i: Map, h: t("Live heat-map dashboard", "خريطة حرارية مباشرة") },
-    { i: Cctv, h: t("Multi-camera fusion", "دمج الكاميرات المتعددة") },
-    { i: BarChart3, h: t("Impact metrics", "مؤشرات الأثر") },
+    [t("Face + appearance matching", "مطابقة الوجه والمظهر"), "bg-det-yellow"],
+    [t("Search-radius prediction", "توقع نطاق البحث"), "bg-det-cyan"],
+    [t("Real-time alerts", "تنبيهات لحظية"), "bg-det-red"],
+    [t("Citizen sightings", "بلاغات المواطنين"), "bg-det-magenta"],
+    [t("Age progression for older cases", "محاكاة التقدم في العمر للقضايا القديمة"), "bg-det-green"],
+    [t("Live heat map", "خريطة حرارية مباشرة"), "bg-det-yellow"],
+    [t("Several cameras, one track", "كاميرات كتير، مسار واحد"), "bg-det-cyan"],
+    [t("Measured outcomes", "نتائج قابلة للقياس"), "bg-det-magenta"],
   ];
   return (
-    <section className="border-y border-border bg-card/30 py-24">
-      <div className="mx-auto max-w-7xl px-6">
-        <SectionHead tag={t("Capabilities", "القدرات")} title={t("Built for the field.", "مصمم للميدان.")} />
-        <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
-          {f.map((x, k) => (
-            <Reveal key={k} delay={k * 0.05} className="group relative bg-background p-6 transition-colors hover:bg-card">
-              <x.i className="h-8 w-8 text-primary" />
-              <h3 className="mt-6 font-semibold">{x.h}</h3>
-              <span className="absolute inset-0 border border-transparent transition-colors group-hover:border-primary/60" />
+    <section className="mx-auto max-w-6xl px-6 py-24">
+      <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
+        <SectionHead tag={t("What's inside", "إيه اللي جوّه")} title={t("Eight things it does.", "تمن حاجات بيعملها.")} />
+        <ul className="flex flex-wrap content-start gap-3">
+          {f.map(([h, c], k) => (
+            <Reveal key={k} delay={k * 0.04}>
+              <li className="relative border border-border px-4 py-3 text-lg font-medium">
+                <span className={`absolute -top-0.5 start-3 h-1 w-8 ${c}`} />
+                {h}
+              </li>
             </Reveal>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );
@@ -233,30 +234,31 @@ function Features() {
 function Responsible() {
   const { t } = useLang();
   const r = [
-    { i: Eye, h: t("Human-in-the-loop", "الإنسان في الحلقة"), p: t("Every alert is a potential match, never a confirmation.", "كل تنبيه تطابق محتمل، وليس تأكيدًا أبدًا.") },
-    { i: Scale, h: t("False-positive handling", "معالجة الإنذارات الخاطئة"), p: t("Tunable confidence thresholds and logged rejections.", "حدود ثقة قابلة للضبط وتسجيل حالات الرفض.") },
-    { i: FlaskConical, h: t("Bias testing", "اختبار التحيز"), p: t("Continuous evaluation across age and ethnicity.", "تقييم مستمر عبر الأعمار والأعراق.") },
-    { i: Gavel, h: t("Legal compliance", "الامتثال القانوني"), p: t("Official partnerships, camera permissions, full audit logs.", "شراكات رسمية، تصاريح الكاميرات، سجلات تدقيق كاملة.") },
-    { i: Lock, h: t("Data protection", "حماية البيانات"), p: t("Encryption, role-based access, auto-deletion after case closure.", "تشفير، صلاحيات حسب الدور، حذف تلقائي بعد إغلاق القضية.") },
-    { i: ShieldCheck, h: t("Accountability", "المساءلة"), p: t("Every decision is attributed and reviewable.", "كل قرار منسوب لصاحبه وقابل للمراجعة.") },
+    [t("Every alert says “potential match”", "كل تنبيه مكتوب عليه «تطابق محتمل»"), t("The system never claims it found someone. A reviewer does.", "النظام عمره ما يقول إنه لقى حد. المراجع هو اللي يقول.")],
+    [t("Wrong matches are logged", "التطابقات الغلط بتتسجل"), t("Rejections feed back into the thresholds so the same mistake shows up less.", "الرفض بيرجع يظبط الحدود عشان نفس الغلطة تقل.")],
+    [t("Tested across ages and backgrounds", "مختبر على أعمار وخلفيات مختلفة"), t("We check accuracy separately for children, elderly people and different groups.", "بنقيس الدقة لوحدها للأطفال وكبار السن والفئات المختلفة.")],
+    [t("Cameras only with permission", "الكاميرات بإذن بس"), t("Access through official partnerships. Every view is in the audit log.", "الوصول عن طريق شراكات رسمية. وكل مشاهدة في سجل التدقيق.")],
+    [t("Data is deleted when the case closes", "البيانات بتتمسح لما القضية تتقفل"), t("Encrypted while open, role-based access, removed afterwards.", "مشفرة وهي مفتوحة، صلاحيات حسب الدور، وبتتشال بعدها.")],
   ];
   return (
-    <section className="mx-auto max-w-7xl px-6 py-24">
-      <SectionHead tag={t("Responsible AI", "ذكاء اصطناعي مسؤول")} title={t("Privacy and security by design.", "الخصوصية والأمان من الأساس.")} />
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {r.map((x, k) => (
-          <Reveal key={k} delay={k * 0.06}>
-            <Panel className="h-full p-6">
-              <x.i className="h-7 w-7 text-success" />
-              <h3 className="mt-4 font-semibold">{x.h}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{x.p}</p>
-            </Panel>
-          </Reveal>
-        ))}
+    <section className="border-y border-border bg-card/40 py-24">
+      <div className="mx-auto max-w-6xl px-6">
+        <SectionHead tag={t("Responsible AI", "ذكاء اصطناعي مسؤول")} title={t("The rules we built it around.", "القواعد اللي بنيناه عليها.")} />
+        <dl className="grid gap-x-12 md:grid-cols-2">
+          {r.map(([h, p], k) => (
+            <Reveal key={k}>
+              <div className="border-t border-border py-6">
+                <dt className="text-xl font-bold">{h}</dt>
+                <dd className="mt-2 text-muted-foreground">{p}</dd>
+              </div>
+            </Reveal>
+          ))}
+        </dl>
       </div>
     </section>
   );
 }
+
 
 function Impact() {
   const { t } = useLang();
@@ -268,11 +270,11 @@ function Impact() {
   return (
     <section className="relative overflow-hidden border-y border-border bg-card/30 py-24 hud-grid">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHead tag={t("Impact", "الأثر")} title={t("Target pilot metrics.", "مؤشرات التجربة المستهدفة.")} />
+        <SectionHead tag={t("Impact", "الأثر")} title={t("What we’re aiming for in the pilot.", "اللي بنستهدفه في التجربة.")} />
         <div className="grid gap-8 md:grid-cols-3">
           {m.map((x, k) => (
             <Reveal key={k} delay={k * 0.1}>
-              <div className="text-6xl font-bold text-primary text-glow sm:text-7xl"><Counter to={x.v} suffix={x.s} /></div>
+              <div className="text-6xl font-bold text-primary sm:text-7xl"><Counter to={x.v} suffix={x.s} /></div>
               <p className="mt-2 font-mono text-sm uppercase tracking-widest text-muted-foreground">{x.l}</p>
             </Reveal>
           ))}
@@ -292,7 +294,7 @@ function Roadmap() {
   ];
   return (
     <section className="mx-auto max-w-7xl px-6 py-24">
-      <SectionHead tag={t("Roadmap", "خارطة الطريق")} title={t("Where we're going.", "إلى أين نتجه.")} />
+      <SectionHead tag={t("Roadmap", "خارطة الطريق")} title={t("Three phases.", "تلات مراحل.")} />
       <div className="grid gap-4 md:grid-cols-3">
         {p.map((x, k) => (
           <Reveal key={k} delay={k * 0.1}>
@@ -311,46 +313,24 @@ function Roadmap() {
 function Team() {
   const { t } = useLang();
   const [sent, setSent] = useState(false);
-  const team = [
-    { r: t("Team Lead & ML", "قائد الفريق وتعلم الآلة") },
-    { r: t("Computer Vision", "الرؤية الحاسوبية") },
-    { r: t("Full-stack Engineer", "مهندس برمجيات") },
-    { r: t("Product & Design", "المنتج والتصميم") },
-  ];
   return (
-    <section className="border-t border-border bg-card/30 py-24">
-      <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2">
+    <section className="border-t border-border py-24">
+      <div className="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-2">
+        <SectionHead tag={t("Contact", "تواصل")} title={t("Running a pilot? Talk to us.", "عندك تجربة؟ كلمنا.")} sub={t("We're looking for camera partners and agencies for Phase 2.", "بندوّر على شركاء كاميرات وجهات للمرحلة التانية.")} />
         <div>
-          <SectionHead tag={t("Team", "الفريق")} title={t("The people behind it.", "الفريق وراء المشروع.")} />
-          <div className="grid grid-cols-2 gap-4">
-            {team.map((m, k) => (
-              <Panel key={k} className="p-5">
-                <div className="relative mb-4 flex aspect-square items-center justify-center bg-secondary">
-                  <Users className="h-10 w-10 text-muted-foreground" />
-                  <DetectionBox label="member" confidence={99} color="cyan" x={15} y={15} w={70} h={70} />
-                </div>
-                <p className="font-semibold">{t("Team member", "عضو الفريق")} {k + 1}</p>
-                <p className="text-xs text-muted-foreground">{m.r}</p>
-              </Panel>
-            ))}
-          </div>
-        </div>
-        <div>
-          <SectionHead tag={t("Contact", "تواصل")} title={t("Partner with us.", "كن شريكًا لنا.")} />
-          <Panel className="p-6">
-            {sent ? (
-              <p className="font-mono text-success">✓ {t("Message received. We'll be in touch.", "تم استلام رسالتك. سنتواصل معك.")}</p>
-            ) : (
-              <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
-                <input required aria-label="Name" placeholder={t("Name / organization", "الاسم / الجهة")} className={inputClass} />
-                <input required type="email" aria-label="Email" placeholder={t("Email", "البريد الإلكتروني")} className={inputClass} />
-                <textarea required aria-label="Message" rows={4} placeholder={t("Message", "الرسالة")} className={inputClass} />
-                <Btn type="submit"><Mail className="h-4 w-4" />{t("Send", "إرسال")}</Btn>
-              </form>
-            )}
-          </Panel>
+          {sent ? (
+            <p className="font-mono text-success">✓ {t("Message received. We'll be in touch.", "تم استلام رسالتك. هنتواصل معاك.")}</p>
+          ) : (
+            <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
+              <input required aria-label="Name" placeholder={t("Name / organization", "الاسم / الجهة")} className={inputClass} />
+              <input required type="email" aria-label="Email" placeholder={t("Email", "البريد الإلكتروني")} className={inputClass} />
+              <textarea required aria-label="Message" rows={4} placeholder={t("Message", "الرسالة")} className={inputClass} />
+              <Btn type="submit">{t("Send", "إرسال")}</Btn>
+            </form>
+          )}
         </div>
       </div>
     </section>
   );
 }
+
