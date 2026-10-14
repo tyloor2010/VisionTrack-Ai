@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { FolderOpen, Bell, Cctv, Map, BarChart3, Settings, Check, X } from "lucide-react";
+import { Check, X } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { Simulation } from "@/components/vt/Simulation";
 import { cases, alerts, cameras, profiles } from "@/data/mock";
 import { SearchMap } from "@/components/vt/SearchMap";
 import { DetectionBox } from "@/components/vt/DetectionBox";
@@ -8,7 +10,7 @@ import { Btn, Panel } from "@/components/vt/ui";
 import { useLang } from "@/lib/i18n";
 import { IntelligenceModule } from "@/components/vt/Intelligence";
 
-export const Route = createFileRoute("/dashboard")({
+export const Route = createFileRoute("/dashboard/")({
   head: () => ({
     meta: [
       { title: "Command Dashboard — VisionTrack AI" },
@@ -27,17 +29,13 @@ export const Route = createFileRoute("/dashboard")({
   component: Dashboard,
 });
 
-const statusColor = { active: "text-det-cyan border-det-cyan/50", review: "text-warning border-warning/50", resolved: "text-success border-success/50" } as const;
+const statusColor = { active: "text-primary border-primary/50", review: "text-warning border-warning/50", resolved: "text-success border-success/50" } as const;
 
 function Dashboard() {
   const { t, lang } = useLang();
   const [sel, setSel] = useState<string>(cases[0].id);
   const [log, setLog] = useState<string[]>(["14:52:08 SYSTEM  alert raised CAM-014 (87%)", "14:20:00 INTAKE  case opened by Officer #217"]);
   const c = cases.find((x) => x.id === sel)!;
-  const nav = [
-    { i: FolderOpen, l: t("Cases", "الحالات") }, { i: Bell, l: t("Alerts", "التنبيهات") }, { i: Cctv, l: t("Cameras", "الكاميرات") },
-    { i: Map, l: t("Map", "الخريطة") }, { i: BarChart3, l: t("Analytics", "التحليلات") }, { i: Settings, l: t("Settings", "الإعدادات") },
-  ];
   const kpis = [
     { l: t("Time to first match", "الزمن حتى أول تطابق"), v: "11m 42s" }, { l: t("Alert precision", "دقة التنبيهات"), v: "88.6%" },
     { l: t("Cases resolved", "حالات مُغلقة"), v: "27" }, { l: t("Avg. response", "متوسط الاستجابة"), v: "19m" },
@@ -46,14 +44,7 @@ function Dashboard() {
   const cam = cameras[0]!;
 
   return (
-    <div className="flex min-h-[calc(100vh-4rem)]">
-      <aside className="hidden w-52 shrink-0 border-e border-border bg-card/40 p-3 md:block">
-        {nav.map((n, k) => (
-          <button key={k} className={`mb-1 flex w-full items-center gap-3 px-3 py-2.5 font-mono text-xs uppercase tracking-wider ${k === 0 ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground"}`}>
-            <n.i className="h-4 w-4" />{n.l}
-          </button>
-        ))}
-      </aside>
+    <div>
       <div className="flex-1 space-y-4 p-4 sm:p-6">
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           {kpis.map((k) => (
@@ -70,7 +61,7 @@ function Dashboard() {
               {cases.map((x) => (
                 <li key={x.id}>
                   <button onClick={() => setSel(x.id)} className={`flex w-full items-center justify-between border-b border-border px-4 py-3 text-start text-sm ${sel === x.id ? "bg-primary/10" : "hover:bg-secondary/50"}`}>
-                    <span><span dir="ltr" className="font-mono text-xs text-muted-foreground">{x.id}</span> · {x.name[lang]}</span>
+                    <span><Link to="/dashboard/case/$id" params={{ id: x.id }} onClick={(e) => e.stopPropagation()} dir="ltr" className="font-mono text-xs text-muted-foreground underline-offset-2 hover:text-primary hover:underline">{x.id}</Link> · {x.name[lang]}</span>
                     <span className={`border px-2 py-0.5 font-mono text-[10px] uppercase ${statusColor[x.status]}`}>{x.status}</span>
                   </button>
                 </li>
@@ -99,6 +90,8 @@ function Dashboard() {
             </div>
           </Panel>
         </div>
+
+        <Simulation />
 
         <Panel title={`${t("Case detail", "تفاصيل الحالة")} — ${c.id}`}>
           <div className="grid gap-6 p-4 lg:grid-cols-3">
