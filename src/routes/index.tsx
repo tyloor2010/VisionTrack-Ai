@@ -117,7 +117,7 @@ function Hero() {
             <Link to="/report" className={btnClass("outline", "lg")}>{t("Report a Missing Person", "أبلِغ عن شخص مفقود")}</Link>
           </div>
         </motion.div>
-        <HudText className="mt-12" lines={["SYSTEM STATUS: ONLINE", `ACCURACY: ${n.acc}%`, `CAMERAS: ${n.cams} ACTIVE`, `FRAMES: ${n.frames.toLocaleString("en")}`, "MODEL: VISIONTRACK v1"]} />
+        <HudText className="mt-12" lines={["SYSTEM STATUS: ONLINE", `ACCURACY: ${n.acc}%`, `CAMERAS: ${n.cams} ACTIVE`, `FRAMES: ${n.frames.toLocaleString("en")}`, "MODEL: VISIONTRACK v2"]} />
       </div>
     </section>
   );

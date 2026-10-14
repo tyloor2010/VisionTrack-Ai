@@ -21,6 +21,7 @@ export function Navbar() {
         <Link to="/" className="flex items-center gap-2.5" aria-label="VisionTrack AI home">
           <Logo />
           <span className="text-lg font-bold tracking-tight">VisionTrack<span className="text-primary"> AI</span></span>
+          <span dir="ltr" className="rounded-sm border border-primary/50 px-1 font-mono text-[10px] uppercase leading-4 text-primary">v2</span>
         </Link>
         <nav className="ms-auto hidden items-center gap-1 md:flex" aria-label="Main">
           {links.map((l) => (
@@ -63,7 +64,7 @@ export function Footer() {
     <footer className="border-t border-border bg-card/40">
       <div className="mx-auto grid max-w-7xl gap-8 px-6 py-12 md:grid-cols-3">
         <div>
-          <div className="flex items-center gap-2"><Logo /><span className="font-bold">VisionTrack AI</span></div>
+          <div className="flex items-center gap-2"><Logo /><span className="font-bold">VisionTrack AI</span><span dir="ltr" className="rounded-sm border border-primary/50 px-1 font-mono text-[10px] uppercase leading-4 text-primary">v2</span></div>
           <p className="mt-3 text-sm text-muted-foreground">{t("Computer vision for the Golden Hours.", "رؤية حاسوبية في خدمة الساعات الأولى الحاسمة.")}</p>
         </div>
         <div className="font-mono text-xs uppercase tracking-wider text-muted-foreground space-y-2">
