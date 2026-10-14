@@ -104,7 +104,9 @@ function Problem() {
   const [i, setI] = useState(0);
   useEffect(() => { const id = setInterval(() => setI((v) => (v + 1) % steps.length), 1600); return () => clearInterval(id); }, []);
   return (
-    <section className="mx-auto max-w-7xl px-6 py-24">
+    <section className="relative mx-auto max-w-7xl overflow-hidden px-6 py-24">
+      <SectionBg src={media.walkGif} />
+
       <SectionHead tag={t("The problem", "المشكلة")} title={t("The search radius grows with every minute.", "نطاق البحث يتسع مع كل دقيقة.")} sub={t("The first hours decide most outcomes. Manual review of hundreds of cameras simply can't keep up.", "الساعات الأولى تحسم أغلب النتائج. والمراجعة اليدوية لمئات الكاميرات لا تستطيع المواكبة.")} />
       <div className="grid gap-8 lg:grid-cols-2">
         <div className="grid grid-cols-2 gap-4">
@@ -150,7 +152,7 @@ function HowItWorks() {
   ];
   return (
     <section className="relative overflow-hidden border-y border-border py-24">
-      <SectionBg src={media.crowdCv} position="object-top" />
+      <SectionBg src={media.nycGif} position="object-top" />
       <div className="relative mx-auto max-w-6xl px-6">
         <SectionHead tag={t("How it works", "كيف يعمل")} title={t("From a phone call to a camera frame.", "من مكالمة لكادر كاميرا.")} />
         <ol>
@@ -219,7 +221,9 @@ function Features() {
     [t("Measured outcomes", "نتائج قابلة للقياس"), "bg-det-magenta"],
   ];
   return (
-    <section className="mx-auto max-w-6xl px-6 py-24">
+    <section className="relative mx-auto max-w-6xl overflow-hidden px-6 py-24">
+      <SectionBg video={media.video} poster={media.crowdCv} />
+
       <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
         <SectionHead tag={t("What's inside", "إيه اللي جوّه")} title={t("Eight things it does.", "تمن حاجات بيعملها.")} />
         <ul className="flex flex-wrap content-start gap-3">
@@ -248,7 +252,7 @@ function Responsible() {
   ];
   return (
     <section className="relative overflow-hidden border-y border-border bg-card/40 py-24">
-      <SectionBg src={media.nightCv} position="object-[50%_70%]" />
+      <SectionBg src={media.nycGif} position="object-[50%_70%]" />
       <div className="relative mx-auto max-w-6xl px-6">
         <SectionHead tag={t("Responsible AI", "ذكاء اصطناعي مسؤول")} title={t("The rules we built it around.", "القواعد اللي بنيناه عليها.")} />
         <dl className="grid gap-x-12 md:grid-cols-2">
@@ -276,7 +280,7 @@ function Impact() {
   ];
   return (
     <section className="relative overflow-hidden border-y border-border bg-card/30 py-24 hud-grid">
-      <SectionBg src={media.streetCv} />
+      <SectionBg src={media.walkGif} />
       <div className="relative mx-auto max-w-7xl px-6">
         <SectionHead tag={t("Impact", "الأثر")} title={t("What we’re aiming for in the pilot.", "اللي بنستهدفه في التجربة.")} />
         <div className="grid gap-8 md:grid-cols-3">
@@ -301,7 +305,9 @@ function Roadmap() {
     { h: t("Phase 3 — National scale", "المرحلة 3 — التوسع الوطني"), d: t("Integration with national authorities and multi-city scaling.", "التكامل مع الجهات الوطنية والتوسع لعدة مدن."), s: t("Planned", "مخطط") },
   ];
   return (
-    <section className="mx-auto max-w-7xl px-6 py-24">
+    <section className="relative mx-auto max-w-7xl overflow-hidden px-6 py-24">
+      <SectionBg video={media.video} poster={media.streetCv} />
+
       <SectionHead tag={t("Roadmap", "خارطة الطريق")} title={t("Three phases.", "تلات مراحل.")} />
       <div className="grid gap-4 md:grid-cols-3">
         {p.map((x, k) => (
