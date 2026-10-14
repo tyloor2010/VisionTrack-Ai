@@ -221,7 +221,7 @@ function Gallery() {
       <div className="grid gap-4 md:grid-cols-3">
         <Reveal className="md:row-span-2">
           <Panel className="h-full overflow-hidden">
-            <video src={media.video} autoPlay muted loop playsInline className="h-full w-full object-cover" aria-label="Aerial street footage" />
+            <video src={media.video} poster={media.crosswalk} autoPlay muted loop playsInline className="h-full w-full object-cover" aria-label="Aerial street footage" />
           </Panel>
         </Reveal>
         <Reveal delay={0.1}><Panel className="overflow-hidden"><img src={media.streetCv} alt="Street scene with object detection labels" loading="lazy" className="aspect-square w-full object-cover" /></Panel></Reveal>
@@ -229,6 +229,12 @@ function Gallery() {
         <Reveal delay={0.3} className="md:col-span-2"><Panel className="overflow-hidden"><img src={media.nightCv} alt="Night sidewalk with detection boxes" loading="lazy" className="aspect-[2/1] w-full object-cover object-[50%_70%]" /></Panel></Reveal>
         <Reveal delay={0.35}><Panel className="overflow-hidden"><img src={media.crosswalkCv} alt="Crosswalk with person, bicycle and car detection labels" loading="lazy" className="aspect-square w-full object-cover" /></Panel></Reveal>
         <Reveal delay={0.4} className="md:col-span-2"><Panel className="overflow-hidden"><img src={media.trafficGif} alt="Animated traffic camera view with car, rider and person detection boxes" loading="lazy" className="aspect-[2/1] w-full object-cover" /></Panel></Reveal>
+        <Reveal delay={0.45}><Panel className="overflow-hidden"><img src={media.aerialV2x} alt="Aerial intersection with vehicle path lines and signal waves" loading="lazy" className="aspect-square w-full object-cover" /></Panel></Reveal>
+        <Reveal delay={0.5}><Panel className="overflow-hidden"><img src={media.zebraIds} alt="Pedestrians on a zebra crossing with numbered tracking boxes" loading="lazy" className="aspect-square w-full object-cover object-top" /></Panel></Reveal>
+        <Reveal delay={0.55}><Panel className="overflow-hidden"><img src={media.avPerception} alt="Driving scene with 3D boxes around vehicles and sensor path lines" loading="lazy" className="aspect-square w-full object-cover object-center" /></Panel></Reveal>
+        <Reveal delay={0.6} className="md:col-span-2"><Panel className="overflow-hidden"><img src={media.trafficHud} alt="City intersection read by a traffic control system, with vehicle and pedestrian boxes" loading="lazy" className="aspect-[2/1] w-full object-cover" /></Panel></Reveal>
+        <Reveal delay={0.65}><Panel className="overflow-hidden"><img src={media.crosswalkTop} alt="Overhead crosswalk with person and bicycle detection boxes" loading="lazy" className="aspect-square w-full object-cover object-center" /></Panel></Reveal>
+        <Reveal delay={0.7} className="md:col-span-3"><Panel className="overflow-hidden"><img src={media.camWall} alt="Six night camera feeds with person, car and bus labels beside a geo-analysis map" loading="lazy" className="aspect-[5/2] w-full object-cover" /></Panel></Reveal>
       </div>
     </section>
   );
