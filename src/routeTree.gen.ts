@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DemoRouteImport } from './routes/demo'
+import { Route as RegistryRouteImport } from './routes/registry'
 import { Route as ReportRouteImport } from './routes/report'
+import { Route as SecurityRouteImport } from './routes/security'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
 import { Route as DashboardAlertsComposerRouteImport } from './routes/dashboard.alerts-composer'
 import { Route as DashboardCommandBoardRouteImport } from './routes/dashboard.command-board'
@@ -34,9 +36,19 @@ const DemoRoute = DemoRouteImport.update({
   path: '/demo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RegistryRoute = RegistryRouteImport.update({
+  id: '/registry',
+  path: '/registry',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReportRoute = ReportRouteImport.update({
   id: '/report',
   path: '/report',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SecurityRoute = SecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
@@ -69,7 +81,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/demo': typeof DemoRoute
+  '/registry': typeof RegistryRoute
   '/report': typeof ReportRoute
+  '/security': typeof SecurityRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
   '/dashboard/planner': typeof DashboardPlannerRoute
@@ -79,7 +93,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/demo': typeof DemoRoute
+  '/registry': typeof RegistryRoute
   '/report': typeof ReportRoute
+  '/security': typeof SecurityRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
   '/dashboard/planner': typeof DashboardPlannerRoute
@@ -91,7 +107,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/demo': typeof DemoRoute
+  '/registry': typeof RegistryRoute
   '/report': typeof ReportRoute
+  '/security': typeof SecurityRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
   '/dashboard/planner': typeof DashboardPlannerRoute
@@ -104,7 +122,9 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/demo'
+    | '/registry'
     | '/report'
+    | '/security'
     | '/dashboard/alerts-composer'
     | '/dashboard/command-board'
     | '/dashboard/planner'
@@ -114,7 +134,9 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/demo'
+    | '/registry'
     | '/report'
+    | '/security'
     | '/dashboard/alerts-composer'
     | '/dashboard/command-board'
     | '/dashboard/planner'
@@ -125,7 +147,9 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/demo'
+    | '/registry'
     | '/report'
+    | '/security'
     | '/dashboard/alerts-composer'
     | '/dashboard/command-board'
     | '/dashboard/planner'
@@ -137,7 +161,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRouteWithChildren
   DemoRoute: typeof DemoRoute
+  RegistryRoute: typeof RegistryRoute
   ReportRoute: typeof ReportRoute
+  SecurityRoute: typeof SecurityRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -163,11 +189,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/registry': {
+      id: '/registry'
+      path: '/registry'
+      fullPath: '/registry'
+      preLoaderRoute: typeof RegistryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/report': {
       id: '/report'
       path: '/report'
       fullPath: '/report'
       preLoaderRoute: typeof ReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/security': {
+      id: '/security'
+      path: '/security'
+      fullPath: '/security'
+      preLoaderRoute: typeof SecurityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/': {
@@ -232,7 +272,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRouteWithChildren,
   DemoRoute: DemoRoute,
+  RegistryRoute: RegistryRoute,
   ReportRoute: ReportRoute,
+  SecurityRoute: SecurityRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

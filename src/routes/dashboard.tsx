@@ -10,8 +10,7 @@ function DashboardLayout() {
   const { t } = useLang();
   const nav = [
     { to: "/dashboard", i: LayoutGrid, l: t("Overview", "نظرة عامة"), exact: true },
-    { to: "/dashboard/case/VT-2041", i: FolderOpen, l: t("Case file", "ملف الحالة"), exact: false },
-    { to: "/dashboard/planner", i: Grid3x3, l: t("Search planner", "مخطط البحث"), exact: false },
+        { to: "/dashboard/planner", i: Grid3x3, l: t("Search planner", "مخطط البحث"), exact: false },
     { to: "/dashboard/command-board", i: Users, l: t("Command board", "لوحة التنسيق"), exact: false },
     { to: "/dashboard/alerts-composer", i: Megaphone, l: t("Public alert", "تنبيه عام"), exact: false },
   ] as const;
@@ -24,6 +23,9 @@ function DashboardLayout() {
               <n.i className="h-4 w-4" />{n.l}
             </Link>
           ))}
+          <Link to="/dashboard/case/$id" params={{ id: "VT-2041" }} className="flex shrink-0 items-center gap-3 px-3 py-2.5 font-mono text-xs uppercase tracking-wider text-muted-foreground hover:text-foreground" activeProps={{ className: "bg-primary/10 text-primary" }}>
+            <FolderOpen className="h-4 w-4" />{t("Case file", "ملف الحالة")}
+          </Link>
         </nav>
       </aside>
       <div className="min-w-0 flex-1"><Outlet /></div>
