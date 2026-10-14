@@ -21,7 +21,7 @@ function DemoPage() {
   const { t } = useLang();
   return (
     <section className="relative overflow-hidden px-4 py-14">
-      <SectionBg src={media.crowdCv} position="object-top" />
+      <SectionBg src={media.walkGif} />
       <div className="relative mx-auto max-w-[1500px]">
         <SectionHead tag={t("Live demo", "عرض مباشر")} title={t("Search the city in seconds.", "ابحث في المدينة خلال ثوانٍ.")} sub={t("Pick a sample profile and start a search. All data is simulated.", "اختر حالة تجريبية وابدأ البحث. جميع البيانات تجريبية.")} />
         <LiveDemo />
