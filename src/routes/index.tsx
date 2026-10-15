@@ -401,7 +401,7 @@ function Credits() {
   return (
     <section className="relative border-t border-border bg-card/40 py-20">
       <div className="mx-auto max-w-6xl px-6">
-        <SectionHead tag={t("The Team", "الفريق")} title={t("Two years in a row.", "للسنة الثانية على التوالي.")} sub={t("This idea has been developed for the second consecutive year by:", "تم تطوير هذه الفكرة للسنة الثانية على التوالي بواسطة:")} />
+        <SectionHead tag={t("The Team", "الفريق")} title={t("Two years in a row.", "عامان على التوالي.")} sub={t("This idea has been developed for the second consecutive year by:", "طُوِّرت هذه الفكرة للعام الثاني على التوالي بواسطة:")} />
         <ul className="mt-10 grid gap-3 md:grid-cols-2">
           {team.map((m, i) => (
             <Reveal key={m.n} delay={i * 0.05}>
