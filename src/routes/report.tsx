@@ -34,7 +34,7 @@ function ReportPage() {
     <section className="relative isolate overflow-hidden px-4 py-14">
       <SectionBg video={media.video} poster={media.nightCv} position="object-[50%_70%]" />
       <div className="relative mx-auto max-w-4xl">
-        <SectionHead tag={t("Reporting", "الإبلاغ")} title={t("Help us find them faster.", "ساعدنا في الوصول إليهم أسرع.")} sub={t("This is a demo — no data is sent anywhere.", "هذه نسخة تجريبية، ولن تُرسَل أي بيانات.")} />
+        <SectionHead tag={t("Reporting", "الإبلاغ")} title={t("Help us find them faster.", "ساعدنا للوصول إليهم في وقتٍ أسرع.")} sub={t("This is a demo — no data is sent anywhere.", "هذه نسخة تجريبية، ولن تُرسَل أي بيانات.")} />
       </div>
       <div className="relative mx-auto mt-6 max-w-4xl sm:px-0">
       <div className="mb-6 flex gap-2" role="tablist">
