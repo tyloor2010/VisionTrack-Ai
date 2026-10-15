@@ -65,6 +65,7 @@ function Index() {
       <Impact />
       <Roadmap />
       <Team />
+      <Credits />
     </>
   );
 }
@@ -383,6 +384,37 @@ function Team() {
             </form>
           )}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function Credits() {
+  const { t, lang } = useLang();
+  const team = [
+    { n: "Mohamed Nasser", ar: "محمد ناصر", r: t("Project Leader — designed and built the entire website", "ليدر البروجكت، ومصمم الموقع بكل حاجة فيه") },
+    { n: "Youssef Salama", ar: "يوسف سلامة", r: t("Team leader of the first version, alongside Mohamed Nasser — behind the original idea", "تيم ليدر الفريج الأول مع محمد ناصر، والمسؤول عن الفكرة الأولى") },
+    { n: "Mohamed Sayyad", ar: "محمد صياد", r: t("AI & machine learning — everything related to it", "المسؤول عن الـ AI والـ Machine Learning وكل ما يرتبط بهما") },
+    { n: "Ahmed Yasser", ar: "أحمد ياسر", r: t("Data collection & ideas", "المسؤول عن تجميع الداتا والأفكار") },
+    { n: "Ahmed Walid", ar: "أحمد وليد", r: t("Quality control — monitoring data and reports, and turning ideas into reality", "كواليتي كنترول، متابعة الداتا والبلاغات، وتنفيذ الأفكار على أرض الواقع") },
+  ];
+  return (
+    <section className="relative border-t border-border bg-card/40 py-20">
+      <div className="mx-auto max-w-6xl px-6">
+        <SectionHead tag={t("The Team", "الفريق")} title={t("Two years in a row.", "للسنة الثانية على التوالي.")} sub={t("This idea has been developed for the second consecutive year by:", "تم تطوير هذه الفكرة للسنة الثانية على التوالي بواسطة:")} />
+        <ul className="mt-10 grid gap-3 md:grid-cols-2">
+          {team.map((m, i) => (
+            <Reveal key={m.n} delay={i * 0.05}>
+              <li className="flex h-full items-start gap-4 border border-border bg-background/60 p-5">
+                <span aria-hidden className="mt-1.5 h-2 w-2 shrink-0 bg-primary" />
+                <div className="min-w-0">
+                  <p className="font-bold" dir={lang === "ar" ? "rtl" : "ltr"}>{lang === "ar" ? m.ar : m.n}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{m.r}</p>
+                </div>
+              </li>
+            </Reveal>
+          ))}
+        </ul>
       </div>
     </section>
   );
