@@ -47,7 +47,7 @@ export function NoteBell() {
         {unread > 0 && <span dir="ltr" className="absolute -end-0.5 -top-0.5 min-w-4 rounded-full bg-det-red px-1 text-center font-mono text-[9px] leading-4 text-foreground">{unread > 99 ? "99+" : unread}</span>}
       </button>
       {open && (
-        <div className="absolute end-0 top-10 z-[60] w-80 border border-border bg-card shadow-xl">
+        <div className="fixed inset-x-2 top-16 z-[60] border border-border bg-card shadow-xl sm:absolute sm:inset-x-auto sm:end-0 sm:top-10 sm:w-80">
           <div className="flex items-center gap-1 border-b border-border p-2">
             {(["all", "unread", "alert"] as const).map((f) => (
               <button key={f} onClick={() => setFilter(f)} className={`px-2 py-1 font-mono text-[10px] uppercase ${filter === f ? "bg-primary/15 text-primary" : "text-muted-foreground"}`}>
