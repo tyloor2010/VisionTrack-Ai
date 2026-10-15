@@ -36,7 +36,7 @@ export function LiveDemo() {
   const top = cameras.find((c) => c.id === matchCams[0])!;
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[300px_1fr_340px]">
+    <div className="grid min-w-0 gap-4 lg:grid-cols-[minmax(0,260px)_minmax(0,1fr)_minmax(0,300px)]">
       {/* Profile panel */}
       <Panel title={t("Missing person", "الشخص المفقود")}>
         <div className="space-y-4 p-4">
