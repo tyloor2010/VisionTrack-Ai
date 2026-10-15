@@ -57,7 +57,7 @@ export const cameras: Camera[] = [
   { id: "CAM-014", name: { en: "Tahrir Sq. — Crosswalk", ar: "ميدان التحرير — معبر المشاة" }, img: crosswalk,
     boxes: [ { label: "person", conf: 74, color: "yellow", x: 10, y: 27, w: 8, h: 26 }, { label: "person", conf: 62, color: "yellow", x: 33, y: 40, w: 8, h: 25 }, { label: "person", conf: 48, color: "yellow", x: 60, y: 42, w: 8, h: 24 } ],
     match: { label: "MATCH", conf: 87, color: "red", x: 52, y: 30, w: 7, h: 24 }, pos: { lat: 30.0444, lng: 31.2357 } },
-  { id: "CAM-022", name: { en: "Ramses St. — Night", ar: "شارع رمسيس — ليلاً" }, img: nightStreet,
+  { id: "CAM-022", name: { en: "Ramses St. — Night", ar: "شارع رمسيس — ليلًا" }, img: nightStreet,
     boxes: [ { label: "person", conf: 81, color: "magenta", x: 22, y: 60, w: 9, h: 28 }, { label: "car", conf: 93, color: "green", x: 36, y: 44, w: 16, h: 22 }, { label: "car", conf: 90, color: "green", x: 46, y: 64, w: 28, h: 34 } ],
     pos: { lat: 30.0535, lng: 31.2452 } },
   { id: "CAM-031", name: { en: "Central Bus Station", ar: "موقف الحافلات الرئيسي" }, img: busStation,
