@@ -7,7 +7,8 @@
 - [x] Every section background is a live clip (GIF or video), not a still photo
 - [x] Hero flips through all the user's photos and clips one after another
 - [x] Site icon (browser tab) + proper page titles and descriptions
-- [ ] Real content to replace placeholders: team, pilot numbers, contact email
+- [ ] Real content to replace placeholders: pilot numbers, contact email
+- [x] Team credits at the end of the homepage (year two in a row: Mohamed Nasser, Youssef Salama, Mohamed Sayyad, Ahmed Yasser, Ahmed Walid)
 - [x] Kidnapping response mode (legal gate, telecom, vehicles, fusion)
 - [x] Safe registry, security page, case file, planner, command board, public alert, simulation, photo authenticity check
 
