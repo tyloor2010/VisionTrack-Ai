@@ -392,11 +392,11 @@ function Team() {
 function Credits() {
   const { t, lang } = useLang();
   const team = [
-    { n: "Mohamed Nasser", ar: "محمد ناصر", r: t("Project Leader — designed and built the entire website", "ليدر البروجكت، ومصمم الموقع بكل حاجة فيه") },
-    { n: "Youssef Salama", ar: "يوسف سلامة", r: t("Team leader of the first version, alongside Mohamed Nasser — behind the original idea", "تيم ليدر الفريج الأول مع محمد ناصر، والمسؤول عن الفكرة الأولى") },
-    { n: "Mohamed Sayyad", ar: "محمد صياد", r: t("AI & machine learning — everything related to it", "المسؤول عن الـ AI والـ Machine Learning وكل ما يرتبط بهما") },
-    { n: "Ahmed Yasser", ar: "أحمد ياسر", r: t("Data collection & ideas", "المسؤول عن تجميع الداتا والأفكار") },
-    { n: "Ahmed Walid", ar: "أحمد وليد", r: t("Quality control — monitoring data and reports, and turning ideas into reality", "كواليتي كنترول، متابعة الداتا والبلاغات، وتنفيذ الأفكار على أرض الواقع") },
+    { n: "Mohamed Nasser", ar: "محمد ناصر", r: t("Project Leader — designed and built the entire website from scratch: the look, the interface, and every page and feature on it. Everything you see here went through his hands.", "ليدر البروجكت — صمّم وبنى الموقع كله من الصفر: الشكل، الواجهة، وكل صفحة وكل ميزة فيه. كل حاجة انت شايفها هنا عدّت من إيده.") },
+    { n: "Youssef Salama", ar: "يوسف سلامة", r: t("Team leader of the first version — he came up with the original idea and started this project in its first year, leading the team alongside Mohamed Nasser. The idea this whole build is built on is his.", "تيم ليدر الفريج الأول — هو اللي فكّر في الفكرة من أولها وبدأ المشروع في السنة الأولى، وشغّل الفريق مع محمد ناصر. الفكرة اللي الفريج ده كله مبني عليها دي فكرته.") },
+    { n: "Mohamed Sayyad", ar: "محمد صياد", r: t("AI & machine learning — everything with an AI tag on it: training the models, recognizing people in photos and video, and the matching logic that makes the system work.", "المسؤول عن الـ AI والـ Machine Learning — كل حاجة مكتوب عليها ذكاء اصطناعي: تدريب النماذج، التعرف على الأشخاص في الصور والفيديو، ومنطق المطابقة اللي بيخلي النظام يشتغل.") },
+    { n: "Ahmed Yasser", ar: "أحمد ياسر", r: t("Data & ideas — collected and organized the data the system runs on, and shaped the ideas and proposals the team worked from.", "المسؤول عن تجميع الداتا والأفكار — جمع ونظّم الداتا اللي النظام بيشتغل عليها، وصاغ الأفكار والمقترحات اللي الفريق اشتغل منها.") },
+    { n: "Ahmed Walid", ar: "أحمد وليد", r: t("Quality control — checked every feature and every report before release, monitored the data end to end, and turned the team's ideas into working reality.", "كواليتي كنترول — راجع كل ميزة وكل بلاغ قبل ما تطلع، وتابع الداتا من الأول للآخر، ونفّذ الأفكار فعلياً على أرض الواقع.") },
   ];
   return (
     <section className="relative border-t border-border bg-card/40 py-20">
