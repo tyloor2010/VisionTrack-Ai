@@ -25,7 +25,7 @@
 - [ ] 10. More tests, Demo Guide (?), Judge Mode (Shift+J)
 
 ## Modules brief (10 modules, in order)
-- [ ] 1. Command palette (Ctrl+K), dashboard search, saved views/filter builder, shortcuts cheat sheet, settings & accessibility center
+- [x] 1. Command palette (Ctrl+K), dashboard search, saved views/filter builder, shortcuts cheat sheet, settings & accessibility center
 - [ ] 2. Case tools: notes/@mentions, priority scoring, SLA timers, duplicate merge, handover, watchlist, flyer generator, share links
 - [ ] 3. Detection & media tools: video analysis, photo compare, annotation, enhancement, privacy blur, detection filters, camera management
 - [ ] 4. Map options: layer switcher, drawing/measuring, route replay, coordinates, weather overlay
