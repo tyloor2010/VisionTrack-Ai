@@ -158,7 +158,7 @@ export function CommandPalette() {
   );
 }
 
-const SHORTCUTS: { keys: string; en: string; ar: string }[] = [
+export const SHORTCUTS: { keys: string; en: string; ar: string }[] = [
   { keys: "Ctrl/⌘ + K", en: "Command palette", ar: "لوحة الأوامر" },
   { keys: "?", en: "This cheat sheet", ar: "دليل الاختصارات" },
   { keys: "↑ / ↓", en: "Move in lists", ar: "التنقل في القوائم" },
