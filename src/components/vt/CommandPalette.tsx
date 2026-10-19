@@ -197,8 +197,8 @@ export function PrefsSync() {
   const p = usePrefs();
   useEffect(() => {
     const el = document.documentElement;
-    el.dataset.density = p.density;
-    el.dataset.palette = p.palette;
+    el.dataset["density"] = p.density;
+    el.dataset["palette"] = p.palette;
     el.style.fontSize = `${[14, 16, 18, 20][p.textSize]}px`;
     el.classList.toggle("high-contrast", p.highContrast);
     el.classList.toggle("reduce-motion", p.reduceMotion);
