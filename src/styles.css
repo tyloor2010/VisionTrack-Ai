@@ -171,3 +171,25 @@
 }
 .leaflet-container .leaflet-control-attribution a { color: var(--muted-foreground) !important; }
 .leaflet-container { background: var(--background) !important; }
+
+/* ===== Personal display preferences (Settings page) ===== */
+:root {
+  --scanline-opacity: 0.4;
+  --det-box-w: 2px;
+}
+html[data-density="compact"] body { font-size: 0.875rem; }
+html[data-density="compact"] .p-4 { padding: 0.75rem; }
+html.high-contrast {
+  --background: oklch(0.14 0.004 260);
+  --card: oklch(0.19 0.004 260);
+  --muted-foreground: oklch(0.85 0.005 260);
+  --border: oklch(0.55 0.01 260);
+}
+html.reduce-motion *, html.reduce-motion *::before, html.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  transition-duration: 0.01ms !important;
+}
+/* Colorblind-safe detection palettes */
+html[data-palette="deuteranopia"] { --det-green: oklch(0.75 0.15 220); --det-red: oklch(0.7 0.18 40); }
+html[data-palette="protanopia"] { --det-red: oklch(0.75 0.15 220); --det-green: oklch(0.85 0.15 95); }
+html[data-palette="tritanopia"] { --det-yellow: oklch(0.75 0.16 30); --det-cyan: oklch(0.8 0.12 200); }
