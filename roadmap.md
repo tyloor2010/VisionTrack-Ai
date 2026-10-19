@@ -24,6 +24,18 @@
 - [ ] 9. Interactive security page and settings (deployment modes, retention timer)
 - [ ] 10. More tests, Demo Guide (?), Judge Mode (Shift+J)
 
+## Modules brief (10 modules, in order)
+- [ ] 1. Command palette (Ctrl+K), dashboard search, saved views/filter builder, shortcuts cheat sheet, settings & accessibility center
+- [ ] 2. Case tools: notes/@mentions, priority scoring, SLA timers, duplicate merge, handover, watchlist, flyer generator, share links
+- [ ] 3. Detection & media tools: video analysis, photo compare, annotation, enhancement, privacy blur, detection filters, camera management
+- [ ] 4. Map options: layer switcher, drawing/measuring, route replay, coordinates, weather overlay
+- [ ] 5. Alert rules builder, notification channels, escalation, notification center polish
+- [ ] 6. Analytics, model quality page, feedback loop, exports, model card
+- [ ] 7. Admin: users, role matrix, audit explorer, integrations, API/webhooks, retention, consent
+- [ ] 8. Citizen/family/volunteer portals, offline PWA, French scaffold
+- [ ] 9. Help, onboarding tour, training mode, changelog, status, feedback, transparency
+- [ ] 10. Tests and polish
+
 ## Speed brief (optimize pass)
 - [x] Lazy/async images, debounced saving, reduced-motion, hover preloading
 - [ ] Offline/app caching (service worker) — needs user OK; never runs in preview
