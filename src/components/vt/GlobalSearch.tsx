@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState, useEffect } from "react";
-import { Link } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { useVT } from "@/lib/store";
@@ -17,6 +17,7 @@ type Hit = { group: string; label: string; to: string; params?: Record<string, s
 /** Dashboard-wide search across cases, alerts, cameras, tasks and notifications. */
 export function GlobalSearch() {
   const { t, lang } = useLang();
+  const navigate = useNavigate();
   const { cases, alerts, tasks, notes } = useVT();
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
@@ -61,10 +62,10 @@ export function GlobalSearch() {
             return (
               <li key={i}>
                 {header && <p className="px-4 pb-1 pt-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{header}</p>}
-                <Link to={h.to} params={h.params} onClick={() => { setOpen(false); setQ(""); }}
-                  className="block truncate px-4 py-2 text-sm hover:bg-primary/10 hover:text-primary">
+                <button onClick={() => { setOpen(false); setQ(""); void navigate({ to: h.to, params: h.params as never }); }}
+                  className="block w-full truncate px-4 py-2 text-start text-sm hover:bg-primary/10 hover:text-primary">
                   <Highlight text={h.label} q={q.trim()} />
-                </Link>
+                </button>
               </li>
             );
           })}

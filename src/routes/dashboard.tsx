@@ -1,6 +1,7 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { LayoutGrid, FolderOpen, Grid3x3, Users, Megaphone } from "lucide-react";
+import { LayoutGrid, FolderOpen, Grid3x3, Users, Megaphone, Settings } from "lucide-react";
 import { useLang } from "@/lib/i18n";
+import { PinnedViews } from "@/components/vt/SavedViews";
 
 export const Route = createFileRoute("/dashboard")({
   component: DashboardLayout,
@@ -26,7 +27,11 @@ function DashboardLayout() {
           <Link to="/dashboard/case/$id" params={{ id: "VT-2041" }} className="flex shrink-0 items-center gap-3 px-3 py-2.5 font-mono text-xs uppercase tracking-wider text-muted-foreground hover:text-foreground" activeProps={{ className: "bg-primary/10 text-primary" }}>
             <FolderOpen className="h-4 w-4" />{t("Case file", "ملف الحالة")}
           </Link>
+          <Link to="/settings" className="flex shrink-0 items-center gap-3 px-3 py-2.5 font-mono text-xs uppercase tracking-wider text-muted-foreground hover:text-foreground" activeProps={{ className: "bg-primary/10 text-primary" }}>
+            <Settings className="h-4 w-4" />{t("Settings", "الإعدادات")}
+          </Link>
         </nav>
+        <div className="hidden md:block"><PinnedViews /></div>
       </aside>
       <div className="min-w-0 flex-1"><Outlet /></div>
       <div dir="ltr" className="fixed bottom-3 end-3 z-40 border border-warning/60 bg-background/90 px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-warning">

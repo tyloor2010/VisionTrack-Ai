@@ -6,7 +6,7 @@ import { useVT, ROLE_LABEL, type Role } from "@/lib/store";
 import { cameras } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
 import { fuzzyScore } from "@/lib/search";
-import { usePrefs, DEFAULT_PREFS } from "@/lib/prefs";
+import { usePrefs } from "@/lib/prefs";
 
 type Item = { id: string; group: string; label: string; hint?: string; run: () => void };
 
@@ -158,7 +158,7 @@ export function CommandPalette() {
   );
 }
 
-const SHORTCUTS: { keys: string; en: string; ar: string }[] = [
+export const SHORTCUTS: { keys: string; en: string; ar: string }[] = [
   { keys: "Ctrl/⌘ + K", en: "Command palette", ar: "لوحة الأوامر" },
   { keys: "?", en: "This cheat sheet", ar: "دليل الاختصارات" },
   { keys: "↑ / ↓", en: "Move in lists", ar: "التنقل في القوائم" },
@@ -197,8 +197,8 @@ export function PrefsSync() {
   const p = usePrefs();
   useEffect(() => {
     const el = document.documentElement;
-    el.dataset.density = p.density;
-    el.dataset.palette = p.palette;
+    el.dataset["density"] = p.density;
+    el.dataset["palette"] = p.palette;
     el.style.fontSize = `${[14, 16, 18, 20][p.textSize]}px`;
     el.classList.toggle("high-contrast", p.highContrast);
     el.classList.toggle("reduce-motion", p.reduceMotion);
@@ -208,4 +208,3 @@ export function PrefsSync() {
   return null;
 }
 
-export { DEFAULT_PREFS };

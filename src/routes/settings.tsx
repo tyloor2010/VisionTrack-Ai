@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { RotateCcw } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import { usePrefs, DEFAULT_PREFS, type Prefs } from "@/lib/prefs";
+import { usePrefs, type Prefs } from "@/lib/prefs";
 import { Panel, Btn } from "@/components/vt/ui";
 import { SHORTCUTS } from "@/components/vt/CommandPalette";
 
@@ -129,5 +129,3 @@ function SettingsPage() {
     </div>
   );
 }
-
-export { DEFAULT_PREFS };
