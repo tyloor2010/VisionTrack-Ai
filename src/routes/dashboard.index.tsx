@@ -8,6 +8,8 @@ import { Btn, Panel } from "@/components/vt/ui";
 import { Simulation } from "@/components/vt/Simulation";
 import { useLang } from "@/lib/i18n";
 import { useVT, computeKpis, STATUS_LABEL, can, type CaseStatus } from "@/lib/store";
+import { GlobalSearch } from "@/components/vt/GlobalSearch";
+import { FilterBuilder } from "@/components/vt/SavedViews";
 
 export const Route = createFileRoute("/dashboard/")({
   head: () => ({
@@ -53,6 +55,7 @@ function Dashboard() {
 
   return (
     <div className="space-y-4 p-4 sm:p-6">
+      <GlobalSearch />
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {kpis.map((x) => (
           <Panel key={x.l} className="p-4">
@@ -123,6 +126,7 @@ function Dashboard() {
         </Panel>
       </div>
 
+      <FilterBuilder />
       <Simulation />
     </div>
   );
