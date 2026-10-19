@@ -6,7 +6,7 @@ import { useVT, ROLE_LABEL, type Role } from "@/lib/store";
 import { cameras } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
 import { fuzzyScore } from "@/lib/search";
-import { usePrefs, DEFAULT_PREFS } from "@/lib/prefs";
+import { usePrefs } from "@/lib/prefs";
 
 type Item = { id: string; group: string; label: string; hint?: string; run: () => void };
 
@@ -208,4 +208,3 @@ export function PrefsSync() {
   return null;
 }
 
-export { DEFAULT_PREFS };

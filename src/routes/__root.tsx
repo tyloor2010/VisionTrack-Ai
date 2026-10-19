@@ -18,6 +18,7 @@ import { Navbar, Footer } from "@/components/vt/Shell";
 import { btnClass } from "@/components/vt/ui";
 import { Toaster } from "@/components/ui/sonner";
 import { StoreSync } from "@/components/vt/OpsBar";
+import { CommandPalette, PrefsSync } from "@/components/vt/CommandPalette";
 
 function NotFoundComponent() {
   return (
@@ -111,6 +112,8 @@ function RootComponent() {
         </main>
         <Footer />
         <StoreSync />
+        <PrefsSync />
+        <CommandPalette />
         <Toaster position="bottom-left" theme="dark" />
       </LangProvider>
       </MotionConfig>
