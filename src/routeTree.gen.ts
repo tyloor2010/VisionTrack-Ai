@@ -15,6 +15,7 @@ import { Route as DemoRouteImport } from './routes/demo'
 import { Route as RegistryRouteImport } from './routes/registry'
 import { Route as ReportRouteImport } from './routes/report'
 import { Route as SecurityRouteImport } from './routes/security'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
 import { Route as DashboardAlertsComposerRouteImport } from './routes/dashboard.alerts-composer'
 import { Route as DashboardCommandBoardRouteImport } from './routes/dashboard.command-board'
@@ -51,6 +52,11 @@ const SecurityRoute = SecurityRouteImport.update({
   path: '/security',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -84,6 +90,7 @@ export interface FileRoutesByFullPath {
   '/registry': typeof RegistryRoute
   '/report': typeof ReportRoute
   '/security': typeof SecurityRoute
+  '/settings': typeof SettingsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
   '/dashboard/planner': typeof DashboardPlannerRoute
@@ -96,6 +103,7 @@ export interface FileRoutesByTo {
   '/registry': typeof RegistryRoute
   '/report': typeof ReportRoute
   '/security': typeof SecurityRoute
+  '/settings': typeof SettingsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
   '/dashboard/planner': typeof DashboardPlannerRoute
@@ -110,6 +118,7 @@ export interface FileRoutesById {
   '/registry': typeof RegistryRoute
   '/report': typeof ReportRoute
   '/security': typeof SecurityRoute
+  '/settings': typeof SettingsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
   '/dashboard/planner': typeof DashboardPlannerRoute
@@ -125,6 +134,7 @@ export interface FileRouteTypes {
     | '/registry'
     | '/report'
     | '/security'
+    | '/settings'
     | '/dashboard/alerts-composer'
     | '/dashboard/command-board'
     | '/dashboard/planner'
@@ -137,6 +147,7 @@ export interface FileRouteTypes {
     | '/registry'
     | '/report'
     | '/security'
+    | '/settings'
     | '/dashboard/alerts-composer'
     | '/dashboard/command-board'
     | '/dashboard/planner'
@@ -150,6 +161,7 @@ export interface FileRouteTypes {
     | '/registry'
     | '/report'
     | '/security'
+    | '/settings'
     | '/dashboard/alerts-composer'
     | '/dashboard/command-board'
     | '/dashboard/planner'
@@ -164,6 +176,7 @@ export interface RootRouteChildren {
   RegistryRoute: typeof RegistryRoute
   ReportRoute: typeof ReportRoute
   SecurityRoute: typeof SecurityRoute
+  SettingsRoute: typeof SettingsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -208,6 +221,13 @@ declare module '@tanstack/react-router' {
       path: '/security'
       fullPath: '/security'
       preLoaderRoute: typeof SecurityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/': {
@@ -275,6 +295,7 @@ const rootRouteChildren: RootRouteChildren = {
   RegistryRoute: RegistryRoute,
   ReportRoute: ReportRoute,
   SecurityRoute: SecurityRoute,
+  SettingsRoute: SettingsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
