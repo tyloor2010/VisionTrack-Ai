@@ -2,6 +2,7 @@ import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { LayoutGrid, FolderOpen, Grid3x3, Users, Megaphone, Settings } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { PinnedViews } from "@/components/vt/SavedViews";
+import { WatchStrip, EscalationRunner } from "@/components/vt/CaseTools";
 
 export const Route = createFileRoute("/dashboard")({
   component: DashboardLayout,
@@ -33,7 +34,8 @@ function DashboardLayout() {
         </nav>
         <div className="hidden md:block"><PinnedViews /></div>
       </aside>
-      <div className="min-w-0 flex-1"><Outlet /></div>
+      <div className="min-w-0 flex-1"><div className="px-4 pt-4 sm:px-6"><WatchStrip /></div><Outlet /></div>
+      <EscalationRunner />
       <div dir="ltr" className="fixed bottom-3 end-3 z-40 border border-warning/60 bg-background/90 px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-warning">
         {t("Demo data — all mocked", "بيانات تجريبية — كلها افتراضية")}
       </div>

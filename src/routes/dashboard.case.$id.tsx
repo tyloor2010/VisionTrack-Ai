@@ -9,6 +9,7 @@ import { Btn, Panel } from "@/components/vt/ui";
 import { IntelligenceModule } from "@/components/vt/Intelligence";
 import { IntelMap } from "@/components/vt/IntelMap";
 import { useLang } from "@/lib/i18n";
+import { CaseTools, WatchButton } from "@/components/vt/CaseTools";
 
 export const Route = createFileRoute("/dashboard/case/$id")({
   head: ({ params }) => ({
@@ -55,6 +56,7 @@ function CasePage() {
         <Link to="/dashboard" className="font-mono text-xs text-muted-foreground hover:text-primary">← {t("Dashboard", "لوحة القيادة")}</Link>
         <h1 className="text-2xl font-bold"><span dir="ltr" className="font-mono text-primary">{c.id}</span> · {c.name[lang]}</h1>
         <span className={`border px-2 py-0.5 font-mono text-[10px] uppercase ${statusClass[c.status]}`}>{STATUS_LABEL[c.status][lang]}</span>
+        <WatchButton kind="case" id={c.id} />
         {nexts.map((to) => { const ok = canTransition(c.status, to, role); return (
           <Btn key={to} size="sm" variant={to === "resolved" ? "success" : "outline"} disabled={!ok} title={ok ? undefined : t("Your role can't make this move.", "دورك لا يسمح بهذا الإجراء.")} onClick={() => transition(c.id, to)}>→ {STATUS_LABEL[to][lang]}</Btn>
         ); })}
@@ -121,6 +123,8 @@ function CasePage() {
           </ul>
         </Panel>
       </div>
+
+      <CaseTools key={`tools-${c.id}`} c={c} />
 
       <IntelligenceModule key={c.id} caseId={c.id} />
 
