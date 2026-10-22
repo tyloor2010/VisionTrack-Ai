@@ -10,6 +10,7 @@ import { useLang } from "@/lib/i18n";
 import { useVT, computeKpis, STATUS_LABEL, can, type CaseStatus } from "@/lib/store";
 import { GlobalSearch } from "@/components/vt/GlobalSearch";
 import { FilterBuilder } from "@/components/vt/SavedViews";
+import { HandoverPanel } from "@/components/vt/CaseTools";
 
 export const Route = createFileRoute("/dashboard/")({
   head: () => ({
@@ -127,6 +128,7 @@ function Dashboard() {
       </div>
 
       <FilterBuilder />
+      <HandoverPanel />
       <Simulation />
     </div>
   );
