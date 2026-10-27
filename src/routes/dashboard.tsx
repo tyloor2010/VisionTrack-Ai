@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { LayoutGrid, FolderOpen, Grid3x3, Users, Megaphone, Settings } from "lucide-react";
+import { LayoutGrid, FolderOpen, Grid3x3, Users, Megaphone, Settings, ScanSearch, Cctv } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { PinnedViews } from "@/components/vt/SavedViews";
 import { WatchStrip, EscalationRunner } from "@/components/vt/CaseTools";
@@ -15,6 +15,8 @@ function DashboardLayout() {
         { to: "/dashboard/planner", i: Grid3x3, l: t("Search planner", "مخطط البحث"), exact: false },
     { to: "/dashboard/command-board", i: Users, l: t("Command board", "لوحة التنسيق"), exact: false },
     { to: "/dashboard/alerts-composer", i: Megaphone, l: t("Public alert", "تنبيه عام"), exact: false },
+    { to: "/dashboard/media", i: ScanSearch, l: t("Media lab", "مختبر الوسائط"), exact: false },
+    { to: "/dashboard/cameras", i: Cctv, l: t("Cameras", "الكاميرات"), exact: false },
   ] as const;
   return (
     <div className="flex min-h-[calc(100vh-4rem)] flex-col md:flex-row">

@@ -18,7 +18,9 @@ import { Route as SecurityRouteImport } from './routes/security'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
 import { Route as DashboardAlertsComposerRouteImport } from './routes/dashboard.alerts-composer'
+import { Route as DashboardCamerasRouteImport } from './routes/dashboard.cameras'
 import { Route as DashboardCommandBoardRouteImport } from './routes/dashboard.command-board'
+import { Route as DashboardMediaRouteImport } from './routes/dashboard.media'
 import { Route as DashboardPlannerRouteImport } from './routes/dashboard.planner'
 import { Route as DashboardCaseIdRouteImport } from './routes/dashboard.case.$id'
 
@@ -67,9 +69,19 @@ const DashboardAlertsComposerRoute = DashboardAlertsComposerRouteImport.update({
   path: '/alerts-composer',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardCamerasRoute = DashboardCamerasRouteImport.update({
+  id: '/cameras',
+  path: '/cameras',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardCommandBoardRoute = DashboardCommandBoardRouteImport.update({
   id: '/command-board',
   path: '/command-board',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardMediaRoute = DashboardMediaRouteImport.update({
+  id: '/media',
+  path: '/media',
   getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardPlannerRoute = DashboardPlannerRouteImport.update({
@@ -92,7 +104,9 @@ export interface FileRoutesByFullPath {
   '/security': typeof SecurityRoute
   '/settings': typeof SettingsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
+  '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
+  '/dashboard/media': typeof DashboardMediaRoute
   '/dashboard/planner': typeof DashboardPlannerRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/case/$id': typeof DashboardCaseIdRoute
@@ -105,7 +119,9 @@ export interface FileRoutesByTo {
   '/security': typeof SecurityRoute
   '/settings': typeof SettingsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
+  '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
+  '/dashboard/media': typeof DashboardMediaRoute
   '/dashboard/planner': typeof DashboardPlannerRoute
   '/dashboard': typeof DashboardIndexRoute
   '/dashboard/case/$id': typeof DashboardCaseIdRoute
@@ -120,7 +136,9 @@ export interface FileRoutesById {
   '/security': typeof SecurityRoute
   '/settings': typeof SettingsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
+  '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
+  '/dashboard/media': typeof DashboardMediaRoute
   '/dashboard/planner': typeof DashboardPlannerRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/case/$id': typeof DashboardCaseIdRoute
@@ -136,7 +154,9 @@ export interface FileRouteTypes {
     | '/security'
     | '/settings'
     | '/dashboard/alerts-composer'
+    | '/dashboard/cameras'
     | '/dashboard/command-board'
+    | '/dashboard/media'
     | '/dashboard/planner'
     | '/dashboard/'
     | '/dashboard/case/$id'
@@ -149,7 +169,9 @@ export interface FileRouteTypes {
     | '/security'
     | '/settings'
     | '/dashboard/alerts-composer'
+    | '/dashboard/cameras'
     | '/dashboard/command-board'
+    | '/dashboard/media'
     | '/dashboard/planner'
     | '/dashboard'
     | '/dashboard/case/$id'
@@ -163,7 +185,9 @@ export interface FileRouteTypes {
     | '/security'
     | '/settings'
     | '/dashboard/alerts-composer'
+    | '/dashboard/cameras'
     | '/dashboard/command-board'
+    | '/dashboard/media'
     | '/dashboard/planner'
     | '/dashboard/'
     | '/dashboard/case/$id'
@@ -244,11 +268,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardAlertsComposerRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/cameras': {
+      id: '/dashboard/cameras'
+      path: '/cameras'
+      fullPath: '/dashboard/cameras'
+      preLoaderRoute: typeof DashboardCamerasRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/command-board': {
       id: '/dashboard/command-board'
       path: '/command-board'
       fullPath: '/dashboard/command-board'
       preLoaderRoute: typeof DashboardCommandBoardRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/media': {
+      id: '/dashboard/media'
+      path: '/media'
+      fullPath: '/dashboard/media'
+      preLoaderRoute: typeof DashboardMediaRouteImport
       parentRoute: typeof DashboardRoute
     }
     '/dashboard/planner': {
@@ -270,7 +308,9 @@ declare module '@tanstack/react-router' {
 
 interface DashboardRouteChildren {
   DashboardAlertsComposerRoute: typeof DashboardAlertsComposerRoute
+  DashboardCamerasRoute: typeof DashboardCamerasRoute
   DashboardCommandBoardRoute: typeof DashboardCommandBoardRoute
+  DashboardMediaRoute: typeof DashboardMediaRoute
   DashboardPlannerRoute: typeof DashboardPlannerRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
   DashboardCaseIdRoute: typeof DashboardCaseIdRoute
@@ -278,7 +318,9 @@ interface DashboardRouteChildren {
 
 const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardAlertsComposerRoute: DashboardAlertsComposerRoute,
+  DashboardCamerasRoute: DashboardCamerasRoute,
   DashboardCommandBoardRoute: DashboardCommandBoardRoute,
+  DashboardMediaRoute: DashboardMediaRoute,
   DashboardPlannerRoute: DashboardPlannerRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   DashboardCaseIdRoute: DashboardCaseIdRoute,
