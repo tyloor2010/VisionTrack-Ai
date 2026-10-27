@@ -14,6 +14,7 @@ const debouncedLocalStorage: StateStorage = {
 import seedrandom from "seedrandom";
 import { toast } from "sonner";
 import { cameras as baseCams } from "@/data/mock";
+import { DEFAULT_ANALYTICS, DEFAULT_SCHEDULE, REVIEW_REASONS, type Feedback, type ReviewReason, type ReportSchedule } from "./analytics";
 
 /* ================= Types ================= */
 export type Role = "field" | "investigator" | "supervisor" | "prosecutor" | "family";
@@ -156,15 +157,17 @@ export function makeSeed(now: number) {
 }
 
 /* ================= Store ================= */
-type Data = ReturnType<typeof makeSeed> & { audit: AuditEntry[]; notes: Note[]; role: Role; seq: number };
+type Data = ReturnType<typeof makeSeed> & { audit: AuditEntry[]; notes: Note[]; role: Role; seq: number; feedback: Feedback[]; analyticsSettings: typeof DEFAULT_ANALYTICS; reportSchedule: ReportSchedule };
 type Actions = {
   setRole: (r: Role) => void;
   reset: () => void;
   /** Event bus: one call updates audit log, notification center, toast and the case timeline. */
   emit: (e: { action: string; msg: Txt; kind?: Note["kind"]; caseId?: string; quiet?: boolean }) => void;
   transition: (caseId: string, to: CaseStatus) => boolean;
-  confirmAlert: (id: string) => void;
-  rejectAlert: (id: string) => void;
+  confirmAlert: (id: string, reason?: ReviewReason) => void;
+  rejectAlert: (id: string, reason?: ReviewReason) => void;
+  setAnalyticsSettings: (settings: typeof DEFAULT_ANALYTICS) => void;
+  setReportSchedule: (schedule: ReportSchedule) => boolean;
   dispatch: (caseId: string, alertId?: string) => void;
   moveTask: (id: string, col: TaskCol) => void;
   markAllRead: () => void;
@@ -174,7 +177,7 @@ type Actions = {
 
 /** Fixed clock for the initial (SSR-safe) state; re-seeded to the real clock after hydration. */
 const SEED_EPOCH = Date.UTC(2027, 3, 15, 12, 0, 0);
-export const fresh = (now = SEED_EPOCH): Data => ({ ...makeSeed(now), audit: [], notes: [], role: "supervisor", seq: 1 });
+export const fresh = (now = SEED_EPOCH): Data => ({ ...makeSeed(now), audit: [], notes: [], role: "supervisor", seq: 1, feedback: [], analyticsSettings: { ...DEFAULT_ANALYTICS }, reportSchedule: { ...DEFAULT_SCHEDULE } });
 let langRef: "en" | "ar" = "en";
 export const setStoreLang = (l: "en" | "ar") => { langRef = l; };
 const deny = (msg: Txt) => { toast.error(msg[langRef]); return false; };
@@ -208,25 +211,39 @@ export const useVT = create<Data & Actions>()(
         get().emit({ action: `STATUS ${c.status} -> ${to}`, msg: { en: `${caseId}: ${STATUS_LABEL[to].en}`, ar: `${caseId}: ${STATUS_LABEL[to].ar}` }, kind: to === "resolved" ? "success" : "info", caseId });
         return true;
       },
-      confirmAlert: (id) => {
+      confirmAlert: (id, reason = "verified") => {
         const s = get(); const a = s.alerts.find((x) => x.id === id);
         if (!a || a.state !== "open") return;
         if (!can(s.role, "reviewAlert")) { deny({ en: "Only an investigator or supervisor can confirm a potential match.", ar: "لا يملك تأكيد التطابق المحتمل إلا المحقّق أو المشرف." }); return; }
         set({
+          feedback: [...s.feedback, { alertId: id, decision: "confirmed", reason, at: Date.now(), role: s.role }],
           alerts: s.alerts.map((x) => (x.id === id ? { ...x, state: "confirmed" } : x)),
           cases: s.cases.map((c) => (c.id === a.caseId && (c.status === "potential" || c.status === "active") ? { ...c, status: "review", firstMatchAt: c.firstMatchAt ?? Date.now() } : c)),
           tasks: [{ id: `T${s.seq}`, caseId: a.caseId, agency: "police", title: { en: `Verify sighting at ${a.cam}`, ar: `التحقق من الرصد عند ${a.cam}` }, col: "todo", at: Date.now() }, ...s.tasks],
         });
-        get().emit({ action: `CONFIRMED alert ${id} ${a.cam} ${a.conf}%`, msg: { en: `Potential match confirmed by reviewer — task sent to Police`, ar: "أكّد المراجِع التطابق المحتمل — أُرسلت مهمة إلى الشرطة" }, kind: "success", caseId: a.caseId });
+        get().emit({ action: `CONFIRMED alert ${id} ${a.cam} ${a.conf}% reason=${reason}`, msg: { en: `Reviewer confirmed: ${REVIEW_REASONS[reason].en} — task sent to Police`, ar: `أكّد المراجِع التطابق: ${REVIEW_REASONS[reason].ar} — أُرسلت مهمة إلى الشرطة` }, kind: "success", caseId: a.caseId });
       },
-      rejectAlert: (id) => {
+      rejectAlert: (id, reason = "wrong-person") => {
         const s = get(); const a = s.alerts.find((x) => x.id === id);
         if (!a || a.state !== "open") return;
         if (!can(s.role, "reviewAlert")) { deny({ en: "Only an investigator or supervisor can reject a potential match.", ar: "لا يملك رفض التطابق المحتمل إلا المحقّق أو المشرف." }); return; }
         const alerts = s.alerts.map((x) => (x.id === id ? { ...x, state: "rejected" as const } : x));
         const stillOpen = alerts.some((x) => x.caseId === a.caseId && x.state === "open");
-        set({ alerts, cases: s.cases.map((c) => (c.id === a.caseId && c.status === "potential" && !stillOpen ? { ...c, status: "active" } : c)) });
-        get().emit({ action: `REJECTED alert ${id} (false positive)`, msg: { en: "Marked as false positive — precision updated", ar: "سُجّل كإيجابي كاذب — تم تحديث دقة التنبيهات" }, kind: "warning", caseId: a.caseId });
+        set({ feedback: [...s.feedback, { alertId: id, decision: "rejected", reason, at: Date.now(), role: s.role }], alerts, cases: s.cases.map((c) => (c.id === a.caseId && c.status === "potential" && !stillOpen ? { ...c, status: "active" } : c)) });
+        get().emit({ action: `REJECTED alert ${id} reason=${reason}`, msg: { en: `Rejected: ${REVIEW_REASONS[reason].en} — precision updated`, ar: `رُفض التطابق: ${REVIEW_REASONS[reason].ar} — حُدّثت دقة التنبيهات` }, kind: "warning", caseId: a.caseId });
+      },
+      setAnalyticsSettings: (settings) => {
+        if (!can(get().role, "reviewAlert")) { deny({ en: "Only an investigator or supervisor can change evaluation settings.", ar: "لا يغيّر إعدادات التقييم إلا المحقّق أو المشرف." }); return; }
+        if (!Number.isFinite(settings.threshold) || !Number.isFinite(settings.gapLimit)) return;
+        set({ analyticsSettings: { threshold: Math.max(0, Math.min(100, settings.threshold)), gapLimit: Math.max(0, Math.min(100, settings.gapLimit)) } });
+        get().emit({ action: `QUALITY evaluation settings ${JSON.stringify(settings)}`, msg: { en: "Evaluation settings updated", ar: "حُدّثت إعدادات التقييم" }, quiet: true });
+      },
+      setReportSchedule: (schedule) => {
+        if (get().role !== "supervisor") return deny({ en: "Only a supervisor can schedule reports.", ar: "لا يجدول التقارير إلا المشرف." });
+        if (schedule.enabled && (!schedule.recipients.trim() || !schedule.recipients.split(",").every((v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())))) return deny({ en: "Enter valid recipient email addresses.", ar: "أدخل عناوين بريد إلكتروني صحيحة للمستلمين." });
+        set({ reportSchedule: schedule });
+        get().emit({ action: `REPORT mock schedule ${JSON.stringify(schedule)}`, msg: { en: "Demo report schedule saved — no emails sent", ar: "حُفظ جدول التقرير التجريبي — لا تُرسل رسائل فعلية" } });
+        return true;
       },
       dispatch: (caseId, alertId) => {
         const s = get(); const c = s.cases.find((x) => x.id === caseId);
