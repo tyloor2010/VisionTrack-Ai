@@ -12,6 +12,7 @@ import { MediaCycle, type CycleLayer } from "@/components/vt/MediaCycle";
 
 import { SectionBg } from "@/components/vt/SectionBg";
 import { LiveDemo } from "@/components/vt/LiveDemo";
+import { DroneShowcase } from "@/components/vt/DroneShowcase";
 import { Counter, Panel, Reveal, SectionHead, btnClass, inputClass, Btn } from "@/components/vt/ui";
 import { media } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
@@ -59,6 +60,7 @@ function Index() {
       <Problem />
       <HowItWorks />
       <DemoSection />
+      <DroneFleet />
       <Gallery />
       <Features />
       <Responsible />
@@ -213,6 +215,23 @@ function DemoSection() {
       <div className="relative">
         <SectionHead tag={t("Live demo", "عرض حي")} title={t("Run a search yourself.", "جرّب البحث بنفسك.")} sub={t("Select a profile, start the search, and review the alert like an operator would.", "اختر حالة، وابدأ البحث، ثم راجع التنبيه كما يفعل المشغّل تمامًا.")} />
         <LiveDemo />
+      </div>
+    </section>
+  );
+}
+
+function DroneFleet() {
+  const { t } = useLang();
+  return (
+    <section className="relative isolate overflow-hidden border-y border-border py-24">
+      <SectionBg src={media.aerialV2x} position="object-center" />
+      <div className="relative mx-auto max-w-7xl px-6">
+        <SectionHead
+          tag={t("Air unit", "الوحدة الجوية")}
+          title={t("The search doesn't stop at street level.", "البحث لا يتوقف عند مستوى الشارع.")}
+          sub={t("Our own drones plug straight into VisionTrack: the same detection, the same alerts, from above.", "طائراتنا المسيّرة متصلة مباشرةً بمنظومة VisionTrack: الرصد نفسه والتنبيهات نفسها، لكن من الجو.")}
+        />
+        <DroneShowcase />
       </div>
     </section>
   );
