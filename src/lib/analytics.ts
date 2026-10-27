@@ -1,4 +1,4 @@
-import type { Alert, Case, Txt } from "./store";
+import type { Alert, Case, Txt, Role } from "./store";
 
 export type ReviewReason = "verified" | "wrong-person" | "wrong-clothing" | "bad-image" | "other";
 export const REVIEW_REASONS: Record<ReviewReason, Txt> = {
@@ -8,7 +8,7 @@ export const REVIEW_REASONS: Record<ReviewReason, Txt> = {
   "bad-image": { en: "Poor image quality", ar: "ضعف جودة الصورة" },
   other: { en: "Other", ar: "سبب آخر" },
 };
-export type Feedback = { alertId: string; decision: "confirmed" | "rejected"; reason: ReviewReason; at: number };
+export type Feedback = { alertId: string; decision: "confirmed" | "rejected"; reason: ReviewReason; at: number; role: Role };
 export type ReportSchedule = { recipients: string; frequency: "daily" | "weekly"; format: "csv" | "json" | "pdf"; enabled: boolean };
 export const DEFAULT_ANALYTICS = { threshold: 70, gapLimit: 15 };
 export const DEFAULT_SCHEDULE: ReportSchedule = { recipients: "", frequency: "weekly", format: "csv", enabled: false };

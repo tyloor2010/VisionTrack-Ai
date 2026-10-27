@@ -30,8 +30,8 @@
 - [x] 3. Detection & media tools: video analysis, photo compare, annotation, enhancement, privacy blur, detection filters, camera management
 - [x] 4. Map options: layer switcher, drawing/measuring, route replay, coordinates, weather overlay
 - [x] 5. Alert rules builder, notification channels, escalation, notification center polish
-- [ ] 6. Analytics, model quality page, feedback loop, exports, model card
-- [ ] Make the public homepage drone showcase prominent and interactive using the team's prototype photo
+- [x] 6. Analytics, model quality page, feedback loop, exports, model card
+- [x] Make the public homepage drone showcase prominent and interactive using the team's prototype photo
 - [ ] 7. Admin: users, role matrix, audit explorer, integrations, API/webhooks, retention, consent
 - [ ] 8. Citizen/family/volunteer portals, offline PWA, French scaffold
 - [ ] 9. Help, onboarding tour, training mode, changelog, status, feedback, transparency

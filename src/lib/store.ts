@@ -216,7 +216,7 @@ export const useVT = create<Data & Actions>()(
         if (!a || a.state !== "open") return;
         if (!can(s.role, "reviewAlert")) { deny({ en: "Only an investigator or supervisor can confirm a potential match.", ar: "لا يملك تأكيد التطابق المحتمل إلا المحقّق أو المشرف." }); return; }
         set({
-          feedback: [...s.feedback, { alertId: id, decision: "confirmed", reason, at: Date.now() }],
+          feedback: [...s.feedback, { alertId: id, decision: "confirmed", reason, at: Date.now(), role: s.role }],
           alerts: s.alerts.map((x) => (x.id === id ? { ...x, state: "confirmed" } : x)),
           cases: s.cases.map((c) => (c.id === a.caseId && (c.status === "potential" || c.status === "active") ? { ...c, status: "review", firstMatchAt: c.firstMatchAt ?? Date.now() } : c)),
           tasks: [{ id: `T${s.seq}`, caseId: a.caseId, agency: "police", title: { en: `Verify sighting at ${a.cam}`, ar: `التحقق من الرصد عند ${a.cam}` }, col: "todo", at: Date.now() }, ...s.tasks],
@@ -229,7 +229,7 @@ export const useVT = create<Data & Actions>()(
         if (!can(s.role, "reviewAlert")) { deny({ en: "Only an investigator or supervisor can reject a potential match.", ar: "لا يملك رفض التطابق المحتمل إلا المحقّق أو المشرف." }); return; }
         const alerts = s.alerts.map((x) => (x.id === id ? { ...x, state: "rejected" as const } : x));
         const stillOpen = alerts.some((x) => x.caseId === a.caseId && x.state === "open");
-        set({ feedback: [...s.feedback, { alertId: id, decision: "rejected", reason, at: Date.now() }], alerts, cases: s.cases.map((c) => (c.id === a.caseId && c.status === "potential" && !stillOpen ? { ...c, status: "active" } : c)) });
+        set({ feedback: [...s.feedback, { alertId: id, decision: "rejected", reason, at: Date.now(), role: s.role }], alerts, cases: s.cases.map((c) => (c.id === a.caseId && c.status === "potential" && !stillOpen ? { ...c, status: "active" } : c)) });
         get().emit({ action: `REJECTED alert ${id} reason=${reason}`, msg: { en: `Rejected: ${REVIEW_REASONS[reason].en} — precision updated`, ar: `رُفض التطابق: ${REVIEW_REASONS[reason].ar} — حُدّثت دقة التنبيهات` }, kind: "warning", caseId: a.caseId });
       },
       setAnalyticsSettings: (settings) => {
