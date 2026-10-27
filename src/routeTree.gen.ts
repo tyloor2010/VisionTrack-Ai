@@ -17,11 +17,15 @@ import { Route as ReportRouteImport } from './routes/report'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as DashboardAdminRouteImport } from './routes/dashboard.admin'
 import { Route as DashboardAlertsRouteImport } from './routes/dashboard.alerts'
 import { Route as DashboardAlertsComposerRouteImport } from './routes/dashboard.alerts-composer'
 import { Route as DashboardAnalyticsRouteImport } from './routes/dashboard.analytics'
+import { Route as DashboardAuditRouteImport } from './routes/dashboard.audit'
 import { Route as DashboardCamerasRouteImport } from './routes/dashboard.cameras'
 import { Route as DashboardCommandBoardRouteImport } from './routes/dashboard.command-board'
+import { Route as DashboardGovernanceRouteImport } from './routes/dashboard.governance'
+import { Route as DashboardIntegrationsRouteImport } from './routes/dashboard.integrations'
 import { Route as DashboardMapsRouteImport } from './routes/dashboard.maps'
 import { Route as DashboardMediaRouteImport } from './routes/dashboard.media'
 import { Route as DashboardModelCardRouteImport } from './routes/dashboard.model-card'
@@ -69,6 +73,11 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardAdminRoute = DashboardAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardAlertsRoute = DashboardAlertsRouteImport.update({
   id: '/alerts',
   path: '/alerts',
@@ -84,6 +93,11 @@ const DashboardAnalyticsRoute = DashboardAnalyticsRouteImport.update({
   path: '/analytics',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardAuditRoute = DashboardAuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardCamerasRoute = DashboardCamerasRouteImport.update({
   id: '/cameras',
   path: '/cameras',
@@ -92,6 +106,16 @@ const DashboardCamerasRoute = DashboardCamerasRouteImport.update({
 const DashboardCommandBoardRoute = DashboardCommandBoardRouteImport.update({
   id: '/command-board',
   path: '/command-board',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardGovernanceRoute = DashboardGovernanceRouteImport.update({
+  id: '/governance',
+  path: '/governance',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardIntegrationsRoute = DashboardIntegrationsRouteImport.update({
+  id: '/integrations',
+  path: '/integrations',
   getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardMapsRoute = DashboardMapsRouteImport.update({
@@ -133,11 +157,15 @@ export interface FileRoutesByFullPath {
   '/report': typeof ReportRoute
   '/security': typeof SecurityRoute
   '/settings': typeof SettingsRoute
+  '/dashboard/admin': typeof DashboardAdminRoute
   '/dashboard/alerts': typeof DashboardAlertsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
   '/dashboard/analytics': typeof DashboardAnalyticsRoute
+  '/dashboard/audit': typeof DashboardAuditRoute
   '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
+  '/dashboard/governance': typeof DashboardGovernanceRoute
+  '/dashboard/integrations': typeof DashboardIntegrationsRoute
   '/dashboard/maps': typeof DashboardMapsRoute
   '/dashboard/media': typeof DashboardMediaRoute
   '/dashboard/model-card': typeof DashboardModelCardRoute
@@ -153,11 +181,15 @@ export interface FileRoutesByTo {
   '/report': typeof ReportRoute
   '/security': typeof SecurityRoute
   '/settings': typeof SettingsRoute
+  '/dashboard/admin': typeof DashboardAdminRoute
   '/dashboard/alerts': typeof DashboardAlertsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
   '/dashboard/analytics': typeof DashboardAnalyticsRoute
+  '/dashboard/audit': typeof DashboardAuditRoute
   '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
+  '/dashboard/governance': typeof DashboardGovernanceRoute
+  '/dashboard/integrations': typeof DashboardIntegrationsRoute
   '/dashboard/maps': typeof DashboardMapsRoute
   '/dashboard/media': typeof DashboardMediaRoute
   '/dashboard/model-card': typeof DashboardModelCardRoute
@@ -175,11 +207,15 @@ export interface FileRoutesById {
   '/report': typeof ReportRoute
   '/security': typeof SecurityRoute
   '/settings': typeof SettingsRoute
+  '/dashboard/admin': typeof DashboardAdminRoute
   '/dashboard/alerts': typeof DashboardAlertsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
   '/dashboard/analytics': typeof DashboardAnalyticsRoute
+  '/dashboard/audit': typeof DashboardAuditRoute
   '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
+  '/dashboard/governance': typeof DashboardGovernanceRoute
+  '/dashboard/integrations': typeof DashboardIntegrationsRoute
   '/dashboard/maps': typeof DashboardMapsRoute
   '/dashboard/media': typeof DashboardMediaRoute
   '/dashboard/model-card': typeof DashboardModelCardRoute
@@ -198,11 +234,15 @@ export interface FileRouteTypes {
     | '/report'
     | '/security'
     | '/settings'
+    | '/dashboard/admin'
     | '/dashboard/alerts'
     | '/dashboard/alerts-composer'
     | '/dashboard/analytics'
+    | '/dashboard/audit'
     | '/dashboard/cameras'
     | '/dashboard/command-board'
+    | '/dashboard/governance'
+    | '/dashboard/integrations'
     | '/dashboard/maps'
     | '/dashboard/media'
     | '/dashboard/model-card'
@@ -218,11 +258,15 @@ export interface FileRouteTypes {
     | '/report'
     | '/security'
     | '/settings'
+    | '/dashboard/admin'
     | '/dashboard/alerts'
     | '/dashboard/alerts-composer'
     | '/dashboard/analytics'
+    | '/dashboard/audit'
     | '/dashboard/cameras'
     | '/dashboard/command-board'
+    | '/dashboard/governance'
+    | '/dashboard/integrations'
     | '/dashboard/maps'
     | '/dashboard/media'
     | '/dashboard/model-card'
@@ -239,11 +283,15 @@ export interface FileRouteTypes {
     | '/report'
     | '/security'
     | '/settings'
+    | '/dashboard/admin'
     | '/dashboard/alerts'
     | '/dashboard/alerts-composer'
     | '/dashboard/analytics'
+    | '/dashboard/audit'
     | '/dashboard/cameras'
     | '/dashboard/command-board'
+    | '/dashboard/governance'
+    | '/dashboard/integrations'
     | '/dashboard/maps'
     | '/dashboard/media'
     | '/dashboard/model-card'
@@ -321,6 +369,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/admin': {
+      id: '/dashboard/admin'
+      path: '/admin'
+      fullPath: '/dashboard/admin'
+      preLoaderRoute: typeof DashboardAdminRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/alerts': {
       id: '/dashboard/alerts'
       path: '/alerts'
@@ -342,6 +397,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardAnalyticsRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/audit': {
+      id: '/dashboard/audit'
+      path: '/audit'
+      fullPath: '/dashboard/audit'
+      preLoaderRoute: typeof DashboardAuditRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/cameras': {
       id: '/dashboard/cameras'
       path: '/cameras'
@@ -354,6 +416,20 @@ declare module '@tanstack/react-router' {
       path: '/command-board'
       fullPath: '/dashboard/command-board'
       preLoaderRoute: typeof DashboardCommandBoardRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/governance': {
+      id: '/dashboard/governance'
+      path: '/governance'
+      fullPath: '/dashboard/governance'
+      preLoaderRoute: typeof DashboardGovernanceRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/integrations': {
+      id: '/dashboard/integrations'
+      path: '/integrations'
+      fullPath: '/dashboard/integrations'
+      preLoaderRoute: typeof DashboardIntegrationsRouteImport
       parentRoute: typeof DashboardRoute
     }
     '/dashboard/maps': {
@@ -402,11 +478,15 @@ declare module '@tanstack/react-router' {
 }
 
 interface DashboardRouteChildren {
+  DashboardAdminRoute: typeof DashboardAdminRoute
   DashboardAlertsRoute: typeof DashboardAlertsRoute
   DashboardAlertsComposerRoute: typeof DashboardAlertsComposerRoute
   DashboardAnalyticsRoute: typeof DashboardAnalyticsRoute
+  DashboardAuditRoute: typeof DashboardAuditRoute
   DashboardCamerasRoute: typeof DashboardCamerasRoute
   DashboardCommandBoardRoute: typeof DashboardCommandBoardRoute
+  DashboardGovernanceRoute: typeof DashboardGovernanceRoute
+  DashboardIntegrationsRoute: typeof DashboardIntegrationsRoute
   DashboardMapsRoute: typeof DashboardMapsRoute
   DashboardMediaRoute: typeof DashboardMediaRoute
   DashboardModelCardRoute: typeof DashboardModelCardRoute
@@ -417,11 +497,15 @@ interface DashboardRouteChildren {
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardAdminRoute: DashboardAdminRoute,
   DashboardAlertsRoute: DashboardAlertsRoute,
   DashboardAlertsComposerRoute: DashboardAlertsComposerRoute,
   DashboardAnalyticsRoute: DashboardAnalyticsRoute,
+  DashboardAuditRoute: DashboardAuditRoute,
   DashboardCamerasRoute: DashboardCamerasRoute,
   DashboardCommandBoardRoute: DashboardCommandBoardRoute,
+  DashboardGovernanceRoute: DashboardGovernanceRoute,
+  DashboardIntegrationsRoute: DashboardIntegrationsRoute,
   DashboardMapsRoute: DashboardMapsRoute,
   DashboardMediaRoute: DashboardMediaRoute,
   DashboardModelCardRoute: DashboardModelCardRoute,

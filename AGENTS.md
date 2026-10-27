@@ -17,3 +17,6 @@
 
 - Analytics evaluation uses seeded Alert.truth only in clearly labeled demo quality reports; human-review feedback, evaluation settings and mock schedules live in the shared store. Why: evaluation must not be presented as validated identity accuracy or silently alter operational rules.
 - The public drone showcase preserves the uploaded prototype photo and separates it from explicitly labeled aerial footage and patrol simulations. Why: presentation must not imply verified live hardware telemetry.
+- Administration is a sandbox slice of the shared store; its permission matrix, accounts, sessions, API identifiers and connections do not enforce or change real authentication or operational permissions. Why: the demo has no authenticated service and must not imply client-side checks are security.
+- Every shared event also appends to the unbounded administration checksum journal; its checksum is explicitly non-cryptographic, and administration reset preserves the journal. Why: demo audit exploration needs continuity without claiming tamper-proof legal evidence.
+- Retention is preview-only and consent withdrawal clears only linked sandbox records, never unrelated operational cases. Why: demonstration privacy tools must not silently delete other pages' data.
