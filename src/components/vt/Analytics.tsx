@@ -67,7 +67,7 @@ export function Analytics({ quality = false }: { quality?: boolean }) {
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">{[
         [t("Reviewed precision","دقة التنبيهات المُراجَعة"),pct(k.precision === null ? null : k.precision*100),"confirmed"],
         [t("Confirmed","مؤكدة"),String(k.confirmed),"confirmed"], [t("Rejected","مرفوضة"),String(k.rejected),"rejected"], [t("Pending review","بانتظار المراجعة"),String(k.open),"open"],
-      ].map(([l,v,key]) => <Panel key={l} className="p-4"><p className="text-xs text-muted-foreground">{l}</p><Btn variant="ghost" className="mt-2 h-auto px-0 text-3xl text-primary" onClick={() => setDrill(key)}>{v}</Btn></Panel>)}</div>
+      ].map(([l,v,key]) => <Panel key={l} className="p-4"><p className="text-xs text-muted-foreground">{l}</p><Btn variant="ghost" className="mt-2 h-auto px-0 text-3xl text-primary" onClick={() => setDrill(key ?? "all")}>{v}</Btn></Panel>)}</div>
       <div className="flex flex-wrap gap-8 border-y border-border py-5"><p>{t("Resolved cases","الحالات المغلقة")}: <strong className="text-primary">{k.resolved} / {cases.length}</strong></p><p>{t("Average first match","متوسط زمن أول تطابق")}: <strong className="text-primary">{k.firstMatchMin === null ? "—" : `${Math.round(k.firstMatchMin)} ${t("min","دقيقة")}`}</strong></p><p>{t("Average resolution time","متوسط زمن إغلاق الحالة")}: <strong className="text-primary">{k.avgResponseMin === null ? "—" : `${Math.round(k.avgResponseMin)} ${t("min","دقيقة")}`}</strong></p></div>
     </>}
     {quality && <>
