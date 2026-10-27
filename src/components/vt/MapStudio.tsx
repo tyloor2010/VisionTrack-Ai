@@ -238,7 +238,7 @@ export function MapStudio() {
           <h2 className="mb-2 font-mono text-xs uppercase tracking-wider text-primary">{t("Base layer", "الطبقة الأساسية")}</h2>
           <div className="flex flex-wrap gap-1">
             {(["satellite", "streets", "hybrid"] as BaseLayer[]).map((b) => (
-              <button key={b} onClick={() => setBase(b)} className={`${btnClass(base === b ? "default" : "outline", "sm")}`}>
+              <button key={b} onClick={() => setBase(b)} className={`${btnClass(base === b ? "primary" : "outline", "sm")}`}>
                 {b === "satellite" ? t("Satellite", "قمر صناعي") : b === "streets" ? t("Streets", "شوارع") : t("Hybrid", "مدمج")}
               </button>
             ))}
@@ -259,7 +259,7 @@ export function MapStudio() {
           <h2 className="mb-2 font-mono text-xs uppercase tracking-wider text-primary">{t("Draw & measure", "الرسم والقياس")}</h2>
           <div className="flex flex-wrap gap-1">
             {modes.map((m) => (
-              <button key={m.id} onClick={() => { setMode(m.id); clearDraft(); }} className={btnClass(mode === m.id ? "default" : "outline", "sm")} aria-pressed={mode === m.id}>
+              <button key={m.id} onClick={() => { setMode(m.id); clearDraft(); }} className={btnClass(mode === m.id ? "primary" : "outline", "sm")} aria-pressed={mode === m.id}>
                 <m.i className="h-3 w-3" /> {m.l}
               </button>
             ))}
@@ -268,7 +268,7 @@ export function MapStudio() {
             <div className="mt-2 space-y-1 font-mono text-xs text-muted-foreground">
               <p dir="ltr">{draft.length} pts · {draftKm.toFixed(2)} km{mode === "polygon" && draft.length > 2 ? ` · ${draftArea.toFixed(2)} km²` : ""}</p>
               <div className="flex gap-1">
-                {mode !== "measure" && draft.length >= 2 && <button onClick={saveDraft} className={btnClass("default", "sm")}>{t("Save", "حفظ")}</button>}
+                {mode !== "measure" && draft.length >= 2 && <button onClick={saveDraft} className={btnClass("primary", "sm")}>{t("Save", "حفظ")}</button>}
                 <button onClick={() => setDraft(draft.slice(0, -1))} className={btnClass("outline", "sm")}>{t("Undo point", "تراجع")}</button>
                 <button onClick={clearDraft} className={btnClass("outline", "sm")}>{t("Clear", "مسح")}</button>
               </div>
@@ -298,11 +298,11 @@ export function MapStudio() {
               <p className="font-mono text-xs text-muted-foreground" dir="ltr">{route.length} {t("points", "نقاط")} · {routeKm.toFixed(2)} km</p>
               <input type="range" min={0} max={1000} value={Math.round(progress * 1000)} onChange={(e) => setProgress(Number(e.target.value) / 1000)} className="w-full accent-[var(--warning)]" aria-label={t("Replay position", "موضع إعادة التشغيل")} />
               <div className="flex items-center gap-1">
-                <button onClick={() => setPlaying(!playing)} className={btnClass("default", "sm")} aria-label={playing ? t("Pause", "إيقاف مؤقت") : t("Play", "تشغيل")}>
+                <button onClick={() => setPlaying(!playing)} className={btnClass("primary", "sm")} aria-label={playing ? t("Pause", "إيقاف مؤقت") : t("Play", "تشغيل")}>
                   {playing ? <Pause className="h-3 w-3" /> : <Play className="h-3 w-3" />}
                 </button>
                 {[1, 2, 4].map((s) => (
-                  <button key={s} onClick={() => setSpeed(s)} className={btnClass(speed === s ? "default" : "outline", "sm")} aria-pressed={speed === s}>{s}×</button>
+                  <button key={s} onClick={() => setSpeed(s)} className={btnClass(speed === s ? "primary" : "outline", "sm")} aria-pressed={speed === s}>{s}×</button>
                 ))}
               </div>
             </div>
