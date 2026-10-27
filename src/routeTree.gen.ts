@@ -17,6 +17,7 @@ import { Route as ReportRouteImport } from './routes/report'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as DashboardAlertsRouteImport } from './routes/dashboard.alerts'
 import { Route as DashboardAlertsComposerRouteImport } from './routes/dashboard.alerts-composer'
 import { Route as DashboardCamerasRouteImport } from './routes/dashboard.cameras'
 import { Route as DashboardCommandBoardRouteImport } from './routes/dashboard.command-board'
@@ -65,6 +66,11 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardAlertsRoute = DashboardAlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardAlertsComposerRoute = DashboardAlertsComposerRouteImport.update({
   id: '/alerts-composer',
   path: '/alerts-composer',
@@ -109,6 +115,7 @@ export interface FileRoutesByFullPath {
   '/report': typeof ReportRoute
   '/security': typeof SecurityRoute
   '/settings': typeof SettingsRoute
+  '/dashboard/alerts': typeof DashboardAlertsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
   '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
@@ -125,6 +132,7 @@ export interface FileRoutesByTo {
   '/report': typeof ReportRoute
   '/security': typeof SecurityRoute
   '/settings': typeof SettingsRoute
+  '/dashboard/alerts': typeof DashboardAlertsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
   '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
@@ -143,6 +151,7 @@ export interface FileRoutesById {
   '/report': typeof ReportRoute
   '/security': typeof SecurityRoute
   '/settings': typeof SettingsRoute
+  '/dashboard/alerts': typeof DashboardAlertsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
   '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
@@ -162,6 +171,7 @@ export interface FileRouteTypes {
     | '/report'
     | '/security'
     | '/settings'
+    | '/dashboard/alerts'
     | '/dashboard/alerts-composer'
     | '/dashboard/cameras'
     | '/dashboard/command-board'
@@ -178,6 +188,7 @@ export interface FileRouteTypes {
     | '/report'
     | '/security'
     | '/settings'
+    | '/dashboard/alerts'
     | '/dashboard/alerts-composer'
     | '/dashboard/cameras'
     | '/dashboard/command-board'
@@ -195,6 +206,7 @@ export interface FileRouteTypes {
     | '/report'
     | '/security'
     | '/settings'
+    | '/dashboard/alerts'
     | '/dashboard/alerts-composer'
     | '/dashboard/cameras'
     | '/dashboard/command-board'
@@ -273,6 +285,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/alerts': {
+      id: '/dashboard/alerts'
+      path: '/alerts'
+      fullPath: '/dashboard/alerts'
+      preLoaderRoute: typeof DashboardAlertsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/alerts-composer': {
       id: '/dashboard/alerts-composer'
       path: '/alerts-composer'
@@ -326,6 +345,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface DashboardRouteChildren {
+  DashboardAlertsRoute: typeof DashboardAlertsRoute
   DashboardAlertsComposerRoute: typeof DashboardAlertsComposerRoute
   DashboardCamerasRoute: typeof DashboardCamerasRoute
   DashboardCommandBoardRoute: typeof DashboardCommandBoardRoute
@@ -337,6 +357,7 @@ interface DashboardRouteChildren {
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardAlertsRoute: DashboardAlertsRoute,
   DashboardAlertsComposerRoute: DashboardAlertsComposerRoute,
   DashboardCamerasRoute: DashboardCamerasRoute,
   DashboardCommandBoardRoute: DashboardCommandBoardRoute,
