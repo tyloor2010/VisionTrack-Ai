@@ -3,6 +3,7 @@ import { Play, Pause, RotateCcw, Radio, Satellite, Navigation, Camera, Plane, Ar
 import { Link } from "@tanstack/react-router";
 import { IntelMap, type IntelLayer, type LL } from "./IntelMap";
 import { Btn, btnClass } from "./ui";
+import aerialClip from "@/assets/drone-aerial.mp4.asset.json";
 import { media } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
 
@@ -42,7 +43,7 @@ export function DroneShowcase() {
       <span className="font-mono text-xs text-det-cyan">VTX-1 / {t("TEAM-BUILT", "من صنع الفريق")}</span>
     </div>
     <div className="relative min-w-0 overflow-hidden bg-muted" role="tabpanel">
-      {view === "prototype" ? <img src={media.droneBuild} alt={t("VisionTrack team's hand-built quadcopter prototype", "النموذج الأولي للطائرة المسيّرة من صنع فريق VisionTrack")} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-contain sm:aspect-[16/9]" /> : view === "aerial" ? <video src={media.video} poster={media.aerialV2x} muted autoPlay loop playsInline controls className="aspect-[4/3] w-full object-cover sm:aspect-[16/9]" aria-label={t("Sample aerial footage, not a live drone feed", "تصوير جوي توضيحي، وليس بثًا مباشرًا من الطائرة")} /> : <IntelMap center={[30.0455,31.2365]} layers={layers} className="h-[440px] sm:h-[560px]" />}
+      {view === "prototype" ? <img src={media.droneBuild} alt={t("VisionTrack team's hand-built quadcopter prototype", "النموذج الأولي للطائرة المسيّرة من صنع فريق VisionTrack")} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-contain sm:aspect-[16/9]" /> : view === "aerial" ? <video src={aerialClip.url} poster={media.aerialV2x} muted autoPlay loop playsInline controls className="aspect-[4/3] w-full object-cover sm:aspect-[16/9]" aria-label={t("Sample aerial footage, not a live drone feed", "تصوير جوي توضيحي، وليس بثًا مباشرًا من الطائرة")} /> : <IntelMap center={[30.0455,31.2365]} layers={layers} className="h-[440px] sm:h-[560px]" />}
       <div className="pointer-events-none absolute inset-x-0 top-0 flex flex-wrap justify-between gap-2 bg-background/85 px-4 py-3 font-mono text-[11px]">
         <span className="flex items-center gap-2 text-primary"><Radio className="h-4 w-4" />VTX-1 · {t("VISIONTRACK AIR UNIT", "وحدة VISIONTRACK الجوية")}</span>
         <span className="text-muted-foreground">{view === "prototype" ? t("ACTUAL PROTOTYPE", "النموذج الأولي الفعلي") : t("DEMO — NOT A LIVE FEED", "عرض تجريبي — ليس بثًا مباشرًا")}</span>

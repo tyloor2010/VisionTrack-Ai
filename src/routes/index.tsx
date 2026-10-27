@@ -14,6 +14,7 @@ import { SectionBg } from "@/components/vt/SectionBg";
 import { LiveDemo } from "@/components/vt/LiveDemo";
 import { DroneShowcase } from "@/components/vt/DroneShowcase";
 import { Counter, Panel, Reveal, SectionHead, btnClass, inputClass, Btn } from "@/components/vt/ui";
+import aerialClip from "@/assets/drone-aerial.mp4.asset.json";
 import { media } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
 
@@ -225,7 +226,7 @@ function DroneFleet() {
   const { t } = useLang();
   return (
     <section id="air-unit" className="relative isolate scroll-mt-20 overflow-hidden border-y border-border py-16 sm:py-24">
-      <SectionBg video={media.video} poster={media.aerialV2x} position="object-center" />
+      <SectionBg video={aerialClip.url} poster={media.aerialV2x} position="object-center" />
       <div className="relative mx-auto max-w-7xl px-6">
         <SectionHead
           tag={t("VisionTrack Air / VTX-1", "VisionTrack Air / VTX-1")}
