@@ -14,7 +14,7 @@ import { SectionBg } from "@/components/vt/SectionBg";
 import { LiveDemo } from "@/components/vt/LiveDemo";
 import { DroneShowcase } from "@/components/vt/DroneShowcase";
 import { Counter, Panel, Reveal, SectionHead, btnClass, inputClass, Btn } from "@/components/vt/ui";
-import aerialClip from "@/assets/drone-aerial.mp4.asset.json";
+import aerialClip from "@/assets/drone-aerial.webm.asset.json";
 import { media } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
 

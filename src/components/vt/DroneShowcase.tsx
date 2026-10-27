@@ -3,7 +3,7 @@ import { Play, Pause, RotateCcw, Radio, Satellite, Navigation, Camera, Plane, Ar
 import { Link } from "@tanstack/react-router";
 import { IntelMap, type IntelLayer, type LL } from "./IntelMap";
 import { Btn, btnClass } from "./ui";
-import aerialClip from "@/assets/drone-aerial.mp4.asset.json";
+import aerialClip from "@/assets/drone-aerial.webm.asset.json";
 import { media } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
 
