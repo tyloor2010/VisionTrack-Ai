@@ -18,6 +18,7 @@ import trafficHud from "@/assets/traffic-hud.jpg.asset.json";
 import avPerception from "@/assets/av-perception.jpg.asset.json";
 import crosswalkTop from "@/assets/crosswalk-top.jpg.asset.json";
 import camWall from "@/assets/cam-wall.png.asset.json";
+import droneBuild from "@/assets/drone-build.jpg.asset.json";
 import type { DetColor } from "@/components/vt/DetectionBox";
 
 export const media = {
@@ -38,6 +39,7 @@ export const media = {
   avPerception: avPerception.url,
   crosswalkTop: crosswalkTop.url,
   camWall: camWall.url,
+  droneBuild: droneBuild.url,
 };
 
 export type Box = { label: string; conf?: number; color: DetColor; x: number; y: number; w: number; h: number };
