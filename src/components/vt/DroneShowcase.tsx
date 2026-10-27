@@ -1,145 +1,66 @@
 import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
-import { Battery, Radio, Satellite, Gauge } from "lucide-react";
-import { DetectionBox } from "@/components/vt/DetectionBox";
-import { IntelMap, type IntelLayer, type LL } from "@/components/vt/IntelMap";
-import { Panel, Counter, Reveal } from "@/components/vt/ui";
+import { Play, Pause, RotateCcw, Radio, Satellite, Navigation, Camera, Plane, ArrowUpRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { IntelMap, type IntelLayer, type LL } from "./IntelMap";
+import { Btn, btnClass } from "./ui";
 import { media } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
 
-/** Patrol loop around Tahrir Sq, Cairo — the demo drone flies this circuit. */
 const BASE: LL = [30.0444, 31.2357];
-const PATROL: LL[] = [
-  [30.0485, 31.2315],
-  [30.0515, 31.2380],
-  [30.0470, 31.2445],
-  [30.0415, 31.2420],
-  [30.0395, 31.2345],
-  [30.0420, 31.2290],
-];
-
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * t;
-}
-
-/** Animated live-telemetry readout; values drift slowly so it feels alive. */
-function useTelemetry() {
-  const [t, setT] = useState({ alt: 118, bat: 84, sats: 14, spd: 9.2, tick: 0 });
-  useEffect(() => {
-    const id = setInterval(
-      () =>
-        setT((p) => ({
-          alt: Math.round(115 + Math.sin(p.tick / 6) * 8),
-          bat: p.bat <= 62 ? 84 : +(p.bat - 0.1).toFixed(1),
-          sats: 13 + Math.floor(Math.random() * 3),
-          spd: +(8.4 + Math.random() * 2.2).toFixed(1),
-          tick: p.tick + 1,
-        })),
-      1200,
-    );
-    return () => clearInterval(id);
-  }, []);
-  return t;
-}
-
-/** The drone glides along the patrol loop; the map redraws only the moving layers. */
-function useDronePosition() {
-  const [step, setStep] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setStep((s) => s + 1), 700);
-    return () => clearInterval(id);
-  }, []);
-  const SEG = 6; // ticks per leg
-  const leg = Math.floor(step / SEG) % PATROL.length;
-  const frac = (step % SEG) / SEG;
-  const a = PATROL[leg]!;
-  const b = PATROL[(leg + 1) % PATROL.length]!;
-  const pos: LL = [lerp(a[0], b[0], frac), lerp(a[1], b[1], frac)];
-  const trail = PATROL.slice(0, leg + 1).concat([pos]);
-  return { pos, trail };
-}
-
+const PATROL: LL[] = [[30.0485,31.2315],[30.0515,31.238],[30.047,31.2445],[30.0415,31.242],[30.0395,31.2345],[30.042,31.229]];
 export function DroneShowcase() {
   const { t } = useLang();
-  const tm = useTelemetry();
-  const { pos, trail } = useDronePosition();
-
-  const layers = useMemo<IntelLayer[]>(
-    () => [
-      { kind: "zone", at: BASE, rx: 1.2, label: t("SECTOR A", "القطاع A") },
-      { kind: "path", pts: PATROL.concat([PATROL[0]!]), color: "#facc15", dashed: true },
-      { kind: "path", pts: trail, color: "#22d3ee" },
-      { kind: "node", at: BASE, label: t("BASE", "القاعدة"), color: "#22c55e" },
-      { kind: "node", at: pos, label: "VTX-1", color: "#facc15" },
-    ],
-    [pos, trail, t],
-  );
-
-  const stats = [
-    { v: 25, s: t(" min", " دقيقة"), l: t("flight time per charge", "زمن الطيران بالشحنة الواحدة") },
-    { v: 4, s: t(" km²", " كم²"), l: t("searched from the air per sortie", "تُمسح جوًا في الطلعة الواحدة") },
-    { v: 3, s: t(" min", " دقائق"), l: t("from alert to wheels-up", "من التنبيه حتى الإقلاع") },
+  const [view, setView] = useState<"prototype" | "aerial" | "patrol">("prototype");
+  const [running, setRunning] = useState(false);
+  const [step, setStep] = useState(0);
+  useEffect(() => {
+    if (!running) return;
+    const id = setInterval(() => setStep((s) => s + 1), 800);
+    return () => clearInterval(id);
+  }, [running]);
+  const leg = Math.floor(step / 8) % PATROL.length;
+  const a = PATROL[leg] ?? BASE, b = PATROL[(leg + 1) % PATROL.length] ?? BASE;
+  const frac = step % 8 / 8;
+  const pos: LL = [a[0] + (b[0]-a[0])*frac, a[1] + (b[1]-a[1])*frac];
+  const layers = useMemo<IntelLayer[]>(() => [
+    { kind: "zone", at: BASE, rx: 1.2, label: t("SEARCH SECTOR", "قطاع البحث") },
+    { kind: "path", pts: [...PATROL, PATROL[0] ?? BASE], color: "var(--primary)", dashed: true },
+    { kind: "path", pts: [...PATROL.slice(0,leg+1), pos], color: "var(--det-cyan)" },
+    { kind: "node", at: BASE, label: t("BASE", "القاعدة"), color: "var(--det-green)" },
+    { kind: "node", at: pos, label: "VTX-1", color: "var(--primary)" },
+  ], [step, t]);
+  const modes = [
+    { id: "prototype" as const, icon: Plane, label: t("Our prototype", "نموذجنا الأولي") },
+    { id: "aerial" as const, icon: Camera, label: t("Aerial view", "المشهد الجوي") },
+    { id: "patrol" as const, icon: Navigation, label: t("Patrol simulation", "محاكاة الدورية") },
   ];
-
-  return (
-    <div className="grid gap-4 lg:grid-cols-2">
-      {/* Our actual prototype with a live HUD laid over it */}
-      <Panel title={t("VTX-1 — our prototype", "VTX-1 — النموذج الأولي لدينا")} className="p-0">
-        <div className="scanlines relative aspect-[6/5] overflow-hidden">
-          <img src={media.droneBuild} alt={t("The team's hand-built quadcopter prototype on the workbench", "النموذج الأولي للطائرة المسيّرة الذي بناه الفريق")} loading="lazy" decoding="async" className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/30" />
-          <DetectionBox label="MOTOR M1" confidence={98} color="green" x={10} y={8} w={16} h={20} delay={0.4} />
-          <DetectionBox label="MOTOR M2" confidence={97} color="green" x={74} y={14} w={16} h={20} delay={0.6} />
-          <DetectionBox label="MOTOR M3" confidence={98} color="green" x={6} y={64} w={20} h={22} delay={0.8} />
-          <DetectionBox label="MOTOR M4" confidence={96} color="green" x={72} y={62} w={18} h={24} delay={1} />
-          <DetectionBox label="FLIGHT CTRL" confidence={99} color="cyan" x={38} y={38} w={24} h={22} delay={1.2} />
-          <div dir="ltr" className="absolute start-2 top-2 space-y-0.5 bg-background/75 px-2 py-1.5 font-mono text-[10px] leading-relaxed">
-            <div className="flex items-center gap-1.5 text-primary"><Radio className="h-3 w-3" /> LINK 2.4GHz · OK</div>
-            <div className="flex items-center gap-1.5"><Satellite className="h-3 w-3" /> GPS · {tm.sats} SATS</div>
-            <div className="flex items-center gap-1.5"><Gauge className="h-3 w-3" /> ALT {tm.alt} m · {tm.spd} m/s</div>
-            <div className="flex items-center gap-1.5"><Battery className="h-3 w-3" /> {tm.bat}%</div>
-          </div>
-          <div dir="ltr" className="absolute bottom-2 end-2 bg-det-yellow px-1.5 font-mono text-[10px] font-bold leading-5 text-ink">VTX-1 · PROTOTYPE</div>
-        </div>
-        <p className="p-4 text-xs text-muted-foreground">
-          {t(
-            "Built by the team from the frame up: flight controller, GPS hold and a camera link that feeds the same matching pipeline as the street cameras.",
-            "بناه الفريق قطعةً قطعة: وحدة تحكم في الطيران، وتثبيت بالقمر الصناعي، وكاميرا تغذي خط المطابقة نفسه الذي تعمل به كاميرات الشوارع.",
-          )}
-        </p>
-      </Panel>
-
-      {/* Live patrol map */}
-      <Panel
-        title={t("Live patrol — Sector A", "دورية جوية مباشرة — القطاع A")}
-        right={<span className="flex items-center gap-1.5 font-mono text-[10px] text-det-red"><motion.span className="inline-block h-1.5 w-1.5 rounded-full bg-det-red" animate={{ opacity: [1, 0.2, 1] }} transition={{ repeat: Infinity, duration: 1.2 }} />LIVE</span>}
-        className="p-0"
-      >
-        <IntelMap center={[30.0455, 31.2365]} layers={layers} className="h-80 sm:h-96" />
-        <div className="grid grid-cols-3 divide-x divide-border border-t border-border text-center">
-          {stats.map((s, k) => (
-            <div key={k} className="p-3">
-              <div dir="ltr" className="text-xl font-bold text-primary"><Counter to={s.v} suffix={s.s} /></div>
-              <p className="mt-0.5 text-[11px] text-muted-foreground">{s.l}</p>
-            </div>
-          ))}
-        </div>
-      </Panel>
-
-      <Reveal className="lg:col-span-2">
-        <div className="grid gap-4 sm:grid-cols-3">
-          {[
-            { h: t("Eyes above the crowd", "عيون فوق الزحام"), p: t("A drone covers in minutes what a ground team needs hours to walk — rooftops, rail tracks, river banks and empty lots.", "تغطي الطائرة في دقائق ما يحتاج فريق الأرض ساعات لتمشيطه — الأسطح وخطوط السكك الحديد وضفاف النيل والأراضي الخالية.") },
-            { h: t("Same brain, higher view", "العقل نفسه، من أعلى"), p: t("The aerial feed runs through the same face, clothing and movement matching — no separate system, no extra training for operators.", "يمر البث الجوي عبر منظومة المطابقة نفسها للوجه والملابس والحركة — دون نظام منفصل أو تدريب إضافي للمشغّلين.") },
-            { h: t("A human still decides", "والقرار يبقى للإنسان"), p: t("The drone only flags potential matches from above. An authorized officer reviews every alert before anyone is sent.", "الطائرة لا تفعل سوى رصد تطابقات محتملة من الجو، ويراجع ضابط مخوَّل كل تنبيه قبل تحريك أي فريق.") },
-          ].map((c, k) => (
-            <Panel key={k} className="h-full p-5">
-              <h3 className="text-lg font-bold">{c.h}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{c.p}</p>
-            </Panel>
-          ))}
-        </div>
-      </Reveal>
+  return <div>
+    <div className="mb-5 flex flex-wrap items-center justify-between gap-4 border-y border-border py-3">
+      <div className="flex flex-wrap gap-1" role="tablist" aria-label={t("Drone views", "مشاهد الطائرة المسيّرة")}>
+        {modes.map((m) => <Btn key={m.id} role="tab" aria-selected={view === m.id} variant={view === m.id ? "primary" : "ghost"} size="sm" onClick={() => setView(m.id)}><m.icon className="h-4 w-4" />{m.label}</Btn>)}
+      </div>
+      <span className="font-mono text-xs text-det-cyan">VTX-1 / {t("TEAM-BUILT", "من صنع الفريق")}</span>
     </div>
-  );
+    <div className="relative min-w-0 overflow-hidden bg-muted" role="tabpanel">
+      {view === "prototype" ? <img src={media.droneBuild} alt={t("VisionTrack team's hand-built quadcopter prototype", "النموذج الأولي للطائرة المسيّرة من صنع فريق VisionTrack")} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-contain sm:aspect-[16/9]" /> : view === "aerial" ? <video src={media.video} poster={media.aerialV2x} muted autoPlay loop playsInline controls className="aspect-[4/3] w-full object-cover sm:aspect-[16/9]" aria-label={t("Sample aerial footage, not a live drone feed", "تصوير جوي توضيحي، وليس بثًا مباشرًا من الطائرة")} /> : <IntelMap center={[30.0455,31.2365]} layers={layers} className="h-[440px] sm:h-[560px]" />}
+      <div className="pointer-events-none absolute inset-x-0 top-0 flex flex-wrap justify-between gap-2 bg-background/85 px-4 py-3 font-mono text-[11px]">
+        <span className="flex items-center gap-2 text-primary"><Radio className="h-4 w-4" />VTX-1 · {t("VISIONTRACK AIR UNIT", "وحدة VISIONTRACK الجوية")}</span>
+        <span className="text-muted-foreground">{view === "prototype" ? t("ACTUAL PROTOTYPE", "النموذج الأولي الفعلي") : t("DEMO — NOT A LIVE FEED", "عرض تجريبي — ليس بثًا مباشرًا")}</span>
+      </div>
+      <span className="pointer-events-none absolute bottom-4 start-4 border-s-4 border-primary bg-background/85 px-4 py-2 text-lg font-bold">{view === "prototype" ? t("Built here. Not a stock photo.", "من صنع فريقنا. ليست صورة جاهزة.") : t("Street cameras + aerial perspective", "كاميرات الشوارع + الرؤية الجوية")}</span>
+    </div>
+    {view === "patrol" && <div className="flex flex-wrap items-center gap-3 border-b border-border py-4">
+      <Btn size="sm" onClick={() => setRunning(!running)}>{running ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}{running ? t("Pause patrol", "إيقاف الدورية مؤقتًا") : t("Start patrol", "بدء الدورية")}</Btn>
+      <Btn size="sm" variant="ghost" title={t("Reset patrol", "إعادة ضبط الدورية")} aria-label={t("Reset patrol", "إعادة ضبط الدورية")} onClick={() => { setRunning(false); setStep(0); }}><RotateCcw className="h-4 w-4" /></Btn>
+      <span className="flex items-center gap-2 font-mono text-xs text-det-cyan"><Satellite className="h-4 w-4" /><span dir="ltr">{pos[0].toFixed(5)}, {pos[1].toFixed(5)}</span></span>
+    </div>}
+    <div className="grid gap-6 border-b border-border py-7 md:grid-cols-3">
+      {[
+        ["01", t("Above the blind spots", "فوق النقاط العمياء"), t("An aerial perspective for rooftops, riverbanks and places street cameras cannot see.", "رؤية جوية للأسطح وضفاف الأنهار والأماكن التي لا ترصدها كاميرات الشوارع.")],
+        ["02", t("One search, two perspectives", "بحث واحد، من منظورين"), t("Drone imagery joins the camera search, bringing aerial leads into the same review workflow.", "تتكامل صور الطائرات المسيّرة مع البحث عبر الكاميرات، ضمن مسار مراجعة واحد.")],
+        ["03", t("The decision stays human", "القرار يبقى للإنسان"), t("Potential match — requires human review. No autonomous pursuit or dispatch.", "تطابق محتمل — يتطلب مراجعة بشرية. لا ملاحقة ولا توجيه للفرق بصورة مستقلة.")],
+      ].map(([n,h,p]) => <div key={n}><span className="font-mono text-xs text-primary">{n}</span><h3 className="mt-2 text-xl font-bold">{h}</h3><p className="mt-2 text-sm text-muted-foreground">{p}</p></div>)}
+    </div>
+    <div className="mt-5 flex flex-wrap items-center justify-between gap-4"><p className="max-w-2xl text-xs text-muted-foreground">{t("Prototype shown is ours. Patrol movement and aerial footage are demonstrations, not proof of a live connection or measured flight performance.", "النموذج المعروض من صنع فريقنا. حركة الدورية والتصوير الجوي للعرض التوضيحي، ولا يثبتان اتصالًا مباشرًا أو أداء طيران مقاسًا.")}</p><Link to="/dashboard/case/$id" params={{ id: "VT-2041" }} className={btnClass("outline", "sm")}>{t("Open aerial case view", "عرض الحالة من الجو")}<ArrowUpRight className="h-4 w-4" /></Link></div>
+  </div>;
 }
