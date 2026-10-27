@@ -168,6 +168,7 @@ type Actions = {
   dispatch: (caseId: string, alertId?: string) => void;
   moveTask: (id: string, col: TaskCol) => void;
   markAllRead: () => void;
+  markRead: (id: number) => void;
   initClock: () => void;
 };
 
@@ -251,6 +252,7 @@ export const useVT = create<Data & Actions>()(
       },
       initClock: () => { if (get().seq === 1 && get().audit.length === 0) set(fresh(Date.now())); },
       markAllRead: () => set((s) => ({ notes: s.notes.map((n) => ({ ...n, read: true })) })),
+      markRead: (id) => set((s) => ({ notes: s.notes.map((n) => (n.id === id ? { ...n, read: true } : n)) })),
     }),
     { name: "vt-store-v1", storage: createJSONStorage(() => debouncedLocalStorage), skipHydration: true },
   ),
