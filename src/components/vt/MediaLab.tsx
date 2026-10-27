@@ -68,7 +68,7 @@ function VideoTool() {
     <div className="grid gap-4 lg:grid-cols-[1.6fr_1fr]">
       <Panel title={t("Frame-by-frame detection", "الرصد إطارًا بإطار")} className="p-0">
         <div className="relative aspect-video overflow-hidden bg-muted">
-          <video ref={vid} src={src} muted loop playsInline autoPlay className="h-full w-full object-cover" onLoadedMetadata={(e) => setDur(e.currentTarget.duration || 12)} onTimeUpdate={(e) => setCur(e.currentTarget.currentTime)} />
+          <video ref={vid} src={src} poster={media.trafficHud} muted loop playsInline autoPlay className="h-full w-full object-cover" onLoadedMetadata={(e) => setDur(e.currentTarget.duration || 12)} onTimeUpdate={(e) => setCur(e.currentTarget.currentTime)} />
           {frame.boxes.map((b, i) => <DetectionBox key={i} label={b.label} confidence={b.conf} color={b.color} x={b.x} y={b.y} w={b.w} h={b.h} />)}
           <div dir="ltr" className="absolute start-2 top-2 bg-background/75 px-1.5 py-0.5 font-mono text-[10px]">t={cur.toFixed(1)}s · {frame.boxes.length} {t("objects", "عناصر")}</div>
         </div>
