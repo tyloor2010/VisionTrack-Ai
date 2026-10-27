@@ -15,6 +15,7 @@ import seedrandom from "seedrandom";
 import { toast } from "sonner";
 import { cameras as baseCams } from "@/data/mock";
 import { DEFAULT_ANALYTICS, DEFAULT_SCHEDULE, REVIEW_REASONS, type Feedback, type ReviewReason, type ReportSchedule } from "./analytics";
+import { freshAdmin, reduceAdmin, appendJournal, type AdminData, type AdminAction } from "./admin";
 
 /* ================= Types ================= */
 export type Role = "field" | "investigator" | "supervisor" | "prosecutor" | "family";
@@ -157,8 +158,9 @@ export function makeSeed(now: number) {
 }
 
 /* ================= Store ================= */
-type Data = ReturnType<typeof makeSeed> & { audit: AuditEntry[]; notes: Note[]; role: Role; seq: number; feedback: Feedback[]; analyticsSettings: typeof DEFAULT_ANALYTICS; reportSchedule: ReportSchedule };
+type Data = ReturnType<typeof makeSeed> & { audit: AuditEntry[]; notes: Note[]; role: Role; seq: number; feedback: Feedback[]; analyticsSettings: typeof DEFAULT_ANALYTICS; reportSchedule: ReportSchedule; admin: AdminData };
 type Actions = {
+  adminAction: (action: AdminAction) => boolean;
   setRole: (r: Role) => void;
   reset: () => void;
   /** Event bus: one call updates audit log, notification center, toast and the case timeline. */
@@ -177,7 +179,7 @@ type Actions = {
 
 /** Fixed clock for the initial (SSR-safe) state; re-seeded to the real clock after hydration. */
 const SEED_EPOCH = Date.UTC(2027, 3, 15, 12, 0, 0);
-export const fresh = (now = SEED_EPOCH): Data => ({ ...makeSeed(now), audit: [], notes: [], role: "supervisor", seq: 1, feedback: [], analyticsSettings: { ...DEFAULT_ANALYTICS }, reportSchedule: { ...DEFAULT_SCHEDULE } });
+export const fresh = (now = SEED_EPOCH): Data => ({ ...makeSeed(now), audit: [], notes: [], role: "supervisor", seq: 1, feedback: [], analyticsSettings: { ...DEFAULT_ANALYTICS }, reportSchedule: { ...DEFAULT_SCHEDULE }, admin: freshAdmin() });
 let langRef: "en" | "ar" = "en";
 export const setStoreLang = (l: "en" | "ar") => { langRef = l; };
 const deny = (msg: Txt) => { toast.error(msg[langRef]); return false; };
@@ -186,12 +188,20 @@ export const useVT = create<Data & Actions>()(
   persist(
     (set, get) => ({
       ...fresh(),
+      adminAction: (action) => {
+        const s = get();
+        const outcome = reduceAdmin(s.admin, action, s.role, Date.now());
+        if (outcome.ok) set({ admin: outcome.data });
+        get().emit({ action: `ADMIN ${outcome.ok ? "OK" : "DENIED"} ${action.type} ${JSON.stringify(action)}`, msg: outcome.msg, kind: outcome.ok ? "success" : "warning" });
+        return outcome.ok;
+      },
       setRole: (role) => { set({ role }); get().emit({ action: `ROLE switched to ${role}`, msg: { en: `Now acting as ${ROLE_LABEL[role].en}`, ar: `الدور الحالي: ${ROLE_LABEL[role].ar}` } }); },
       reset: () => { set(fresh(Date.now())); toast.success(langRef === "ar" ? "أُعيد ضبط البيانات التجريبية" : "Demo data reset"); },
       emit: ({ action, msg, kind = "info", caseId, quiet = false }) => {
         const s = get(); const at = Date.now();
         set({
           seq: s.seq + 1,
+          admin: appendJournal(s.admin, caseId ? `${action} [${caseId}]` : action, s.role, at),
           audit: [{ id: s.seq, at, role: s.role, action: caseId ? `${action} [${caseId}]` : action }, ...s.audit].slice(0, 400),
           notes: quiet ? s.notes : [{ id: s.seq, at, msg, kind, read: false }, ...s.notes].slice(0, 100),
           cases: caseId && !quiet ? s.cases.map((c) => (c.id === caseId ? { ...c, timeline: [...c.timeline, { at, msg }] } : c)) : s.cases,
