@@ -57,10 +57,10 @@ function Index() {
   return (
     <>
       <Hero />
+      <DroneFleet />
       <Problem />
       <HowItWorks />
       <DemoSection />
-      <DroneFleet />
       <Gallery />
       <Features />
       <Responsible />
@@ -123,6 +123,7 @@ function Hero() {
             <Link to="/demo" className={btnClass("primary", "lg")}>{t("Launch Live Demo", "جرّب العرض الحي")}</Link>
             <Link to="/report" className={btnClass("outline", "lg")}>{t("Report a Missing Person", "أبلِغ عن شخص مفقود")}</Link>
           </div>
+          <a href="#air-unit" className="mt-6 inline-flex items-center gap-3 border-s-2 border-det-cyan ps-3 text-sm font-semibold text-det-cyan">VTX-1 · {t("Meet our drone prototype ↗", "تعرّف إلى نموذج طائرتنا المسيّرة ↗")}</a>
         </motion.div>
         <HudText className="mt-12" lines={["SYSTEM STATUS: ONLINE", `ACCURACY: ${n.acc}%`, `CAMERAS: ${n.cams} ACTIVE`, `FRAMES: ${n.frames.toLocaleString("en")}`, "MODEL: VISIONTRACK v2"]} />
       </div>
@@ -223,13 +224,13 @@ function DemoSection() {
 function DroneFleet() {
   const { t } = useLang();
   return (
-    <section className="relative isolate overflow-hidden border-y border-border py-24">
-      <SectionBg src={media.aerialV2x} position="object-center" />
+    <section id="air-unit" className="relative isolate scroll-mt-20 overflow-hidden border-y border-border py-16 sm:py-24">
+      <SectionBg video={media.video} poster={media.aerialV2x} position="object-center" />
       <div className="relative mx-auto max-w-7xl px-6">
         <SectionHead
-          tag={t("Air unit", "الوحدة الجوية")}
-          title={t("The search doesn't stop at street level.", "البحث لا يتوقف عند مستوى الشارع.")}
-          sub={t("Our own drones plug straight into VisionTrack: the same detection, the same alerts, from above.", "طائراتنا المسيّرة متصلة مباشرةً بمنظومة VisionTrack: الرصد نفسه والتنبيهات نفسها، لكن من الجو.")}
+          tag={t("VisionTrack Air / VTX-1", "VisionTrack Air / VTX-1")}
+          title={t("Our drones. A wider view.", "طائراتنا المسيّرة. رؤية أوسع.")}
+          sub={t("From the workbench to the search mission: our team-built prototype brings the drone story into VisionTrack's second generation.", "من طاولة العمل إلى مهمة البحث: نموذج أولي صنعه فريقنا ليضيف بُعدًا جويًا إلى الجيل الثاني من VisionTrack.")}
         />
         <DroneShowcase />
       </div>
