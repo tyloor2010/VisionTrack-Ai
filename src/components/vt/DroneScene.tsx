@@ -24,10 +24,10 @@ export function DroneScene(props: Props) {
       const carbon = material(ink, 0.65, 0.3), yellow = material(primary), metal = material(silver, 0.9, 0.23), board = material(green, 0.25), dark = material(ink, 0.3), glass = new THREE.MeshPhysicalMaterial({ color: cyan, metalness: 0.7, roughness: 0.1, clearcoat: 1 });
       scene.add(new THREE.HemisphereLight(bright, ink, 3)); const key = new THREE.DirectionalLight(bright, 5); key.position.set(3, 6, 4); scene.add(key); const rim = new THREE.DirectionalLight(cyan, 4); rim.position.set(-4, 2, -3); scene.add(rim); const warm = new THREE.DirectionalLight(primary, 2); warm.position.set(2, -1, -2); scene.add(warm);
       const drone = new THREE.Group(); scene.add(drone); const groups: Record<string, InstanceType<typeof THREE.Group>> = {};
-      for (const id of ["frame", "motors", "controller", "link", "battery", "camera"]) { const g = new THREE.Group(); g.userData.part = id; drone.add(g); groups[id] = g; }
-      const mesh = (g: InstanceType<typeof THREE.Group>, geo: InstanceType<typeof THREE.BufferGeometry>, mat: InstanceType<typeof THREE.MeshStandardMaterial>, x = 0, y = 0, z = 0) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.userData.part = g.userData.part; g.add(m); return m; };
+      for (const id of ["frame", "motors", "controller", "link", "battery", "camera"]) { const g = new THREE.Group(); g.userData["part"] = id; drone.add(g); groups[id] = g; }
+      const mesh = (g: InstanceType<typeof THREE.Group>, geo: import("three").BufferGeometry, mat: InstanceType<typeof THREE.MeshStandardMaterial>, x = 0, y = 0, z = 0) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.userData["part"] = g.userData["part"]; g.add(m); return m; };
       const box = (g: InstanceType<typeof THREE.Group>, w: number, h: number, d: number, mat: InstanceType<typeof THREE.MeshStandardMaterial>, x = 0, y = 0, z = 0) => mesh(g, new THREE.BoxGeometry(w, h, d), mat, x, y, z);
-      const frame = groups.frame, motors = groups.motors, controller = groups.controller, link = groups.link, battery = groups.battery, payload = groups.camera;
+      const frame = groups["frame"], motors = groups["motors"], controller = groups["controller"], link = groups["link"], battery = groups["battery"], payload = groups["camera"];
       if (!frame || !motors || !controller || !link || !battery || !payload) return;
       box(frame, 1.45, 0.08, 1.25, carbon, 0, 0.1); box(frame, 1.2, 0.06, 1.05, yellow, 0, 0.42);
       const rotors: InstanceType<typeof THREE.Group>[] = [];
@@ -36,7 +36,7 @@ export function DroneScene(props: Props) {
         const length = Math.hypot(x, z); const arm = box(frame, 0.25, 0.13, length, carbon, x / 2, 0.1, z / 2); arm.rotation.y = Math.atan2(x, z);
         const stripe = box(frame, 0.07, 0.015, length * 0.75, yellow, x / 2, 0.177, z / 2); stripe.rotation.y = arm.rotation.y;
         mesh(motors, new THREE.CylinderGeometry(0.24, 0.21, 0.28, 24), metal, x, 0.28, z); mesh(motors, new THREE.CylinderGeometry(0.26, 0.26, 0.045, 24), yellow, x, 0.4, z);
-        const rotor = new THREE.Group(); rotor.position.set(x, 0.48, z); motors.add(rotor); rotors.push(rotor); rotor.userData.part = "motors";
+        const rotor = new THREE.Group(); rotor.position.set(x, 0.48, z); motors.add(rotor); rotors.push(rotor); rotor.userData["part"] = "motors";
         const prop = box(rotor, 1.55, 0.035, 0.13, x < 0 ? yellow : carbon); prop.rotation.y = x * z > 0 ? 0.4 : -0.4; mesh(rotor, new THREE.CylinderGeometry(0.09, 0.09, 0.09, 16), dark);
         box(frame, 0.08, 0.68, 0.08, metal, x * 0.37, -0.25, z * 0.37);
       }
@@ -51,18 +51,18 @@ export function DroneScene(props: Props) {
       for (const x of [-0.2, 0.2]) { const curve = new THREE.CatmullRomCurve3([new THREE.Vector3(x, 0.6, 0.2), new THREE.Vector3(x, 0.8, 0.5), new THREE.Vector3(x, 0.15, 0.68)]); mesh(controller, new THREE.TubeGeometry(curve, 16, 0.015, 6, false), x < 0 ? yellow : metal); }
       const floor = new THREE.GridHelper(16, 32, silver, ink); floor.position.y = -1.28; const floorMaterials = Array.isArray(floor.material) ? floor.material : [floor.material]; floorMaterials.forEach((m) => { m.transparent = true; m.opacity = 0.16; }); scene.add(floor);
       const halo = new THREE.Mesh(new THREE.RingGeometry(2.65, 2.67, 96), new THREE.MeshBasicMaterial({ color: primary, side: THREE.DoubleSide, transparent: true, opacity: 0.35 })); halo.rotation.x = -Math.PI / 2; halo.position.y = -1.25; scene.add(halo);
-      const resize = () => { const width = container.clientWidth, height = container.clientHeight; renderer.setSize(width, height); camera.aspect = width / Math.max(1, height); camera.updateProjectionMatrix(); };
+      const resize = () => { const width = container.clientWidth, height = container.clientHeight; renderer.setSize(width, height); camera.aspect = width / Math.max(1, height); camera.fov = camera.aspect < 1 ? 59 : 40; camera.updateProjectionMatrix(); };
       const observer = new ResizeObserver(resize); observer.observe(container); resize();
       const raycaster = new THREE.Raycaster(); const pointer = new THREE.Vector2(); let down = { x: 0, y: 0 };
       const onDown = (e: PointerEvent) => { down = { x: e.clientX, y: e.clientY }; };
-      const onUp = (e: PointerEvent) => { if (Math.hypot(e.clientX - down.x, e.clientY - down.y) > 7) return; const r = renderer.domElement.getBoundingClientRect(); pointer.set((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1); raycaster.setFromCamera(pointer, camera); const hit = raycaster.intersectObjects(drone.children, true)[0]; if (hit?.object.userData.part) latest.current.onSelect(String(hit.object.userData.part)); };
+      const onUp = (e: PointerEvent) => { if (Math.hypot(e.clientX - down.x, e.clientY - down.y) > 7) return; const r = renderer.domElement.getBoundingClientRect(); pointer.set((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1); raycaster.setFromCamera(pointer, camera); const hit = raycaster.intersectObjects(drone.children, true)[0]; if (hit?.object.userData["part"]) latest.current.onSelect(String(hit.object.userData["part"])); };
       renderer.domElement.addEventListener("pointerdown", onDown); renderer.domElement.addEventListener("pointerup", onUp);
-      let frameId = 0, lastAngle = "", lastReset = -1; const reduced = window.matchMedia("(prefers-reduced-motion: reduce)"); const positions: Record<string, number> = { frame: 0, motors: 0.85, controller: 1.4, link: 1.95, battery: -0.7, camera: -1.1 }; const start = performance.now(); let visible = true;
+      let frameId = 0, lastAngle = "", lastReset = -1; const reduced = window.matchMedia("(prefers-reduced-motion: reduce)"); const positions: Record<string, number> = { frame: 0, motors: 0.65, controller: 0.95, link: 1.3, battery: -0.5, camera: -0.8 }; const start = performance.now(); let visible = true;
       const intersection = new IntersectionObserver(([entry]) => { visible = entry?.isIntersecting ?? false; }); intersection.observe(container);
       const render = () => { frameId = requestAnimationFrame(render); if (!visible) return; const p = latest.current; const elapsed = (performance.now() - start) / 1000;
         if (lastAngle !== p.angle || lastReset !== p.reset) { lastAngle = p.angle; lastReset = p.reset; if (p.angle === "top") camera.position.set(0.01, 9, 0.01); else if (p.angle === "front") camera.position.set(0, 1.5, 9); else camera.position.set(5, 4.5, 6.5); controls.target.set(0, 0.15, 0); }
         drone.position.y = p.flying && !reduced.matches ? 0.32 + Math.sin(elapsed * 1.7) * 0.07 : 0; drone.rotation.z = p.flying && !reduced.matches ? Math.sin(elapsed) * 0.025 : 0;
-        for (const [id, g] of Object.entries(groups)) { const target = p.exploded ? positions[id] ?? 0 : 0; g.position.y += (target - g.position.y) * (reduced.matches ? 1 : 0.09); g.traverse((o) => { if (o instanceof THREE.Mesh && o.material instanceof THREE.MeshStandardMaterial) { const base = o.userData.baseMaterial as InstanceType<typeof THREE.MeshStandardMaterial> | undefined; if (!base) { o.userData.baseMaterial = o.material; o.material = o.material.clone(); } o.material.emissive.copy(id === p.selected ? primary : ink); o.material.emissiveIntensity = id === p.selected ? 0.18 : 0; } }); }
+        for (const [id, g] of Object.entries(groups)) { const target = p.exploded ? positions[id] ?? 0 : 0; g.position.y += (target - g.position.y) * (reduced.matches ? 1 : 0.09); g.traverse((o) => { if (o instanceof THREE.Mesh && o.material instanceof THREE.MeshStandardMaterial) { const base = o.userData["baseMaterial"] as InstanceType<typeof THREE.MeshStandardMaterial> | undefined; if (!base) { o.userData["baseMaterial"] = o.material; o.material = o.material.clone(); } o.material.emissive.copy(id === p.selected ? primary : ink); o.material.emissiveIntensity = id === p.selected ? 0.18 : 0; } }); }
         if (p.spinning && !reduced.matches) rotors.forEach((r, i) => { r.rotation.y = elapsed * (p.flying ? 34 : 9) * (i % 2 ? 1 : -1); });
         controls.update(); renderer.render(scene, camera);
       }; render(); setReady(true);
