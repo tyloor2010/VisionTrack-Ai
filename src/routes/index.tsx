@@ -230,8 +230,8 @@ function DroneFleet() {
       <div className="relative mx-auto max-w-7xl px-6">
         <SectionHead
           tag={t("VisionTrack Air / VTX-1", "VisionTrack Air / VTX-1")}
-          title={t("Our drones. A wider view.", "طائراتنا المسيّرة. رؤية أوسع.")}
-          sub={t("From the workbench to the search mission: our team-built prototype brings the drone story into VisionTrack's second generation.", "من طاولة العمل إلى مهمة البحث: نموذج أولي صنعه فريقنا ليضيف بُعدًا جويًا إلى الجيل الثاني من VisionTrack.")}
+          title={t("VTX-1. VisionTrack Air.", "VTX-1. وحدة VisionTrack الجوية.")}
+          sub={t("A team-built prototype. An interactive 3D concept. Explore the aircraft, its components and the proposed aerial search workflow.", "نموذج أولي من صنع الفريق وتصوّر تفاعلي ثلاثي الأبعاد. استكشف الطائرة ومكوّناتها ومسار البحث الجوي المقترح.")}
         />
         <DroneShowcase />
       </div>
