@@ -43,7 +43,7 @@
 - [ ] Lighthouse mobile numbers — measure on the published site
 
 ## Polish brief
-- [ ] Expand drone showcase: interactive 3D concept, component inspection, exploded view, flight demonstration, detailed EN/AR explanations, original prototype photo preserved
+- [x] Expand drone showcase: interactive 3D concept, six selectable components, exploded view, flight demonstration, orbit/top/front controls, detailed EN/AR explanations and proposed development workflow; original prototype photo preserved; desktop/508px/360px views and interactions verified
 - [ ] Look-and-read polish pass (see uploaded brief)
 - [x] Responsive: top bar fits 320px+ (no sideways scroll on any page, EN/AR); tablets use menu button
 - [x] Polish: sharper 4px corners, flat buttons, aligned numbers, cleaner wording
