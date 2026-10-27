@@ -14,3 +14,6 @@
 - Camera locations and last-seen points are real Cairo coordinates in `src/data/mock.ts` (`pos` / `lastSeenPos`); map radii are in km.
 - All demo state (cases, alerts, units, tasks, audit, notifications, role) lives in one persisted Zustand store in `src/lib/store.ts`; every action goes through store actions and `emit()` so dashboard, board, bell and audit stay in sync. Why: features must be interconnected, not isolated mockups.
 - Store starts from a fixed seed epoch (SSR-safe) and re-seeds to the real clock after hydration in `StoreSync`. Why: Date.now() during SSR caused hydration mismatches.
+
+- Analytics evaluation uses seeded Alert.truth only in clearly labeled demo quality reports; human-review feedback, evaluation settings and mock schedules live in the shared store. Why: evaluation must not be presented as validated identity accuracy or silently alter operational rules.
+- The public drone showcase preserves the uploaded prototype photo and separates it from explicitly labeled aerial footage and patrol simulations. Why: presentation must not imply verified live hardware telemetry.

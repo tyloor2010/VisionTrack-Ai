@@ -10,6 +10,7 @@ import { useLang } from "@/lib/i18n";
 import { useVT, computeKpis, STATUS_LABEL, can, type CaseStatus } from "@/lib/store";
 import { GlobalSearch } from "@/components/vt/GlobalSearch";
 import { FilterBuilder } from "@/components/vt/SavedViews";
+import { ReviewControls } from "@/components/vt/ReviewControls";
 import { HandoverPanel } from "@/components/vt/CaseTools";
 
 export const Route = createFileRoute("/dashboard/")({
@@ -89,8 +90,7 @@ function Dashboard() {
                 <div className="mt-1 flex items-center justify-between">
                   <span dir="ltr" className="font-mono text-[10px] text-muted-foreground">{t("potential match", "تطابق محتمل")} {a.conf}%</span>
                   <span className="flex gap-1">
-                    <Btn size="sm" variant="success" className="h-6 px-2" title={reviewTip} disabled={!!reviewTip} onClick={() => confirmAlert(a.id)} aria-label={t("Confirm", "تأكيد")}><Check className="h-3 w-3" /></Btn>
-                    <Btn size="sm" variant="ghost" className="h-6 border border-border px-2" title={reviewTip} disabled={!!reviewTip} onClick={() => rejectAlert(a.id)} aria-label={t("Reject", "رفض")}><X className="h-3 w-3" /></Btn>
+                    <ReviewControls alertId={a.id} />
                     <Btn size="sm" variant="alert" className="h-6 px-2" title={dispatchTip} disabled={!!dispatchTip} onClick={() => dispatch(a.caseId, a.id)} aria-label={t("Dispatch unit", "توجيه فريق")}><Truck className="h-3 w-3" /></Btn>
                   </span>
                 </div>

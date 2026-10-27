@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { LayoutGrid, FolderOpen, Grid3x3, Users, Megaphone, Settings, ScanSearch, Cctv, Map as MapIcon, BellRing } from "lucide-react";
+import { LayoutGrid, FolderOpen, Grid3x3, Users, Megaphone, Settings, ScanSearch, Cctv, Map as MapIcon, BellRing, BarChart3, ScanEye, FileText } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { PinnedViews } from "@/components/vt/SavedViews";
 import { WatchStrip, EscalationRunner } from "@/components/vt/CaseTools";
@@ -20,6 +20,9 @@ function DashboardLayout() {
     { to: "/dashboard/cameras", i: Cctv, l: t("Cameras", "الكاميرات"), exact: false },
     { to: "/dashboard/maps", i: MapIcon, l: t("Map studio", "استوديو الخرائط"), exact: false },
     { to: "/dashboard/alerts", i: BellRing, l: t("Alert rules", "قواعد التنبيه"), exact: false },
+    { to: "/dashboard/analytics", i: BarChart3, l: t("Analytics", "التحليلات"), exact: false },
+    { to: "/dashboard/model-quality", i: ScanEye, l: t("Model quality", "جودة النموذج"), exact: false },
+    { to: "/dashboard/model-card", i: FileText, l: t("Model card", "بطاقة النموذج"), exact: false },
   ] as const;
   return (
     <div className="flex min-h-[calc(100vh-4rem)] flex-col md:flex-row">

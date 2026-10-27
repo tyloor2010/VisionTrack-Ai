@@ -9,6 +9,7 @@ import { Btn, Panel } from "@/components/vt/ui";
 import { IntelligenceModule } from "@/components/vt/Intelligence";
 import { IntelMap } from "@/components/vt/IntelMap";
 import { useLang } from "@/lib/i18n";
+import { ReviewControls } from "@/components/vt/ReviewControls";
 import { CaseTools, WatchButton } from "@/components/vt/CaseTools";
 
 export const Route = createFileRoute("/dashboard/case/$id")({
@@ -82,7 +83,7 @@ function CasePage() {
               <div key={k} className="border border-border p-3">
                 <div dir="ltr" className="flex justify-between font-mono text-xs"><span>{caseAlerts[k]!.cam} · <span className="text-muted-foreground">{caseAlerts[k]!.state}</span></span><span className={v >= 70 ? "text-det-red" : "text-warning"}>{v}%</span></div>
                 <div className="mt-2 h-1 bg-secondary"><div className="h-full bg-primary" style={{ width: `${v}%` }} /></div>
-                {caseAlerts[k]!.state === "open" && <span className="mt-2 flex gap-1"><Btn size="sm" variant="success" className="h-6 px-2 text-[10px]" disabled={!can(role, "reviewAlert")} onClick={() => confirmAlert(caseAlerts[k]!.id)}>{t("Confirm", "تأكيد")}</Btn><Btn size="sm" variant="ghost" className="h-6 border border-border px-2 text-[10px]" disabled={!can(role, "reviewAlert")} onClick={() => rejectAlert(caseAlerts[k]!.id)}>{t("Reject", "رفض")}</Btn></span>}
+                {caseAlerts[k]?.state === "open" && <div className="mt-2"><ReviewControls alertId={caseAlerts[k]?.id ?? ""} /></div>}
                 <button onClick={() => setWhy(k)} className="mt-2 flex items-center gap-1 font-mono text-[11px] text-primary hover:underline"><HelpCircle className="h-3 w-3" />{t("Why this match?", "لماذا هذا التطابق؟")}</button>
               </div>
             ))}

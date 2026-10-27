@@ -19,10 +19,13 @@ import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
 import { Route as DashboardAlertsRouteImport } from './routes/dashboard.alerts'
 import { Route as DashboardAlertsComposerRouteImport } from './routes/dashboard.alerts-composer'
+import { Route as DashboardAnalyticsRouteImport } from './routes/dashboard.analytics'
 import { Route as DashboardCamerasRouteImport } from './routes/dashboard.cameras'
 import { Route as DashboardCommandBoardRouteImport } from './routes/dashboard.command-board'
 import { Route as DashboardMapsRouteImport } from './routes/dashboard.maps'
 import { Route as DashboardMediaRouteImport } from './routes/dashboard.media'
+import { Route as DashboardModelCardRouteImport } from './routes/dashboard.model-card'
+import { Route as DashboardModelQualityRouteImport } from './routes/dashboard.model-quality'
 import { Route as DashboardPlannerRouteImport } from './routes/dashboard.planner'
 import { Route as DashboardCaseIdRouteImport } from './routes/dashboard.case.$id'
 
@@ -76,6 +79,11 @@ const DashboardAlertsComposerRoute = DashboardAlertsComposerRouteImport.update({
   path: '/alerts-composer',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardAnalyticsRoute = DashboardAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardCamerasRoute = DashboardCamerasRouteImport.update({
   id: '/cameras',
   path: '/cameras',
@@ -94,6 +102,16 @@ const DashboardMapsRoute = DashboardMapsRouteImport.update({
 const DashboardMediaRoute = DashboardMediaRouteImport.update({
   id: '/media',
   path: '/media',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardModelCardRoute = DashboardModelCardRouteImport.update({
+  id: '/model-card',
+  path: '/model-card',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardModelQualityRoute = DashboardModelQualityRouteImport.update({
+  id: '/model-quality',
+  path: '/model-quality',
   getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardPlannerRoute = DashboardPlannerRouteImport.update({
@@ -117,10 +135,13 @@ export interface FileRoutesByFullPath {
   '/settings': typeof SettingsRoute
   '/dashboard/alerts': typeof DashboardAlertsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
+  '/dashboard/analytics': typeof DashboardAnalyticsRoute
   '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
   '/dashboard/maps': typeof DashboardMapsRoute
   '/dashboard/media': typeof DashboardMediaRoute
+  '/dashboard/model-card': typeof DashboardModelCardRoute
+  '/dashboard/model-quality': typeof DashboardModelQualityRoute
   '/dashboard/planner': typeof DashboardPlannerRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/case/$id': typeof DashboardCaseIdRoute
@@ -134,10 +155,13 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsRoute
   '/dashboard/alerts': typeof DashboardAlertsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
+  '/dashboard/analytics': typeof DashboardAnalyticsRoute
   '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
   '/dashboard/maps': typeof DashboardMapsRoute
   '/dashboard/media': typeof DashboardMediaRoute
+  '/dashboard/model-card': typeof DashboardModelCardRoute
+  '/dashboard/model-quality': typeof DashboardModelQualityRoute
   '/dashboard/planner': typeof DashboardPlannerRoute
   '/dashboard': typeof DashboardIndexRoute
   '/dashboard/case/$id': typeof DashboardCaseIdRoute
@@ -153,10 +177,13 @@ export interface FileRoutesById {
   '/settings': typeof SettingsRoute
   '/dashboard/alerts': typeof DashboardAlertsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
+  '/dashboard/analytics': typeof DashboardAnalyticsRoute
   '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
   '/dashboard/maps': typeof DashboardMapsRoute
   '/dashboard/media': typeof DashboardMediaRoute
+  '/dashboard/model-card': typeof DashboardModelCardRoute
+  '/dashboard/model-quality': typeof DashboardModelQualityRoute
   '/dashboard/planner': typeof DashboardPlannerRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/case/$id': typeof DashboardCaseIdRoute
@@ -173,10 +200,13 @@ export interface FileRouteTypes {
     | '/settings'
     | '/dashboard/alerts'
     | '/dashboard/alerts-composer'
+    | '/dashboard/analytics'
     | '/dashboard/cameras'
     | '/dashboard/command-board'
     | '/dashboard/maps'
     | '/dashboard/media'
+    | '/dashboard/model-card'
+    | '/dashboard/model-quality'
     | '/dashboard/planner'
     | '/dashboard/'
     | '/dashboard/case/$id'
@@ -190,10 +220,13 @@ export interface FileRouteTypes {
     | '/settings'
     | '/dashboard/alerts'
     | '/dashboard/alerts-composer'
+    | '/dashboard/analytics'
     | '/dashboard/cameras'
     | '/dashboard/command-board'
     | '/dashboard/maps'
     | '/dashboard/media'
+    | '/dashboard/model-card'
+    | '/dashboard/model-quality'
     | '/dashboard/planner'
     | '/dashboard'
     | '/dashboard/case/$id'
@@ -208,10 +241,13 @@ export interface FileRouteTypes {
     | '/settings'
     | '/dashboard/alerts'
     | '/dashboard/alerts-composer'
+    | '/dashboard/analytics'
     | '/dashboard/cameras'
     | '/dashboard/command-board'
     | '/dashboard/maps'
     | '/dashboard/media'
+    | '/dashboard/model-card'
+    | '/dashboard/model-quality'
     | '/dashboard/planner'
     | '/dashboard/'
     | '/dashboard/case/$id'
@@ -299,6 +335,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardAlertsComposerRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/analytics': {
+      id: '/dashboard/analytics'
+      path: '/analytics'
+      fullPath: '/dashboard/analytics'
+      preLoaderRoute: typeof DashboardAnalyticsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/cameras': {
       id: '/dashboard/cameras'
       path: '/cameras'
@@ -327,6 +370,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardMediaRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/model-card': {
+      id: '/dashboard/model-card'
+      path: '/model-card'
+      fullPath: '/dashboard/model-card'
+      preLoaderRoute: typeof DashboardModelCardRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/model-quality': {
+      id: '/dashboard/model-quality'
+      path: '/model-quality'
+      fullPath: '/dashboard/model-quality'
+      preLoaderRoute: typeof DashboardModelQualityRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/planner': {
       id: '/dashboard/planner'
       path: '/planner'
@@ -347,10 +404,13 @@ declare module '@tanstack/react-router' {
 interface DashboardRouteChildren {
   DashboardAlertsRoute: typeof DashboardAlertsRoute
   DashboardAlertsComposerRoute: typeof DashboardAlertsComposerRoute
+  DashboardAnalyticsRoute: typeof DashboardAnalyticsRoute
   DashboardCamerasRoute: typeof DashboardCamerasRoute
   DashboardCommandBoardRoute: typeof DashboardCommandBoardRoute
   DashboardMapsRoute: typeof DashboardMapsRoute
   DashboardMediaRoute: typeof DashboardMediaRoute
+  DashboardModelCardRoute: typeof DashboardModelCardRoute
+  DashboardModelQualityRoute: typeof DashboardModelQualityRoute
   DashboardPlannerRoute: typeof DashboardPlannerRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
   DashboardCaseIdRoute: typeof DashboardCaseIdRoute
@@ -359,10 +419,13 @@ interface DashboardRouteChildren {
 const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardAlertsRoute: DashboardAlertsRoute,
   DashboardAlertsComposerRoute: DashboardAlertsComposerRoute,
+  DashboardAnalyticsRoute: DashboardAnalyticsRoute,
   DashboardCamerasRoute: DashboardCamerasRoute,
   DashboardCommandBoardRoute: DashboardCommandBoardRoute,
   DashboardMapsRoute: DashboardMapsRoute,
   DashboardMediaRoute: DashboardMediaRoute,
+  DashboardModelCardRoute: DashboardModelCardRoute,
+  DashboardModelQualityRoute: DashboardModelQualityRoute,
   DashboardPlannerRoute: DashboardPlannerRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   DashboardCaseIdRoute: DashboardCaseIdRoute,
