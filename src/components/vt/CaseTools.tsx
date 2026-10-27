@@ -451,8 +451,8 @@ export function WatchStrip() {
           </span>
         );
       })}
-      <span className="ms-auto flex items-center gap-1">
-        <select value={kind} onChange={(e) => setKind(e.target.value as "camera" | "vehicle")} className={`${inputClass} h-7 w-auto min-w-28 shrink-0 py-0`}><option value="camera">{t("Camera", "كاميرا")}</option><option value="vehicle">{t("Vehicle plate", "لوحة مركبة")}</option></select>
+      <span className="ms-auto flex max-w-full flex-wrap items-center gap-1">
+        <select value={kind} onChange={(e) => setKind(e.target.value as "camera" | "vehicle")} className={`${inputClass} h-7 w-32 shrink-0 py-0`}><option value="camera">{t("Camera", "كاميرا")}</option><option value="vehicle">{t("Vehicle plate", "لوحة مركبة")}</option></select>
         <input value={val} onChange={(e) => setVal(e.target.value)} placeholder={kind === "camera" ? "CAM-014" : "ABC 1234"} className={`${inputClass} h-7 w-28`} />
         <Btn size="sm" className="h-7" disabled={!val.trim()} onClick={() => { toggleWatch({ kind, id: val.trim().toUpperCase() }); setVal(""); }}>+</Btn>
       </span>
