@@ -28,7 +28,7 @@
 - [x] 1. Command palette (Ctrl+K), dashboard search, saved views/filter builder, shortcuts cheat sheet, settings & accessibility center
 - [x] 2. Case tools: notes/@mentions, priority scoring, SLA timers, duplicate merge, handover, watchlist, flyer generator, share links
 - [x] 3. Detection & media tools: video analysis, photo compare, annotation, enhancement, privacy blur, detection filters, camera management
-- [ ] 4. Map options: layer switcher, drawing/measuring, route replay, coordinates, weather overlay
+- [x] 4. Map options: layer switcher, drawing/measuring, route replay, coordinates, weather overlay
 - [ ] 5. Alert rules builder, notification channels, escalation, notification center polish
 - [ ] 6. Analytics, model quality page, feedback loop, exports, model card
 - [ ] 7. Admin: users, role matrix, audit explorer, integrations, API/webhooks, retention, consent

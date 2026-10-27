@@ -20,6 +20,7 @@ import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
 import { Route as DashboardAlertsComposerRouteImport } from './routes/dashboard.alerts-composer'
 import { Route as DashboardCamerasRouteImport } from './routes/dashboard.cameras'
 import { Route as DashboardCommandBoardRouteImport } from './routes/dashboard.command-board'
+import { Route as DashboardMapsRouteImport } from './routes/dashboard.maps'
 import { Route as DashboardMediaRouteImport } from './routes/dashboard.media'
 import { Route as DashboardPlannerRouteImport } from './routes/dashboard.planner'
 import { Route as DashboardCaseIdRouteImport } from './routes/dashboard.case.$id'
@@ -79,6 +80,11 @@ const DashboardCommandBoardRoute = DashboardCommandBoardRouteImport.update({
   path: '/command-board',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardMapsRoute = DashboardMapsRouteImport.update({
+  id: '/maps',
+  path: '/maps',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardMediaRoute = DashboardMediaRouteImport.update({
   id: '/media',
   path: '/media',
@@ -106,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
   '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
+  '/dashboard/maps': typeof DashboardMapsRoute
   '/dashboard/media': typeof DashboardMediaRoute
   '/dashboard/planner': typeof DashboardPlannerRoute
   '/dashboard/': typeof DashboardIndexRoute
@@ -121,6 +128,7 @@ export interface FileRoutesByTo {
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
   '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
+  '/dashboard/maps': typeof DashboardMapsRoute
   '/dashboard/media': typeof DashboardMediaRoute
   '/dashboard/planner': typeof DashboardPlannerRoute
   '/dashboard': typeof DashboardIndexRoute
@@ -138,6 +146,7 @@ export interface FileRoutesById {
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
   '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
+  '/dashboard/maps': typeof DashboardMapsRoute
   '/dashboard/media': typeof DashboardMediaRoute
   '/dashboard/planner': typeof DashboardPlannerRoute
   '/dashboard/': typeof DashboardIndexRoute
@@ -156,6 +165,7 @@ export interface FileRouteTypes {
     | '/dashboard/alerts-composer'
     | '/dashboard/cameras'
     | '/dashboard/command-board'
+    | '/dashboard/maps'
     | '/dashboard/media'
     | '/dashboard/planner'
     | '/dashboard/'
@@ -171,6 +181,7 @@ export interface FileRouteTypes {
     | '/dashboard/alerts-composer'
     | '/dashboard/cameras'
     | '/dashboard/command-board'
+    | '/dashboard/maps'
     | '/dashboard/media'
     | '/dashboard/planner'
     | '/dashboard'
@@ -187,6 +198,7 @@ export interface FileRouteTypes {
     | '/dashboard/alerts-composer'
     | '/dashboard/cameras'
     | '/dashboard/command-board'
+    | '/dashboard/maps'
     | '/dashboard/media'
     | '/dashboard/planner'
     | '/dashboard/'
@@ -282,6 +294,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardCommandBoardRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/maps': {
+      id: '/dashboard/maps'
+      path: '/maps'
+      fullPath: '/dashboard/maps'
+      preLoaderRoute: typeof DashboardMapsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/media': {
       id: '/dashboard/media'
       path: '/media'
@@ -310,6 +329,7 @@ interface DashboardRouteChildren {
   DashboardAlertsComposerRoute: typeof DashboardAlertsComposerRoute
   DashboardCamerasRoute: typeof DashboardCamerasRoute
   DashboardCommandBoardRoute: typeof DashboardCommandBoardRoute
+  DashboardMapsRoute: typeof DashboardMapsRoute
   DashboardMediaRoute: typeof DashboardMediaRoute
   DashboardPlannerRoute: typeof DashboardPlannerRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
@@ -320,6 +340,7 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardAlertsComposerRoute: DashboardAlertsComposerRoute,
   DashboardCamerasRoute: DashboardCamerasRoute,
   DashboardCommandBoardRoute: DashboardCommandBoardRoute,
+  DashboardMapsRoute: DashboardMapsRoute,
   DashboardMediaRoute: DashboardMediaRoute,
   DashboardPlannerRoute: DashboardPlannerRoute,
   DashboardIndexRoute: DashboardIndexRoute,
