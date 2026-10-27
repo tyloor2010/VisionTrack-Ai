@@ -3,6 +3,8 @@ import { persist } from "zustand/middleware";
 import { haversineKm, useVT, type GeoPos, type Case, type Alert } from "./store";
 import { cameras } from "@/data/mock";
 
+export type { GeoPos } from "./store";
+
 /* ================= Base layers & overlays ================= */
 export type BaseLayer = "satellite" | "streets" | "hybrid";
 export type OverlayKey = "cameras" | "units" | "radius" | "weather";
