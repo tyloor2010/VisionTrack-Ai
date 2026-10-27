@@ -196,3 +196,7 @@ html[data-palette="tritanopia"] { --det-yellow: oklch(0.75 0.16 30); --det-cyan:
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } #air-unit * { animation: none !important; transition: none !important; } }
 @media print { body:has(.analytics-print) header, body:has(.analytics-print) footer, body:has(.analytics-print) aside, body:has(.analytics-print) .fixed { display: none !important; } .analytics-print { overflow: visible; } .analytics-print .max-h-96 { max-height: none; overflow: visible; } }
+
+.drone-scene { height: 580px; min-height: 440px; }
+.drone-scene canvas { display: block; width: 100%; height: 100%; touch-action: pan-y; }
+@media (max-width: 639px) { .drone-scene { height: 460px; } }
