@@ -12,6 +12,8 @@ export const Route = createFileRoute("/settings")({
       { name: "description", content: "Display, accessibility, units and language preferences for the VisionTrack AI demo console." },
       { property: "og:title", content: "Settings & Accessibility — VisionTrack AI" },
       { property: "og:description", content: "Display, accessibility, units and language preferences for the VisionTrack AI demo console." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: SettingsPage,

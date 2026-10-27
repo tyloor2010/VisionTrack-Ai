@@ -32,7 +32,7 @@
 - [x] 5. Alert rules builder, notification channels, escalation, notification center polish
 - [x] 6. Analytics, model quality page, feedback loop, exports, model card
 - [x] Make the public homepage drone showcase prominent and interactive using the team's prototype photo
-- [ ] 7. Admin: users, role matrix, audit explorer, integrations, API/webhooks, retention, consent — in progress; demo-only, no real credentials or external requests
+- [x] 7. Admin: users/sessions/MFA display, proposed role matrix + different-role approval, audit search/export/checksum verification, seven integration sandboxes, scoped demo API identifiers/webhooks, retention/legal-hold previews, consent withdrawal and subject requests — demo-only; no real credentials, external requests or operational permission changes; verified EN/AR, phone layouts and end-to-end actions
 - [ ] 8. Citizen/family/volunteer portals, offline PWA, French scaffold
 - [ ] 9. Help, onboarding tour, training mode, changelog, status, feedback, transparency
 - [ ] 10. Tests and polish
