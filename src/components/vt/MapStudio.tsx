@@ -32,6 +32,7 @@ export function MapStudio() {
   const replayMarker = useRef<Marker | null>(null);
   const replayTrail = useRef<Polyline | null>(null);
 
+  const [ready, setReady] = useState(false);
   const [mode, setMode] = useState<Mode>("pan");
   const [draft, setDraft] = useState<GeoPos[]>([]);
   const [cursor, setCursor] = useState<GeoPos | null>(null);
@@ -66,6 +67,7 @@ export function MapStudio() {
       map.on("mousemove", (e) => setCursor({ lat: e.latlng.lat, lng: e.latlng.lng }));
       map.setView([center.lat, center.lng], 13);
       lib.current = { L, map };
+      setReady(true);
     })();
     return () => { cancelled = true; lib.current?.map.remove(); lib.current = null; groups.current = {}; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
