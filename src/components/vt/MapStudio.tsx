@@ -83,7 +83,7 @@ export function MapStudio() {
     const spec = TILES[base];
     tileRef.current.main = L.tileLayer(spec.url, { attribution: spec.attribution, maxZoom: 19, keepBuffer: 6, updateWhenZooming: false }).addTo(map);
     if (spec.sub) tileRef.current.sub = L.tileLayer(spec.sub, { opacity: 0.55, maxZoom: 19, keepBuffer: 6, updateWhenZooming: false }).addTo(map);
-  }, [base]);
+  }, [base, ready]);
 
   /* ---- overlays ---- */
   useEffect(() => {
@@ -117,7 +117,7 @@ export function MapStudio() {
         icon: L.divIcon({ className: "", iconSize: [0, 0], html: `<div dir="ltr" class="-translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-sm border border-det-cyan/40 bg-background/80 px-1.5 py-0.5 font-mono text-[9px] text-foreground">${COND_ICON[w.cond]} ${w.tempC}° <span style="display:inline-block;transform:rotate(${w.windDeg}deg)">→</span> ${w.windKmh}</div>` }),
       }).addTo(g.weather!);
     });
-  }, [overlays, units, center.lat, center.lng]);
+  }, [overlays, units, center.lat, center.lng, ready]);
 
   /* ---- draft drawing ---- */
   useEffect(() => {
@@ -135,7 +135,7 @@ export function MapStudio() {
     draft.forEach((p) => {
       L.marker([p.lat, p.lng], { icon: L.divIcon({ className: "", iconSize: [0, 0], html: `<span class="block h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary"></span>` }) }).addTo(groups.current.draw!);
     });
-  }, [draft, mode]);
+  }, [draft, mode, ready]);
 
   /* ---- saved drawings ---- */
   useEffect(() => {
@@ -149,7 +149,7 @@ export function MapStudio() {
       if (d.kind === "polygon") L.polygon(latlngs, { color: "var(--det-magenta, #e94560)", weight: 1.5, fillOpacity: 0.1 }).addTo(g!);
       else L.polyline(latlngs, { color: "var(--det-magenta, #e94560)", weight: 1.5 }).addTo(g!);
     });
-  }, [drawings]);
+  }, [drawings, ready]);
 
   /* ---- route replay ---- */
   useEffect(() => {
@@ -171,7 +171,7 @@ export function MapStudio() {
       icon: L.divIcon({ className: "", iconSize: [0, 0], html: `<div class="relative -translate-x-1/2 -translate-y-1/2"><span class="absolute -inset-2 rounded-full bg-warning/40 animate-ping-soft"></span><span class="relative block h-3 w-3 rounded-full border-2 border-foreground bg-warning"></span></div>` }),
     }).addTo(g!);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [replayCase, route.length]);
+  }, [replayCase, route.length, ready]);
 
   useEffect(() => {
     if (!playing || route.length < 2) return;
