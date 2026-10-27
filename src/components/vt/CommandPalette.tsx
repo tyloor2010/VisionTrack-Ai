@@ -54,6 +54,7 @@ export function CommandPalette() {
       { id: "p-planner", group: t("Pages", "الصفحات"), label: t("Search planner", "مخطط البحث"), run: () => navigate({ to: "/dashboard/planner" }) },
       { id: "p-board", group: t("Pages", "الصفحات"), label: t("Command board", "لوحة التنسيق"), run: () => navigate({ to: "/dashboard/command-board" }) },
       { id: "p-alert", group: t("Pages", "الصفحات"), label: t("Public alert", "تنبيه عام"), run: () => navigate({ to: "/dashboard/alerts-composer" }) },
+      { id: "p-maps", group: t("Pages", "الصفحات"), label: t("Map studio", "استوديو الخرائط"), run: () => navigate({ to: "/dashboard/maps" }) },
       { id: "p-report", group: t("Pages", "الصفحات"), label: t("Report a case", "إبلاغ عن حالة"), run: () => navigate({ to: "/report" }) },
       { id: "p-registry", group: t("Pages", "الصفحات"), label: t("Safe registry", "السجل الآمن"), run: () => navigate({ to: "/registry" }) },
       { id: "p-security", group: t("Pages", "الصفحات"), label: t("Security", "الأمان"), run: () => navigate({ to: "/security" }) },
