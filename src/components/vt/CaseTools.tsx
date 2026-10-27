@@ -452,8 +452,8 @@ export function WatchStrip() {
         );
       })}
       <span className="ms-auto flex max-w-full flex-wrap items-center gap-1">
-        <select value={kind} onChange={(e) => setKind(e.target.value as "camera" | "vehicle")} className={`${inputClass} h-7 w-32 shrink-0 py-0`}><option value="camera">{t("Camera", "كاميرا")}</option><option value="vehicle">{t("Vehicle plate", "لوحة مركبة")}</option></select>
-        <input value={val} onChange={(e) => setVal(e.target.value)} placeholder={kind === "camera" ? "CAM-014" : "ABC 1234"} className={`${inputClass} h-7 w-28`} />
+        <select value={kind} onChange={(e) => setKind(e.target.value as "camera" | "vehicle")} className="h-8 w-32 shrink-0 rounded-sm border border-input bg-background px-2 text-sm text-foreground focus:border-primary focus:outline-none"><option value="camera">{t("Camera", "كاميرا")}</option><option value="vehicle">{t("Vehicle plate", "لوحة مركبة")}</option></select>
+        <input value={val} onChange={(e) => setVal(e.target.value)} placeholder={kind === "camera" ? "CAM-014" : "ABC 1234"} className="h-8 w-28 shrink-0 rounded-sm border border-input bg-background px-2 text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none" />
         <Btn size="sm" className="h-7" disabled={!val.trim()} onClick={() => { toggleWatch({ kind, id: val.trim().toUpperCase() }); setVal(""); }}>+</Btn>
       </span>
     </div>
