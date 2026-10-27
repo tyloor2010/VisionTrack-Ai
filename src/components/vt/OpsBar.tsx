@@ -29,6 +29,7 @@ export function NoteBell() {
   const { t, lang } = useLang();
   const notes = useVT((s) => s.notes);
   const markAllRead = useVT((s) => s.markAllRead);
+  const markRead = useVT((s) => s.markRead);
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState<"all" | "alert" | "unread">("all");
   const ref = useRef<HTMLDivElement>(null);
@@ -59,8 +60,12 @@ export function NoteBell() {
           <ul className="max-h-80 overflow-auto" aria-live="polite">
             {shown.length === 0 && <li className="p-4 text-center text-xs text-muted-foreground">{t("Nothing here yet.", "لا شيء حتى الآن.")}</li>}
             {shown.map((n) => (
-              <li key={n.id} className={`border-b border-border px-3 py-2 text-xs ${n.read ? "text-muted-foreground" : ""}`}>
-                <span dir="ltr" className="me-2 font-mono text-[10px] text-primary">{new Date(n.at).toLocaleTimeString("en-GB")}</span>{n.msg[lang]}
+              <li key={n.id}>
+                <button onClick={() => markRead(n.id)} className={`flex w-full items-start gap-2 border-b border-border px-3 py-2 text-start text-xs hover:bg-primary/5 ${n.read ? "text-muted-foreground" : ""}`}>
+                  <span className={`mt-1 h-1.5 w-1.5 shrink-0 rounded-full ${n.kind === "alert" ? "bg-det-red" : n.kind === "warning" ? "bg-warning" : n.kind === "success" ? "bg-success" : "bg-det-cyan"}`} aria-hidden />
+                  <span className="min-w-0"><span dir="ltr" className="me-2 font-mono text-[10px] text-primary">{new Date(n.at).toLocaleTimeString("en-GB")}</span>{n.msg[lang]}</span>
+                  {!n.read && <span className="ms-auto mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-label={t("Unread", "غير مقروءة")} />}
+                </button>
               </li>
             ))}
           </ul>

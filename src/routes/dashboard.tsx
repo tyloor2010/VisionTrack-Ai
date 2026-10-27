@@ -1,8 +1,9 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { LayoutGrid, FolderOpen, Grid3x3, Users, Megaphone, Settings, ScanSearch, Cctv, Map as MapIcon } from "lucide-react";
+import { LayoutGrid, FolderOpen, Grid3x3, Users, Megaphone, Settings, ScanSearch, Cctv, Map as MapIcon, BellRing } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { PinnedViews } from "@/components/vt/SavedViews";
 import { WatchStrip, EscalationRunner } from "@/components/vt/CaseTools";
+import { AlertRulesRunner } from "@/components/vt/AlertRules";
 
 export const Route = createFileRoute("/dashboard")({
   component: DashboardLayout,
@@ -18,6 +19,7 @@ function DashboardLayout() {
     { to: "/dashboard/media", i: ScanSearch, l: t("Media lab", "مختبر الوسائط"), exact: false },
     { to: "/dashboard/cameras", i: Cctv, l: t("Cameras", "الكاميرات"), exact: false },
     { to: "/dashboard/maps", i: MapIcon, l: t("Map studio", "استوديو الخرائط"), exact: false },
+    { to: "/dashboard/alerts", i: BellRing, l: t("Alert rules", "قواعد التنبيه"), exact: false },
   ] as const;
   return (
     <div className="flex min-h-[calc(100vh-4rem)] flex-col md:flex-row">
@@ -39,6 +41,7 @@ function DashboardLayout() {
       </aside>
       <div className="min-w-0 flex-1"><div className="px-4 pt-4 sm:px-6"><WatchStrip /></div><Outlet /></div>
       <EscalationRunner />
+      <AlertRulesRunner />
       <div dir="ltr" className="fixed bottom-3 end-3 z-40 border border-warning/60 bg-background/90 px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-warning">
         {t("Demo data — all mocked", "بيانات تجريبية — كلها افتراضية")}
       </div>
