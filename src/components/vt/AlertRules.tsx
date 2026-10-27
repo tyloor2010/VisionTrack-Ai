@@ -3,7 +3,7 @@ import { BellRing, Trash2, Plus, Zap, Megaphone, Send } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { useVT, ROLE_LABEL } from "@/lib/store";
 import { cameras } from "@/data/mock";
-import { useAlertRules, matchingAlerts, evaluateRules, type RuleActionType, type Profile } from "@/lib/alertRules";
+import { useAlertRules, matchingAlerts, evaluateRules, type RuleActionType } from "@/lib/alertRules";
 import { btnClass } from "./ui";
 import type { Profile as ProfileType } from "@/lib/store";
 
