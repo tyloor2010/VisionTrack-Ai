@@ -50,3 +50,4 @@
 
 - [ ] 4-minute Egyptian presentation video (all AI footage) for ITC 2027
 - [x] Film v7: "20+" title + HQ render; v9: rebuilt 1:21 sentence from original v5 audio, correct word at natural speed, no gaps
+- [x] Film: at 1:21 use the narrator's own opening "Vision Track" (same voice, music intact)
