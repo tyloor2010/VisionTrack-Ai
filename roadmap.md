@@ -49,4 +49,4 @@
 - [ ] Larger redesign items (bento home layout, full copy rewrite, phone bottom tab bar, drag alternatives) — waiting for user to pick priorities
 
 - [ ] 4-minute Egyptian presentation video (all AI footage) for ITC 2027
-- [ ] Film v7: change opening title "22 million people." to "20+ million people." (matches narration) and run one final premium quality pass over the whole film
+- [x] Film v7: opening title "20+ million people." + final high-quality render (crf 17, 2560x1440)
