@@ -52,3 +52,4 @@
 - [x] Film v7: "20+" title + HQ render; v9: rebuilt 1:21 sentence from original v5 audio, correct word at natural speed, no gaps
 - [x] Film: at 1:21 use the narrator's own opening "Vision Track" (same voice, music intact)
 - [ ] New 3-minute ITC 2027 hybrid film: completely new story, cinematic Egyptian scenes + premium motion graphics, English titles, Egyptian Arabic narration with verified brand pronunciation
+  - [ ] Replace scene 9 with a logical reunion at the search response point, clearly connected to the drone/command-center search
