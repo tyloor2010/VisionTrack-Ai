@@ -415,8 +415,8 @@ function Credits() {
   const { t, lang } = useLang();
   const team = [
     { n: "Mohamed Nasser", ar: "محمد ناصر", r: t("Project Leader — designed and built the entire website from scratch: the look, the interface, and every page and feature on it. Everything you see here went through his hands.", "مدير المشروع — تولّى تصميم الموقع وتطويره بالكامل من الصفر: الشكل العام، والواجهة، وكل صفحة وكل ميزة فيه. كل ما تراه هنا من إعداده.") },
-    { n: "Youssef Salama", ar: "يوسف سلامة", r: t("Team leader of the first version — he came up with the original idea and started this project in its first year, leading the team alongside Mohamed Nasser. The idea this whole build is built on is his.", "قائد الفريق الأول — صاحب الفكرة الأصلية، أطلق المشروع في عامه الأول وقاد فريقه إلى جانب محمد ناصر. الفكرة التي يقوم عليها هذا العمل كله هي فكرته.") },
     { n: "Alaa Hani", ar: "الاء هاني", r: t("A valued member of the VisionTrack team — a name that deserves special recognition in this project's journey. We proudly celebrate her place alongside the team, with sincere appreciation for her contribution to a shared ambition: technology that makes a difference in people's lives.", "عضو بارز في فريق فيجن تراك — اسم يستحق تقديرًا خاصًّا في مسيرة هذا المشروع. نعتز بوجودها بين أعضاء الفريق، ونثمّن إسهامها في طموح يجمعنا جميعًا: أن تكون التقنية وسيلة لإحداث أثر حقيقي في حياة الناس.") },
+    { n: "Youssef Salama", ar: "يوسف سلامة", r: t("Team leader of the first version — he came up with the original idea and started this project in its first year, leading the team alongside Mohamed Nasser. The idea this whole build is built on is his.", "قائد الفريق الأول — صاحب الفكرة الأصلية، أطلق المشروع في عامه الأول وقاد فريقه إلى جانب محمد ناصر. الفكرة التي يقوم عليها هذا العمل كله هي فكرته.") },
   ];
   return (
     <section className="relative border-t border-border bg-card/40 py-20">
