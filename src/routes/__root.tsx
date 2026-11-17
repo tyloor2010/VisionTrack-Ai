@@ -68,6 +68,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "VisionTrack AI — Every Minute Counts" },
       { property: "og:description", content: "Camera-feed search with confidence scores, predicted search radius and human review, built for the golden hours of a missing person case." },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "google-site-verification", content: "HIxjlc9FvpQQnhhRLElNSD2uw94QBAPe_dlj-Yc38Ug" },
 
     ],
     links: [
