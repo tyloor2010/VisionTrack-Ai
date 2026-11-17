@@ -6,6 +6,7 @@ import { Panel, Btn } from "@/components/vt/ui";
 import { SHORTCUTS } from "@/components/vt/CommandPalette";
 
 export const Route = createFileRoute("/settings")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Settings & Accessibility — VisionTrack AI" },

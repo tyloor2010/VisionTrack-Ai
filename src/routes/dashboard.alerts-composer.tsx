@@ -7,6 +7,7 @@ import { cameras } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/dashboard/alerts-composer")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Public Alert Composer — VisionTrack AI" },

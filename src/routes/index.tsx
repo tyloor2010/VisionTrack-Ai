@@ -19,6 +19,7 @@ import { media } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "VisionTrack AI — Every Minute Counts" },

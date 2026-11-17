@@ -14,6 +14,7 @@ import { ReviewControls } from "@/components/vt/ReviewControls";
 import { HandoverPanel } from "@/components/vt/CaseTools";
 
 export const Route = createFileRoute("/dashboard/")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Command Dashboard — VisionTrack AI" },

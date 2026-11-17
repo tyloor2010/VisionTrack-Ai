@@ -5,6 +5,7 @@ import { Btn, Panel, SectionHead, inputClass, btnClass } from "@/components/vt/u
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/registry")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Voluntary Safe Registry — VisionTrack AI" },

@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useLang } from "@/lib/i18n";
 import { btnClass } from "@/components/vt/ui";
 export const Route = createFileRoute("/dashboard/model-card")({
+  staticData: { sitemap: false },
   head: () => ({meta:[{title:"Model Card — VisionTrack AI v2"},{name:"description",content:"VisionTrack v2 demo model card: intended use, data placeholders, limitations, failure cases and human-review policy."},{property:"og:title",content:"Model Card — VisionTrack AI v2"},{property:"og:description",content:"Intended use and limits of the VisionTrack demonstration."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary"}]}),
   component: ModelCard,
 });

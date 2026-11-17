@@ -3,6 +3,7 @@ import { MapStudio } from "@/components/vt/MapStudio";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/dashboard/maps")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Map Studio — VisionTrack AI" },

@@ -13,6 +13,7 @@ import { ReviewControls } from "@/components/vt/ReviewControls";
 import { CaseTools, WatchButton } from "@/components/vt/CaseTools";
 
 export const Route = createFileRoute("/dashboard/case/$id")({
+  staticData: { sitemap: false },
   head: ({ params }) => ({
     meta: [
       { title: `Case ${params.id} — VisionTrack AI` },

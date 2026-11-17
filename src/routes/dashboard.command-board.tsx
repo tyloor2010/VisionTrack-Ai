@@ -6,6 +6,7 @@ import { useLang } from "@/lib/i18n";
 import { useVT, type Agency, type TaskCol } from "@/lib/store";
 
 export const Route = createFileRoute("/dashboard/command-board")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Multi-Agency Command Board — VisionTrack AI" },

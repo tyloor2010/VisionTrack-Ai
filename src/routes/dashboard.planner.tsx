@@ -5,6 +5,7 @@ import { Btn, Panel } from "@/components/vt/ui";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/dashboard/planner")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Search Grid Planner — VisionTrack AI" },

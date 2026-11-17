@@ -16,6 +16,7 @@ import { Route as RegistryRouteImport } from './routes/registry'
 import { Route as ReportRouteImport } from './routes/report'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
 import { Route as DashboardAdminRouteImport } from './routes/dashboard.admin'
 import { Route as DashboardAlertsRouteImport } from './routes/dashboard.alerts'
@@ -66,6 +67,11 @@ const SecurityRoute = SecurityRouteImport.update({
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
@@ -157,6 +163,7 @@ export interface FileRoutesByFullPath {
   '/report': typeof ReportRoute
   '/security': typeof SecurityRoute
   '/settings': typeof SettingsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard/admin': typeof DashboardAdminRoute
   '/dashboard/alerts': typeof DashboardAlertsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
@@ -181,6 +188,7 @@ export interface FileRoutesByTo {
   '/report': typeof ReportRoute
   '/security': typeof SecurityRoute
   '/settings': typeof SettingsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard/admin': typeof DashboardAdminRoute
   '/dashboard/alerts': typeof DashboardAlertsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
@@ -207,6 +215,7 @@ export interface FileRoutesById {
   '/report': typeof ReportRoute
   '/security': typeof SecurityRoute
   '/settings': typeof SettingsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard/admin': typeof DashboardAdminRoute
   '/dashboard/alerts': typeof DashboardAlertsRoute
   '/dashboard/alerts-composer': typeof DashboardAlertsComposerRoute
@@ -234,6 +243,7 @@ export interface FileRouteTypes {
     | '/report'
     | '/security'
     | '/settings'
+    | '/sitemap.xml'
     | '/dashboard/admin'
     | '/dashboard/alerts'
     | '/dashboard/alerts-composer'
@@ -258,6 +268,7 @@ export interface FileRouteTypes {
     | '/report'
     | '/security'
     | '/settings'
+    | '/sitemap.xml'
     | '/dashboard/admin'
     | '/dashboard/alerts'
     | '/dashboard/alerts-composer'
@@ -283,6 +294,7 @@ export interface FileRouteTypes {
     | '/report'
     | '/security'
     | '/settings'
+    | '/sitemap.xml'
     | '/dashboard/admin'
     | '/dashboard/alerts'
     | '/dashboard/alerts-composer'
@@ -309,6 +321,7 @@ export interface RootRouteChildren {
   ReportRoute: typeof ReportRoute
   SecurityRoute: typeof SecurityRoute
   SettingsRoute: typeof SettingsRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -360,6 +373,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/': {
@@ -527,6 +547,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReportRoute: ReportRoute,
   SecurityRoute: SecurityRoute,
   SettingsRoute: SettingsRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

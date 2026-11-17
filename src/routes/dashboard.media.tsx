@@ -3,6 +3,7 @@ import { MediaLab } from "@/components/vt/MediaLab";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/dashboard/media")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Media Lab — VisionTrack AI" },

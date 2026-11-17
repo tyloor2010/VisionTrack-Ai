@@ -3,6 +3,7 @@ import { AlertRules } from "@/components/vt/AlertRules";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/dashboard/alerts")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Alert Rules — VisionTrack AI" },

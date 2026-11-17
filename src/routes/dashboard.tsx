@@ -6,6 +6,7 @@ import { WatchStrip, EscalationRunner } from "@/components/vt/CaseTools";
 import { AlertRulesRunner } from "@/components/vt/AlertRules";
 
 export const Route = createFileRoute("/dashboard")({
+  staticData: { sitemap: "exclude-subtree" },
   component: DashboardLayout,
 });
 

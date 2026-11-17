@@ -4,6 +4,7 @@ import { Reveal, SectionHead } from "@/components/vt/ui";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/security")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Security & Responsible AI — VisionTrack AI" },

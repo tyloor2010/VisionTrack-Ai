@@ -10,6 +10,7 @@ import { Panel, Btn, inputClass } from "@/components/vt/ui";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/dashboard/cameras")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Camera Management — VisionTrack AI" },
