@@ -84,7 +84,7 @@ export function Footer() {
           <p className="border-s-2 border-warning ps-3 text-muted-foreground">
             {t("VisionTrack AI assists authorities; it never replaces human judgment.", "VisionTrack AI أداة مساندة للجهات المختصة، ولا تحلّ محل التقدير البشري بأي حال.")}
           </p>
-          <p className="mt-4 font-mono text-xs uppercase tracking-widest text-primary">{t("Built for ISEF", "طُوِّر لمسابقة آيسف")} · 2027</p>
+          <p className="mt-4 font-mono text-xs uppercase tracking-widest text-primary">{t("Built for ISEF", "طُوِّر لمسابقة آيسف")} · 2026</p>
         </div>
       </div>
     </footer>
