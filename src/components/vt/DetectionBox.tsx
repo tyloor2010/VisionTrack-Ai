@@ -38,6 +38,9 @@ export function DetectionBox({ label, confidence, color = "yellow", x, y, w, h, 
 
   const c = colorVar[color];
   const strong = (conf ?? 80) >= 70 || alert;
+  // keep the label inside the container: flip alignment near the right/top edges
+  const nearRight = x + w > 72;
+  const nearTop = y < 12;
 
   return (
     <motion.div
@@ -60,7 +63,7 @@ export function DetectionBox({ label, confidence, color = "yellow", x, y, w, h, 
       />
       <div
         dir="ltr"
-        className="absolute -top-[18px] start-[-1px] whitespace-nowrap px-1 font-mono text-[10px] font-semibold leading-[18px] text-ink sm:text-[11px]"
+        className={`absolute whitespace-nowrap px-1 font-mono text-[10px] font-semibold leading-[18px] text-ink sm:text-[11px] ${nearTop ? "top-0" : "-top-[18px]"} ${nearRight ? "end-[-1px]" : "start-[-1px]"}`}
         style={{ background: c }}
       >
         {alert && "⚠ "}
