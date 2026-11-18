@@ -12,7 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import { MotionConfig } from "framer-motion";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
+import { reportError } from "../lib/error-reporting";
 import { LangProvider } from "@/lib/i18n";
 import { Navbar, Footer } from "@/components/vt/Shell";
 import { btnClass } from "@/components/vt/ui";
@@ -38,7 +38,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    reportError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
   return (

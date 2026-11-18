@@ -1,22 +1,22 @@
-# Visiontrack2027
+# VisionTrack AI
 
-Implement exactly the screenshot and nothing else
+AI-assisted missing-person search and rescue coordination platform — second generation (v2), built for ISEF 2026.
 
-This project was built with [Lovable](https://lovable.dev).
+**Live app**: https://visiontrackai.site
 
-**Live app**: https://visiontrack2027.lovable.app
+## What it does
 
-## Build with Lovable
+VisionTrack AI helps coordinate the search for missing persons: a report comes in, AI-assisted camera search scans a live satellite map of Cairo, drones extend the search from above, and a command center keeps every lead, alert and unit in sync — with human review at every step and privacy controls built in.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/a3e83e95-ec13-4dc9-9e41-ae21b3d7e281).
+## Hardware
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+- **Vision Box** — a wall-mounted smart vision unit (ESP32-CAM) that watches a street corner around the clock.
+- **VTX-1** — a team-built micro drone prototype that carries a miniaturised Vision Box for aerial search.
+- **Nano Tracker** — a coin-sized GPS + Bluetooth tag design concept that stays with the person.
 
 ## Development
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
 
 ```sh
 git clone <this-repository-url>
