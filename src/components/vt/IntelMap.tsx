@@ -30,9 +30,9 @@ export function IntelMap({ center, layers, className = "h-72" }: { center: LL; l
         L.circle(l.at, { radius: l.km * 1000, color: "#ef4444", weight: 2, dashArray: "4 4", fillOpacity: 0.15 }).addTo(g);
         L.marker(l.at, { icon: L.divIcon({ className: "", html: `<div style="background:#ef4444;color:#111;font:700 10px monospace;padding:0 4px;white-space:nowrap;transform:translate(-50%,-50%)">${l.label}</div>` }) }).addTo(g);
       } else if (l.kind === "path") {
-        L.polyline(l.pts, { color: l.color, weight: 2, dashArray: l.dashed ? "5 5" : undefined }).addTo(g);
+        L.polyline(l.pts, { color: l.color, weight: 3.5, opacity: 0.95, dashArray: l.dashed ? "6 6" : undefined }).addTo(g);
       } else if (l.kind === "node") {
-        L.marker(l.at, { icon: L.divIcon({ className: "", html: `<div style="background:${l.color};color:#111;font:700 10px monospace;padding:0 4px;white-space:nowrap;border-radius:2px;transform:translate(-50%,-50%)">${l.label}</div>` }) }).addTo(g);
+        L.marker(l.at, { icon: L.divIcon({ className: "", html: `<div style="background:${l.color};color:#0b0b0b;font:800 13px monospace;padding:3px 8px;white-space:nowrap;border-radius:4px;border:2px solid rgba(0,0,0,.85);box-shadow:0 0 0 2px ${l.color},0 0 14px 3px ${l.color};transform:translate(-50%,-50%)">${l.label}</div>` }) }).addTo(g);
       } else if (l.kind === "zone") {
         L.circle(l.at, { radius: l.rx * 1000, color: "#f59e0b", weight: 1, fillColor: "#f59e0b", fillOpacity: 0.22 }).addTo(g);
         L.marker(l.at, { icon: L.divIcon({ className: "", html: `<div style="color:#f59e0b;font:700 11px monospace;white-space:nowrap;transform:translate(-50%,-50%)">${l.label}</div>` }) }).addTo(g);
@@ -64,5 +64,5 @@ export function IntelMap({ center, layers, className = "h-72" }: { center: LL; l
 
   useEffect(draw, [layers]);
 
-  return <div ref={holder} className={`leaflet-hud w-full brightness-75 ${className}`} />;
+  return <div ref={holder} className={`leaflet-hud w-full brightness-95 ${className}`} />;
 }
