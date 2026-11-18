@@ -13,6 +13,7 @@ export function Navbar() {
   const links = [
     { to: "/", label: t("Overview", "نظرة عامة") },
     { to: "/demo", label: t("Live Demo", "عرض حي") },
+    { to: "/drones", label: t("Drones", "الطائرات المسيّرة") },
     { to: "/dashboard", label: t("Command", "مركز القيادة") },
     { to: "/report", label: t("Report", "إبلاغ") },
     { to: "/registry", label: t("Registry", "السجل الآمن") },
@@ -75,6 +76,7 @@ export function Footer() {
         </div>
         <div className="font-mono text-xs uppercase tracking-wider text-muted-foreground space-y-2">
           <Link to="/demo" className="block hover:text-primary">{t("Live Demo", "عرض حي")}</Link>
+          <Link to="/drones" className="block hover:text-primary">{t("Drones", "الطائرات المسيّرة")}</Link>
           <Link to="/dashboard" className="block hover:text-primary">{t("Command Dashboard", "لوحة القيادة")}</Link>
           <Link to="/report" className="block hover:text-primary">{t("Report", "إبلاغ")}</Link>
           <Link to="/registry" className="block hover:text-primary">{t("Safe registry", "السجل الآمن")}</Link>

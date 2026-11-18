@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DemoRouteImport } from './routes/demo'
+import { Route as DronesRouteImport } from './routes/drones'
 import { Route as RegistryRouteImport } from './routes/registry'
 import { Route as ReportRouteImport } from './routes/report'
 import { Route as SecurityRouteImport } from './routes/security'
@@ -47,6 +48,11 @@ const DashboardRoute = DashboardRouteImport.update({
 const DemoRoute = DemoRouteImport.update({
   id: '/demo',
   path: '/demo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DronesRoute = DronesRouteImport.update({
+  id: '/drones',
+  path: '/drones',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RegistryRoute = RegistryRouteImport.update({
@@ -159,6 +165,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/demo': typeof DemoRoute
+  '/drones': typeof DronesRoute
   '/registry': typeof RegistryRoute
   '/report': typeof ReportRoute
   '/security': typeof SecurityRoute
@@ -184,6 +191,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/demo': typeof DemoRoute
+  '/drones': typeof DronesRoute
   '/registry': typeof RegistryRoute
   '/report': typeof ReportRoute
   '/security': typeof SecurityRoute
@@ -211,6 +219,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/demo': typeof DemoRoute
+  '/drones': typeof DronesRoute
   '/registry': typeof RegistryRoute
   '/report': typeof ReportRoute
   '/security': typeof SecurityRoute
@@ -239,6 +248,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/demo'
+    | '/drones'
     | '/registry'
     | '/report'
     | '/security'
@@ -264,6 +274,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/demo'
+    | '/drones'
     | '/registry'
     | '/report'
     | '/security'
@@ -290,6 +301,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/demo'
+    | '/drones'
     | '/registry'
     | '/report'
     | '/security'
@@ -317,6 +329,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRouteWithChildren
   DemoRoute: typeof DemoRoute
+  DronesRoute: typeof DronesRoute
   RegistryRoute: typeof RegistryRoute
   ReportRoute: typeof ReportRoute
   SecurityRoute: typeof SecurityRoute
@@ -345,6 +358,13 @@ declare module '@tanstack/react-router' {
       path: '/demo'
       fullPath: '/demo'
       preLoaderRoute: typeof DemoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drones': {
+      id: '/drones'
+      path: '/drones'
+      fullPath: '/drones'
+      preLoaderRoute: typeof DronesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/registry': {
@@ -543,6 +563,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRouteWithChildren,
   DemoRoute: DemoRoute,
+  DronesRoute: DronesRoute,
   RegistryRoute: RegistryRoute,
   ReportRoute: ReportRoute,
   SecurityRoute: SecurityRoute,

@@ -12,10 +12,8 @@ import { MediaCycle, type CycleLayer } from "@/components/vt/MediaCycle";
 
 import { SectionBg } from "@/components/vt/SectionBg";
 import { LiveDemo } from "@/components/vt/LiveDemo";
-import { DroneShowcase } from "@/components/vt/DroneShowcase";
 import { VisionBox } from "@/components/vt/VisionBox";
 import { Counter, Panel, Reveal, SectionHead, btnClass, inputClass, Btn } from "@/components/vt/ui";
-import aerialClip from "@/assets/drone-aerial.webm.asset.json";
 import { media } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
 
@@ -60,7 +58,6 @@ function Index() {
   return (
     <>
       <Hero />
-      <DroneFleet />
       <VisionBoxSection />
       <Problem />
       <HowItWorks />
@@ -220,23 +217,6 @@ function DemoSection() {
       <div className="relative">
         <SectionHead tag={t("Live demo", "عرض حي")} title={t("Run a search yourself.", "جرّب البحث بنفسك.")} sub={t("Select a profile, start the search, and review the alert like an operator would.", "اختر حالة، وابدأ البحث، ثم راجع التنبيه كما يفعل المشغّل تمامًا.")} />
         <LiveDemo />
-      </div>
-    </section>
-  );
-}
-
-function DroneFleet() {
-  const { t } = useLang();
-  return (
-    <section id="air-unit" className="relative isolate scroll-mt-20 overflow-hidden border-y border-border py-16 sm:py-24">
-      <SectionBg video={aerialClip.url} poster={media.aerialV2x} position="object-center" />
-      <div className="relative mx-auto max-w-7xl px-6">
-        <SectionHead
-          tag={t("VisionTrack Air / VTX-1", "VisionTrack Air / VTX-1")}
-          title={t("Our drones. A wider view.", "طائراتنا المسيّرة. رؤية أوسع.")}
-          sub={t("From the workbench to the search mission: our team-built prototype brings the drone story into VisionTrack's second generation.", "من طاولة العمل إلى مهمة البحث: نموذج أولي صنعه فريقنا ليضيف بُعدًا جويًا إلى الجيل الثاني من VisionTrack.")}
-        />
-        <DroneShowcase />
       </div>
     </section>
   );
