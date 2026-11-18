@@ -7,6 +7,7 @@ import aerialClip from "@/assets/drone-aerial.webm.asset.json";
 import integrationSnapFly from "@/assets/integration-snap-fly.jpg.asset.json";
 import integrationPayload from "@/assets/integration-payload.jpg.asset.json";
 import integrationAssembly from "@/assets/integration-assembly.webp.asset.json";
+import nanoTrackerSheet from "@/assets/nano-tracker-sheet.jpg.asset.json";
 import { media } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
 
@@ -39,7 +40,7 @@ function DevicesPage() {
           <SectionHead
             tag={t("Our devices", "أجهزتنا")}
             title={t("Built by us, for the search.", "من صنعنا، من أجل البحث.")}
-            sub={t("Two pieces of hardware carry VisionTrack AI into the street: a small wall unit that watches a corner around the clock, and a drone that searches from above.", "قطعتان من العتاد تنقلان VisionTrack AI إلى الشارع: وحدة جدارية صغيرة تراقب الناصية على مدار الساعة، ومسيّرة تبحث من الأعلى.")}
+            sub={t("Three pieces of hardware carry VisionTrack AI into the street: a small wall unit that watches a corner around the clock, a drone that searches from above, and a pocket tracker that stays with the person.", "ثلاث قطع من العتاد تنقل VisionTrack AI إلى الشارع: وحدة جدارية صغيرة تراقب الناصية على مدار الساعة، ومسيّرة تبحث من الأعلى، ومتتبّع جيبي يبقى مع الشخص.")}
           />
         </div>
       </section>
@@ -89,6 +90,25 @@ function DevicesPage() {
               </figure>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section id="nano-tracker" className="relative isolate scroll-mt-20 overflow-hidden border-t border-border py-16 sm:py-24">
+        <div className="relative mx-auto max-w-7xl px-6">
+          <SectionHead
+            tag={t("Nano Tracker / Design concept", "Nano Tracker / تصميم مبدئي")}
+            title={t("A tracker that stays with them.", "متتبّع يبقى معهم.")}
+            sub={t("Our next design concept: a coin-sized GPS and Bluetooth tag that clips onto a bag, a keychain or a jacket. It broadcasts its position on its own, and when someone is close by, a loud buzzer helps pinpoint them. Small enough to go anywhere — loud enough to be found.", "تصميمنا المبدئي القادم: شريحة بحجم العملة المعدنية تعمل بنظامَي GPS وBluetooth وتُعلَّق على حقيبة أو ميدالية مفاتيح أو سترة. تبثّ موقعها بشكل مستقل، وعند الاقتراب منها يصدر جرس عالٍ يساعد على تحديد مكانها بدقة. صغيرة بما يكفي لتذهب إلى أي مكان — وعالية الصوت بما يكفي ليُعثر عليها.")}
+          />
+          <figure className="overflow-hidden rounded-sm border border-border bg-card">
+            <a href={nanoTrackerSheet.url} target="_blank" rel="noreferrer">
+              <img src={nanoTrackerSheet.url} alt={t("DIY Nano Tracker design sheet — standalone GPS and Bluetooth tracking system", "لوحة تصميم Nano Tracker — نظام تتبّع مستقل بنظامَي GPS وBluetooth")} loading="lazy" decoding="async" className="w-full" />
+            </a>
+            <figcaption className="border-t border-border px-4 py-2.5">
+              <p className="text-sm font-bold">{t("The full design sheet", "لوحة التصميم الكاملة")}</p>
+              <p className="mt-1 text-xs text-muted-foreground">{t("Dual-mode locating with GPS and Bluetooth 5.0, a replaceable coin-cell battery, a 90dB finder buzzer, and snap-on mounts for bags, keychains and flat surfaces — from signal, to map, to sound, to recovery.", "تحديد مزدوج للموقع عبر GPS وBluetooth 5.0، وبطارية قابلة للاستبدال، وجرس تحديد بقوة 90 ديسيبل، وقواعد تثبيت للحقائب والمفاتيح والأسطح المستوية — من الإشارة، إلى الخريطة، إلى الصوت، إلى الاستعادة.")}</p>
+            </figcaption>
+          </figure>
         </div>
       </section>
     </>
