@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { useVT } from "@/lib/store";
+import { listDeviceAssignments, setDeviceAssignment } from "@/lib/deviceAssignments.functions";
 
 type Row = { device_id: string; case_id: string | null };
 
@@ -18,25 +18,17 @@ function apply(rows: Row[]) {
 
 /** Save one assignment so it survives reloads and reaches the whole team. */
 export async function saveAssignment(deviceId: string, caseId: string | undefined) {
-  const { error } = await supabase
-    .from("device_assignments")
-    .upsert({ device_id: deviceId, case_id: caseId ?? null, updated_at: new Date().toISOString() });
-  if (error) console.error("saveAssignment", error);
+  try { await setDeviceAssignment({ data: { deviceId: deviceId as never, caseId: caseId ?? null } }); }
+  catch (e) { console.error("saveAssignment", e); }
 }
 
-/** Load saved assignments and keep them live while the page is open. */
+/** Load saved assignments and refresh every 10 s while the page is open. */
 export function useDeviceAssignmentSync() {
   useEffect(() => {
     let alive = true;
-    supabase.from("device_assignments").select("device_id, case_id").then(({ data }) => {
-      if (alive && data) apply(data);
-    });
-    const ch = supabase
-      .channel("device_assignments")
-      .on("postgres_changes", { event: "*", schema: "public", table: "device_assignments" }, (p) => {
-        if (p.new && "device_id" in p.new) apply([p.new as Row]);
-      })
-      .subscribe();
-    return () => { alive = false; supabase.removeChannel(ch); };
+    const load = () => listDeviceAssignments().then((rows) => { if (alive) apply(rows); }).catch(() => {});
+    load();
+    const t = setInterval(load, 10000);
+    return () => { alive = false; clearInterval(t); };
   }, []);
 }
