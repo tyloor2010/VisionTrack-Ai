@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "4f6c5326-4088-477d-bd26-a7547be0ce41",
+  "asset_id": "d4296588-c2cb-46f5-af33-521b8f64d897",
   "project_id": "a3e83e95-ec13-4dc9-9e41-ae21b3d7e281",
-  "url": "/__l5e/assets-v1/4f6c5326-4088-477d-bd26-a7547be0ce41/vision-box-device.png",
-  "r2_key": "a/v1/a3e83e95-ec13-4dc9-9e41-ae21b3d7e281/4f6c5326-4088-477d-bd26-a7547be0ce41/vision-box-device.png",
-  "original_filename": "vision-box-device.png",
-  "size": 49759,
+  "url": "/__l5e/assets-v1/d4296588-c2cb-46f5-af33-521b8f64d897/vision-box-esp32-device.png",
+  "r2_key": "a/v1/a3e83e95-ec13-4dc9-9e41-ae21b3d7e281/d4296588-c2cb-46f5-af33-521b8f64d897/vision-box-esp32-device.png",
+  "original_filename": "vision-box-esp32-device.png",
+  "size": 99643,
   "content_type": "image/png",
-  "created_at": "2026-11-18T01:53:36Z"
+  "created_at": "2026-11-18T02:08:11Z"
 }
