@@ -4,6 +4,9 @@ import { useLang } from "@/lib/i18n";
 import device from "@/assets/vision-box-device.png.asset.json";
 import exploded from "@/assets/vision-box-exploded.png.asset.json";
 import sheet from "@/assets/vision-box-sheet.png.asset.json";
+import cadPerspective from "@/assets/vision-box-cad-perspective.png.asset.json";
+import cadInternal from "@/assets/vision-box-cad-internal.png.asset.json";
+import cadSide from "@/assets/vision-box-cad-side.png.asset.json";
 
 export function VisionBox() {
   const { t } = useLang();
@@ -33,6 +36,11 @@ export function VisionBox() {
     [Battery, t("Battery", "البطارية"), "3.7V 2000 mAh Li-Po"],
         [Ruler, t("Dimensions", "الأبعاد"), "60 × 63 × 53 mm"],
   ] as const;
+  const cad: [typeof sheet, string, string][] = [
+    [cadPerspective, t("Perspective view", "المنظور المجسَّم"), t("Closed shell with the lens opening and the side ports.", "الغلاف مغلقًا مع فتحة العدسة والمنافذ الجانبية.")],
+    [cadInternal, t("Internal view", "المنظر الداخلي"), t("The shell from inside with the camera module and the board seated.", "الغلاف من الداخل مع وحدة الكاميرا واللوحة الإلكترونية.")],
+    [cadSide, t("Angled side view", "المنظر الجانبي المائل"), t("Depth, the mounting holes and the lens barrel.", "السماكة وثقوب التثبيت وحاجز العدسة.")],
+  ];
   return (
     <div className="space-y-10">
       <div className="grid items-center gap-8 lg:grid-cols-2">
@@ -94,6 +102,21 @@ export function VisionBox() {
               <p dir="ltr" className="font-mono text-sm font-semibold text-primary">{n}</p>
               <p className="mt-1 text-sm text-muted-foreground">{d}</p>
             </div>
+          ))}
+        </div>
+      </Reveal>
+
+      <Reveal>
+        <h3 className="mb-4 inline-block bg-primary px-1.5 font-mono text-xs font-semibold leading-5 text-primary-foreground" dir="ltr">3D CAD MODEL</h3>
+        <p className="mb-4 max-w-3xl text-sm text-muted-foreground">{t(
+          "The outer shell was modelled in 3D before building: a 63 × 63 mm body with four corner mounts, a lens opening at the front, side openings for the indicators and the power port, and inside, fixed seats for the camera module and the board.",
+          "صُمِّم الغلاف الخارجي بالنمذجة ثلاثية الأبعاد قبل التصنيع: جسم بأبعاد 63 × 63 ملم، وأربعة مثبتات في الأركان، وفتحة للعدسة في المقدّمة، وفتحات جانبية للمؤشرات ومنفذ الطاقة، وفي الداخل مقاعد ثابتة لوحدة الكاميرا واللوحة الإلكترونية.")}</p>
+        <div className="grid gap-4 md:grid-cols-3">
+          {cad.map(([asset, title, body], i) => (
+            <Panel key={i} title={title} className="h-full">
+              <img src={asset.url} alt={`${title} of the Vision Box shell 3D model`} loading="lazy" className="w-full" />
+              <p className="border-t border-border px-4 py-2.5 text-xs text-muted-foreground">{body}</p>
+            </Panel>
           ))}
         </div>
       </Reveal>
