@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { Lightbox } from "@/components/vt/Lightbox";
 import { DroneShowcase } from "@/components/vt/DroneShowcase";
 import { VisionBox } from "@/components/vt/VisionBox";
 import { SectionBg } from "@/components/vt/SectionBg";
@@ -32,6 +34,7 @@ export const Route = createFileRoute("/devices")({
 
 function DevicesPage() {
   const { t } = useLang();
+  const [zoom, setZoom] = useState<string | null>(null);
   return (
     <>
       <section className="relative isolate overflow-hidden px-4 py-14">
@@ -82,7 +85,7 @@ function DevicesPage() {
               [integrationAssembly, t("Step-by-step mounting", "التركيب خطوة بخطوة"), t("Slide, click, plug, fly — the full quick-release assembly with no screws and no tools.", "ازلق، انقر، وصّل، ثم حلّق — التجميع الكامل بنظام الفك السريع دون براغي أو أدوات.")],
             ].map(([asset, title, body], i) => (
               <figure key={i} className="overflow-hidden rounded-sm border border-border bg-card">
-                <a href={(asset as typeof integrationSnapFly).url} target="_blank" rel="noreferrer"><img src={(asset as typeof integrationSnapFly).url} alt={`${title} — Vision Box and VTX-1 drone integration diagram`} loading="lazy" decoding="async" className="w-full" /></a>
+                <button type="button" onClick={() => setZoom((asset as typeof integrationSnapFly).url)} className="block w-full cursor-zoom-in"><img src={(asset as typeof integrationSnapFly).url} alt={`${title} — Vision Box and VTX-1 drone integration diagram`} loading="lazy" decoding="async" className="w-full" /></button>
                 <figcaption className="border-t border-border px-4 py-2.5">
                   <p className="text-sm font-bold">{title as string}</p>
                   <p className="mt-1 text-xs text-muted-foreground">{body as string}</p>
@@ -101,9 +104,9 @@ function DevicesPage() {
             sub={t("Our next design concept: a coin-sized GPS and Bluetooth tag that clips onto a bag, a keychain or a jacket. It broadcasts its position on its own, and when someone is close by, a loud buzzer helps pinpoint them. Small enough to go anywhere — loud enough to be found.", "تصميمنا المبدئي القادم: شريحة بحجم العملة المعدنية تعمل بنظامَي GPS وBluetooth وتُعلَّق على حقيبة أو ميدالية مفاتيح أو سترة. تبثّ موقعها بشكل مستقل، وعند الاقتراب منها يصدر جرس عالٍ يساعد على تحديد مكانها بدقة. صغيرة بما يكفي لتذهب إلى أي مكان — وعالية الصوت بما يكفي ليُعثر عليها.")}
           />
           <figure className="overflow-hidden rounded-sm border border-border bg-card">
-            <a href={nanoTrackerSheet.url} target="_blank" rel="noreferrer">
+            <button type="button" onClick={() => setZoom(nanoTrackerSheet.url)} className="block w-full cursor-zoom-in">
               <img src={nanoTrackerSheet.url} alt={t("DIY Nano Tracker design sheet — standalone GPS and Bluetooth tracking system", "لوحة تصميم Nano Tracker — نظام تتبّع مستقل بنظامَي GPS وBluetooth")} loading="lazy" decoding="async" className="w-full" />
-            </a>
+            </button>
             <figcaption className="border-t border-border px-4 py-2.5">
               <p className="text-sm font-bold">{t("The full design sheet", "لوحة التصميم الكاملة")}</p>
               <p className="mt-1 text-xs text-muted-foreground">{t("Dual-mode locating with GPS and Bluetooth 5.0, a replaceable coin-cell battery, a 90dB finder buzzer, and snap-on mounts for bags, keychains and flat surfaces — from signal, to map, to sound, to recovery.", "تحديد مزدوج للموقع عبر GPS وBluetooth 5.0، وبطارية قابلة للاستبدال، وجرس تحديد بقوة 90 ديسيبل، وقواعد تثبيت للحقائب والمفاتيح والأسطح المستوية — من الإشارة، إلى الخريطة، إلى الصوت، إلى الاستعادة.")}</p>
@@ -111,6 +114,7 @@ function DevicesPage() {
           </figure>
         </div>
       </section>
+      <Lightbox src={zoom} onClose={() => setZoom(null)} />
     </>
   );
 }

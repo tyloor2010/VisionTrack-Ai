@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Play, Pause, RotateCcw, Radio, Satellite, Navigation, Camera, Plane, ArrowUpRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { IntelMap, type IntelLayer, type LL } from "./IntelMap";
+import { Lightbox } from "./Lightbox";
 import { Btn, btnClass } from "./ui";
 import aerialClip from "@/assets/drone-aerial.webm.asset.json";
 import droneAssembly from "@/assets/drone-assembly.jpg.asset.json";
@@ -15,6 +16,7 @@ export function DroneShowcase() {
   const { t } = useLang();
   const [view, setView] = useState<"prototype" | "aerial" | "patrol">("prototype");
   const [running, setRunning] = useState(false);
+  const [zoom, setZoom] = useState<string | null>(null);
   const [step, setStep] = useState(0);
   useEffect(() => {
     if (!running) return;
@@ -71,15 +73,16 @@ export function DroneShowcase() {
         "كيف تُجمَّع VTX-1: هيكل مطبوع بالطابعة ثلاثية الأبعاد، وأربعة محركات بلا قلب مع مراوح، ولوحة تحكم في الطيران من نوع Arduino، ووحدة بلوتوث HC-05، وحساس حركة MPU6050، وبطارية ليثيوم بوليمر — بوزن إجمالي يقارب 45 غرامًا وزمن طيران من 5 إلى 7 دقائق.")}</p>
       <div className="grid gap-4 lg:grid-cols-2">
         <figure className="overflow-hidden rounded-sm border border-border bg-card">
-          <a href={droneAssembly.url} target="_blank" rel="noreferrer"><img src={droneAssembly.url} alt="VTX-1 micro drone assembly diagram: 3D-printed frame, coreless motors, propellers, Arduino flight controller, HC-05 Bluetooth module, MPU6050 IMU sensor and Li-Po battery" loading="lazy" decoding="async" className="w-full" /></a>
+          <button type="button" onClick={() => setZoom(droneAssembly.url)} className="block w-full cursor-zoom-in"><img src={droneAssembly.url} alt="VTX-1 micro drone assembly diagram: 3D-printed frame, coreless motors, propellers, Arduino flight controller, HC-05 Bluetooth module, MPU6050 IMU sensor and Li-Po battery" loading="lazy" decoding="async" className="w-full" /></button>
           <figcaption className="border-t border-border px-4 py-2.5 text-xs text-muted-foreground">{t("Assembly diagram — every part and where it sits.", "مخطط التجميع — كل قطعة ومكانها.")}</figcaption>
         </figure>
         <figure className="overflow-hidden rounded-sm border border-border bg-card">
-          <a href={droneSheet.url} target="_blank" rel="noreferrer"><img src={droneSheet.url} alt="VTX-1 micro drone design sheet: exploded view, components and specs, and the control signal flow from phone to stable flight" loading="lazy" decoding="async" className="w-full" /></a>
+          <button type="button" onClick={() => setZoom(droneSheet.url)} className="block w-full cursor-zoom-in"><img src={droneSheet.url} alt="VTX-1 micro drone design sheet: exploded view, components and specs, and the control signal flow from phone to stable flight" loading="lazy" decoding="async" className="w-full" /></button>
           <figcaption className="border-t border-border px-4 py-2.5 text-xs text-muted-foreground">{t("Full design sheet — exploded view, specs and signal flow.", "لوحة التصميم الكاملة — المنظر التفكيكي والمواصفات ومسار الإشارة.")}</figcaption>
         </figure>
       </div>
     </div>
     <div className="mt-5 flex flex-wrap items-center justify-between gap-4"><p className="max-w-2xl text-xs text-muted-foreground">{t("Prototype shown is ours. Patrol movement and aerial footage are demonstrations, not proof of a live connection or measured flight performance.", "النموذج المعروض من صنع فريقنا. حركة الدورية والتصوير الجوي للعرض التوضيحي، ولا يثبتان اتصالًا مباشرًا أو أداء طيران مقاسًا.")}</p><Link to="/dashboard/case/$id" params={{ id: "VT-2041" }} className={btnClass("outline", "sm")}>{t("Open aerial case view", "عرض الحالة من الجو")}<ArrowUpRight className="h-4 w-4" /></Link></div>
+    <Lightbox src={zoom} onClose={() => setZoom(null)} />
   </div>;
 }

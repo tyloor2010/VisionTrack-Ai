@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Camera, ScanFace, Database, Bell, MapPin, Cloud, Cpu, Battery, Wifi, HardDrive, Ruler, Plug } from "lucide-react";
 import { Panel, Reveal } from "@/components/vt/ui";
+import { Lightbox } from "@/components/vt/Lightbox";
 import { useLang } from "@/lib/i18n";
 import device from "@/assets/vision-box-device.png.asset.json";
 import exploded from "@/assets/vision-box-exploded.png.asset.json";
@@ -12,6 +14,7 @@ import shellBlueprint from "@/assets/vision-box-shell-blueprint.webp.asset.json"
 
 export function VisionBox() {
   const { t } = useLang();
+  const [zoom, setZoom] = useState<string | null>(null);
   const steps = [
     [Camera, t("Capture", "الالتقاط"), t("The 2 MP camera captures images around the clock.", "تلتقط كاميرا بدقة 2 ميغابكسل الصور على مدار الساعة.")],
     [ScanFace, t("Detect", "الرصد"), t("On-board AI finds faces in every frame.", "يرصد الذكاء الاصطناعي داخل الجهاز الوجوه في كل إطار.")],
@@ -114,7 +117,7 @@ export function VisionBox() {
           "The unit goes together in seven steps: the magnetic wall mount, the back shell, the Li-Po battery, the USB-C power board with the buzzer and LEDs, the ESP32-CAM with the OV2640 camera, the aluminium lens ring, and finally the tempered glass front cover.",
           "يُجمَّع الجهاز في سبع خطوات: القاعدة المغناطيسية للتثبيت على الجدار، ثم الغلاف الخلفي، ثم بطارية الليثيوم بوليمر، ثم لوحة الطاقة بمنفذ USB-C مع الصفارة والمؤشرات الضوئية، ثم لوحة ESP32-CAM بكاميرا OV2640، ثم حلقة العدسة المصنوعة من الألومنيوم، وأخيرًا الغطاء الأمامي من الزجاج المقوّى.")}</p>
         <Panel title={t("Step-by-step assembly diagram", "مخطط التجميع خطوة بخطوة")}>
-          <a href={assembly.url} target="_blank" rel="noreferrer"><img src={assembly.url} alt="Vision Box assembly diagram: magnetic wall mount, back shell, Li-Po battery, USB-C power board, ESP32-CAM with OV2640 camera, lens ring and front glass cover" loading="lazy" className="w-full" /></a>
+          <button type="button" onClick={() => setZoom(assembly.url)} className="block w-full cursor-zoom-in"><img src={assembly.url} alt="Vision Box assembly diagram: magnetic wall mount, back shell, Li-Po battery, USB-C power board, ESP32-CAM with OV2640 camera, lens ring and front glass cover" loading="lazy" className="w-full" /></button>
         </Panel>
       </Reveal>
 
@@ -132,7 +135,7 @@ export function VisionBox() {
           ))}
         </div>
         <Panel title={t("3D-printable back shell blueprint", "المخطط الهندسي للغلاف الخلفي القابل للطباعة ثلاثية الأبعاد")} className="mt-4">
-          <a href={shellBlueprint.url} target="_blank" rel="noreferrer"><img src={shellBlueprint.url} alt="Vision Box back shell engineering blueprint: front and rear isometric views, cross-section, M2 screw bosses, battery bay, magnetic mount recess, USB-C cutouts, 2.0 mm wall thickness" loading="lazy" className="w-full" /></a>
+          <button type="button" onClick={() => setZoom(shellBlueprint.url)} className="block w-full cursor-zoom-in"><img src={shellBlueprint.url} alt="Vision Box back shell engineering blueprint: front and rear isometric views, cross-section, M2 screw bosses, battery bay, magnetic mount recess, USB-C cutouts, 2.0 mm wall thickness" loading="lazy" className="w-full" /></button>
           <p className="border-t border-border px-4 py-2.5 text-xs text-muted-foreground">{t(
             "The master blueprint for 3D printing the back shell: reinforced M2 corner screw bosses, a ribbed battery bay, a deep recess for the magnetic wall mount, USB-C and vent cutouts, and a 2.0 mm wall — 60 × 63 × 53 mm overall.",
             "المخطط الأساسي لطباعة الغلاف الخلفي بالطابعة ثلاثية الأبعاد: دعامات براغي M2 مقوّاة في الأركان، وحجرة بطارية مضلَّعة، وتجويف عميق للقاعدة المغناطيسية، وفتحات لمنفذ USB-C والتهوية، وسماكة جدار 2.0 ملم — بأبعاد إجمالية 60 × 63 × 53 ملم.")}</p>
@@ -141,9 +144,10 @@ export function VisionBox() {
 
       <Reveal>
         <Panel title={t("Full design sheet", "لوحة التصميم الكاملة")}>
-          <a href={sheet.url} target="_blank" rel="noreferrer"><img src={sheet.url} alt="Vision Box full design sheet" loading="lazy" className="w-full" /></a>
+          <button type="button" onClick={() => setZoom(sheet.url)} className="block w-full cursor-zoom-in"><img src={sheet.url} alt="Vision Box full design sheet" loading="lazy" className="w-full" /></button>
         </Panel>
       </Reveal>
+      <Lightbox src={zoom} onClose={() => setZoom(null)} />
     </div>
   );
 }
