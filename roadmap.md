@@ -56,4 +56,4 @@
 
 ## Corrections
 - [x] Competition renamed to ISEF 2026 (was ITC 2027) — footer + model card
-- [ ] Reconnect Google Search Console in the new workspace (verify site, submit sitemap) — user request after workspace move
+- [x] Reconnected Google Search Console in the new workspace — site already verified, sitemap submitted (5 pages, 0 errors)
