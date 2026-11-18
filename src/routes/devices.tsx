@@ -36,8 +36,19 @@ function DevicesPage() {
           <SectionHead
             tag={t("Our devices", "أجهزتنا")}
             title={t("Built by us, for the search.", "من صنعنا، من أجل البحث.")}
-            sub={t("Two pieces of hardware carry VisionTrack AI into the street: a drone that searches from above, and a small wall unit that watches a corner around the clock.", "قطعتان من العتاد تنقلان VisionTrack AI إلى الشارع: مسيّرة تبحث من الأعلى، ووحدة جدارية صغيرة تراقب الناصية على مدار الساعة.")}
+            sub={t("Two pieces of hardware carry VisionTrack AI into the street: a small wall unit that watches a corner around the clock, and a drone that searches from above.", "قطعتان من العتاد تنقلان VisionTrack AI إلى الشارع: وحدة جدارية صغيرة تراقب الناصية على مدار الساعة، ومسيّرة تبحث من الأعلى.")}
           />
+        </div>
+      </section>
+
+      <section id="vision-box" className="relative isolate scroll-mt-20 overflow-hidden border-t border-border py-16 sm:py-24 hud-grid">
+        <div className="relative mx-auto max-w-7xl px-6">
+          <SectionHead
+            tag="VISION BOX / SMART VISION UNIT"
+            title={t("Vision Box. See. Detect. Protect.", "Vision Box. يرى. يرصد. يحمي.")}
+            sub={t("Our wall-mounted hardware unit brings VisionTrack's AI to every street corner — always watching for a safer world.", "وحدتنا الجدارية تنقل ذكاء VisionTrack إلى كل ناصية، وتبقى يقظة من أجل عالم أكثر أمانًا.")}
+          />
+          <VisionBox />
         </div>
       </section>
 
@@ -50,17 +61,6 @@ function DevicesPage() {
             sub={t("From the workbench to the search mission: our team-built prototype brings the drone story into VisionTrack's second generation.", "من طاولة العمل إلى مهمة البحث: نموذج أولي صنعه فريقنا ليضيف بُعدًا جويًا إلى الجيل الثاني من VisionTrack.")}
           />
           <DroneShowcase />
-        </div>
-      </section>
-
-      <section id="vision-box" className="relative isolate scroll-mt-20 overflow-hidden border-t border-border py-16 sm:py-24 hud-grid">
-        <div className="relative mx-auto max-w-7xl px-6">
-          <SectionHead
-            tag="VISION BOX / SMART VISION UNIT"
-            title={t("Vision Box. See. Detect. Protect.", "Vision Box. يرى. يرصد. يحمي.")}
-            sub={t("Our wall-mounted hardware unit brings VisionTrack's AI to every street corner — always watching for a safer world.", "وحدتنا الجدارية تنقل ذكاء VisionTrack إلى كل ناصية، وتبقى يقظة من أجل عالم أكثر أمانًا.")}
-          />
-          <VisionBox />
         </div>
       </section>
     </>
