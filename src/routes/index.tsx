@@ -13,6 +13,7 @@ import { MediaCycle, type CycleLayer } from "@/components/vt/MediaCycle";
 import { SectionBg } from "@/components/vt/SectionBg";
 import { LiveDemo } from "@/components/vt/LiveDemo";
 import { DroneShowcase } from "@/components/vt/DroneShowcase";
+import { VisionBox } from "@/components/vt/VisionBox";
 import { Counter, Panel, Reveal, SectionHead, btnClass, inputClass, Btn } from "@/components/vt/ui";
 import aerialClip from "@/assets/drone-aerial.webm.asset.json";
 import { media } from "@/data/mock";
@@ -60,6 +61,7 @@ function Index() {
     <>
       <Hero />
       <DroneFleet />
+      <VisionBoxSection />
       <Problem />
       <HowItWorks />
       <DemoSection />
@@ -235,6 +237,22 @@ function DroneFleet() {
           sub={t("From the workbench to the search mission: our team-built prototype brings the drone story into VisionTrack's second generation.", "من طاولة العمل إلى مهمة البحث: نموذج أولي صنعه فريقنا ليضيف بُعدًا جويًا إلى الجيل الثاني من VisionTrack.")}
         />
         <DroneShowcase />
+      </div>
+    </section>
+  );
+}
+
+function VisionBoxSection() {
+  const { t } = useLang();
+  return (
+    <section id="vision-box" className="relative isolate scroll-mt-20 overflow-hidden py-16 sm:py-24 hud-grid">
+      <div className="relative mx-auto max-w-7xl px-6">
+        <SectionHead
+          tag="VISION BOX / SMART VISION UNIT"
+          title={t("Vision Box. See. Detect. Protect.", "Vision Box. يرى. يرصد. يحمي.")}
+          sub={t("Our wall-mounted hardware unit brings VisionTrack's AI to every street corner — always watching for a safer world.", "وحدتنا الجدارية تنقل ذكاء VisionTrack إلى كل ناصية، وتبقى يقظة من أجل عالم أكثر أمانًا.")}
+        />
+        <VisionBox />
       </div>
     </section>
   );
