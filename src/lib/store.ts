@@ -164,7 +164,7 @@ type Actions = {
   setRole: (r: Role) => void;
   reset: () => void;
   /** Event bus: one call updates audit log, notification center, toast and the case timeline. */
-  emit: (e: { action: string; msg: Txt; kind?: Note["kind"]; caseId?: string; quiet?: boolean }) => void;
+  emit: (e: { action: string; msg: Txt; kind?: Note["kind"]; caseId?: string; quiet?: boolean; noToast?: boolean }) => void;
   transition: (caseId: string, to: CaseStatus) => boolean;
   confirmAlert: (id: string, reason?: ReviewReason) => void;
   rejectAlert: (id: string, reason?: ReviewReason) => void;
@@ -197,7 +197,7 @@ export const useVT = create<Data & Actions>()(
       },
       setRole: (role) => { set({ role }); get().emit({ action: `ROLE switched to ${role}`, msg: { en: `Now acting as ${ROLE_LABEL[role].en}`, ar: `الدور الحالي: ${ROLE_LABEL[role].ar}` } }); },
       reset: () => { set(fresh(Date.now())); toast.success(langRef === "ar" ? "أُعيد ضبط البيانات التجريبية" : "Demo data reset"); },
-      emit: ({ action, msg, kind = "info", caseId, quiet = false }) => {
+      emit: ({ action, msg, kind = "info", caseId, quiet = false, noToast = false }) => {
         const s = get(); const at = Date.now();
         set({
           seq: s.seq + 1,
@@ -207,7 +207,7 @@ export const useVT = create<Data & Actions>()(
           cases: caseId && !quiet ? s.cases.map((c) => (c.id === caseId ? { ...c, timeline: [...c.timeline, { at, msg }] } : c)) : s.cases,
         });
         const t = msg[langRef];
-        if (quiet) return;
+        if (quiet || noToast) return;
         if (kind === "alert" || kind === "warning") toast.warning(t); else if (kind === "success") toast.success(t); else toast(t);
       },
       transition: (caseId, to) => {

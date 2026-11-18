@@ -234,7 +234,7 @@ export function EscalationRunner() {
           markFired(key);
           if (r.action === "raisePriority") setOverride(c.id, { score: Math.min(100, pr + 10), reason: `Auto-escalation ${r.id}` });
           const who = r.action === "notifyAll" ? { en: "all roles", ar: "جميع الأدوار" } : r.action === "notifySupervisor" ? { en: "supervisor", ar: "المشرف" } : { en: "priority raised", ar: "رُفعت الأولوية" };
-          emit({ action: `ESCALATION ${r.id} ${r.cond} -> ${r.action}`, msg: { en: `Escalation on ${c.id}: ${who.en}`, ar: `تصعيد للحالة ${c.id}: ${who.ar}` }, kind: "warning", caseId: c.id });
+          emit({ action: `ESCALATION ${r.id} ${r.cond} -> ${r.action}`, msg: { en: `Escalation on ${c.id}: ${who.en}`, ar: `تصعيد للحالة ${c.id}: ${who.ar}` }, kind: "warning", caseId: c.id, noToast: true });
         }
       }
     };
