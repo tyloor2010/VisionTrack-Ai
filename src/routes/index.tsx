@@ -12,7 +12,6 @@ import { MediaCycle, type CycleLayer } from "@/components/vt/MediaCycle";
 
 import { SectionBg } from "@/components/vt/SectionBg";
 import { LiveDemo } from "@/components/vt/LiveDemo";
-import { VisionBox } from "@/components/vt/VisionBox";
 import { Counter, Panel, Reveal, SectionHead, btnClass, inputClass, Btn } from "@/components/vt/ui";
 import { media } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
@@ -58,7 +57,6 @@ function Index() {
   return (
     <>
       <Hero />
-      <VisionBoxSection />
       <Problem />
       <HowItWorks />
       <DemoSection />
@@ -124,7 +122,6 @@ function Hero() {
             <Link to="/demo" className={btnClass("primary", "lg")}>{t("Launch Live Demo", "جرّب العرض الحي")}</Link>
             <Link to="/report" className={btnClass("outline", "lg")}>{t("Report a Missing Person", "أبلِغ عن شخص مفقود")}</Link>
           </div>
-          <a href="#air-unit" className="mt-6 inline-flex items-center gap-3 border-s-2 border-det-cyan ps-3 text-sm font-semibold text-det-cyan">VTX-1 · {t("Meet our drone prototype ↗", "تعرّف إلى نموذج طائرتنا المسيّرة ↗")}</a>
         </motion.div>
         <HudText className="mt-12" lines={["SYSTEM STATUS: ONLINE", `ACCURACY: ${n.acc}%`, `CAMERAS: ${n.cams} ACTIVE`, `FRAMES: ${n.frames.toLocaleString("en")}`, "MODEL: VISIONTRACK v2"]} />
       </div>
@@ -217,22 +214,6 @@ function DemoSection() {
       <div className="relative">
         <SectionHead tag={t("Live demo", "عرض حي")} title={t("Run a search yourself.", "جرّب البحث بنفسك.")} sub={t("Select a profile, start the search, and review the alert like an operator would.", "اختر حالة، وابدأ البحث، ثم راجع التنبيه كما يفعل المشغّل تمامًا.")} />
         <LiveDemo />
-      </div>
-    </section>
-  );
-}
-
-function VisionBoxSection() {
-  const { t } = useLang();
-  return (
-    <section id="vision-box" className="relative isolate scroll-mt-20 overflow-hidden py-16 sm:py-24 hud-grid">
-      <div className="relative mx-auto max-w-7xl px-6">
-        <SectionHead
-          tag="VISION BOX / SMART VISION UNIT"
-          title={t("Vision Box. See. Detect. Protect.", "Vision Box. يرى. يرصد. يحمي.")}
-          sub={t("Our wall-mounted hardware unit brings VisionTrack's AI to every street corner — always watching for a safer world.", "وحدتنا الجدارية تنقل ذكاء VisionTrack إلى كل ناصية، وتبقى يقظة من أجل عالم أكثر أمانًا.")}
-        />
-        <VisionBox />
       </div>
     </section>
   );

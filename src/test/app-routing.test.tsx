@@ -14,4 +14,12 @@ describe("App routing", () => {
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
+
+  it("serves the devices page and drops the old drones page", () => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+
+    expect(Object.keys(router.routesById)).toContain("/devices");
+    expect(router.matchRoutes("/devices").at(-1)?.routeId).not.toBe(rootRouteId);
+    expect(Object.keys(router.routesById)).not.toContain("/drones");
+  });
 });

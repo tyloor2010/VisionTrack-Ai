@@ -57,3 +57,4 @@
 ## Corrections
 - [x] Competition renamed to ISEF 2026 (was ITC 2027) — footer + model card
 - [x] Reconnected Google Search Console in the new workspace — site already verified, sitemap submitted (5 pages, 0 errors)
+- [x] Prototype (drone + Vision Box) moved out of the homepage into a new "Our Devices" tab; old drones page, its nav/footer links and the homepage device section removed
