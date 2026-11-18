@@ -4,6 +4,8 @@ import { Link } from "@tanstack/react-router";
 import { IntelMap, type IntelLayer, type LL } from "./IntelMap";
 import { Btn, btnClass } from "./ui";
 import aerialClip from "@/assets/drone-aerial.webm.asset.json";
+import droneAssembly from "@/assets/drone-assembly.jpg.asset.json";
+import droneSheet from "@/assets/drone-sheet.jpg.asset.json";
 import { media } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
 
@@ -61,6 +63,22 @@ export function DroneShowcase() {
         ["02", t("One search, two perspectives", "بحث واحد، من منظورين"), t("Drone imagery joins the camera search, bringing aerial leads into the same review workflow.", "تتكامل صور الطائرات المسيّرة مع البحث عبر الكاميرات، ضمن مسار مراجعة واحد.")],
         ["03", t("The decision stays human", "القرار يبقى للإنسان"), t("Potential match — requires human review. No autonomous pursuit or dispatch.", "تطابق محتمل — يتطلب مراجعة بشرية. لا ملاحقة ولا توجيه للفرق بصورة مستقلة.")],
       ].map(([n,h,p]) => <div key={n}><span className="font-mono text-xs text-primary">{n}</span><h3 className="mt-2 text-xl font-bold">{h}</h3><p className="mt-2 text-sm text-muted-foreground">{p}</p></div>)}
+    </div>
+    <div className="border-b border-border py-7">
+      <h3 className="mb-4 inline-block bg-primary px-1.5 font-mono text-xs font-semibold leading-5 text-primary-foreground" dir="ltr">ENGINEERING</h3>
+      <p className="mb-4 max-w-3xl text-sm text-muted-foreground">{t(
+        "How VTX-1 is put together: a 3D-printed frame, four coreless motors with propellers, an Arduino flight controller, an HC-05 Bluetooth module, an MPU6050 motion sensor and a Li-Po battery — about 45 g all in, with 5–7 minutes of flight.",
+        "كيف تُجمَّع VTX-1: هيكل مطبوع بالطابعة ثلاثية الأبعاد، وأربعة محركات بلا قلب مع مراوح، ولوحة تحكم في الطيران من نوع Arduino، ووحدة بلوتوث HC-05، وحساس حركة MPU6050، وبطارية ليثيوم بوليمر — بوزن إجمالي يقارب 45 غرامًا وزمن طيران من 5 إلى 7 دقائق.")}</p>
+      <div className="grid gap-4 lg:grid-cols-2">
+        <figure className="overflow-hidden rounded-sm border border-border bg-card">
+          <a href={droneAssembly.url} target="_blank" rel="noreferrer"><img src={droneAssembly.url} alt="VTX-1 micro drone assembly diagram: 3D-printed frame, coreless motors, propellers, Arduino flight controller, HC-05 Bluetooth module, MPU6050 IMU sensor and Li-Po battery" loading="lazy" decoding="async" className="w-full" /></a>
+          <figcaption className="border-t border-border px-4 py-2.5 text-xs text-muted-foreground">{t("Assembly diagram — every part and where it sits.", "مخطط التجميع — كل قطعة ومكانها.")}</figcaption>
+        </figure>
+        <figure className="overflow-hidden rounded-sm border border-border bg-card">
+          <a href={droneSheet.url} target="_blank" rel="noreferrer"><img src={droneSheet.url} alt="VTX-1 micro drone design sheet: exploded view, components and specs, and the control signal flow from phone to stable flight" loading="lazy" decoding="async" className="w-full" /></a>
+          <figcaption className="border-t border-border px-4 py-2.5 text-xs text-muted-foreground">{t("Full design sheet — exploded view, specs and signal flow.", "لوحة التصميم الكاملة — المنظر التفكيكي والمواصفات ومسار الإشارة.")}</figcaption>
+        </figure>
+      </div>
     </div>
     <div className="mt-5 flex flex-wrap items-center justify-between gap-4"><p className="max-w-2xl text-xs text-muted-foreground">{t("Prototype shown is ours. Patrol movement and aerial footage are demonstrations, not proof of a live connection or measured flight performance.", "النموذج المعروض من صنع فريقنا. حركة الدورية والتصوير الجوي للعرض التوضيحي، ولا يثبتان اتصالًا مباشرًا أو أداء طيران مقاسًا.")}</p><Link to="/dashboard/case/$id" params={{ id: "VT-2041" }} className={btnClass("outline", "sm")}>{t("Open aerial case view", "عرض الحالة من الجو")}<ArrowUpRight className="h-4 w-4" /></Link></div>
   </div>;
