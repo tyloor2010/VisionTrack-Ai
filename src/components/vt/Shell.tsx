@@ -78,12 +78,18 @@ export function Navbar() {
               </div>
               <div className="flex-1 overflow-y-auto py-3">
                 {links.map((l) => (
-                  <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="block px-6 py-3.5 font-mono text-sm uppercase tracking-wider text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground" activeProps={{ className: "border-s-2 border-primary bg-primary/5 text-primary" }}>
+                  <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="block px-6 py-2.5 font-mono text-sm uppercase tracking-wider text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground" activeProps={{ className: "border-s-2 border-primary bg-primary/5 text-primary" }}>
                     {l.label}
                   </Link>
                 ))}
               </div>
-              <div className="border-t border-border p-5 sm:hidden"><RoleSwitch /></div>
+              <div className="mt-auto space-y-4 border-t border-border p-5">
+                <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-success">
+                  <span className="relative flex h-2 w-2"><span className="absolute inset-0 rounded-full bg-success animate-ping-soft" /><span className="relative h-2 w-2 rounded-full bg-success" /></span>
+                  {t("System Online", "النظام متصل")}
+                </div>
+                <div className="sm:hidden"><RoleSwitch /></div>
+              </div>
             </motion.nav>
           </>
         )}
