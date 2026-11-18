@@ -7,6 +7,8 @@ import sheet from "@/assets/vision-box-sheet.png.asset.json";
 import cadPerspective from "@/assets/vision-box-cad-perspective.png.asset.json";
 import cadInternal from "@/assets/vision-box-cad-internal.png.asset.json";
 import cadSide from "@/assets/vision-box-cad-side.png.asset.json";
+import assembly from "@/assets/vision-box-assembly.webp.asset.json";
+import shellBlueprint from "@/assets/vision-box-shell-blueprint.webp.asset.json";
 
 export function VisionBox() {
   const { t } = useLang();
@@ -107,6 +109,16 @@ export function VisionBox() {
       </Reveal>
 
       <Reveal>
+        <h3 className="mb-4 inline-block bg-primary px-1.5 font-mono text-xs font-semibold leading-5 text-primary-foreground" dir="ltr">ASSEMBLY STEPS</h3>
+        <p className="mb-4 max-w-3xl text-sm text-muted-foreground">{t(
+          "The unit goes together in seven steps: the magnetic wall mount, the back shell, the Li-Po battery, the USB-C power board with the buzzer and LEDs, the ESP32-CAM with the OV2640 camera, the aluminium lens ring, and finally the tempered glass front cover.",
+          "يُجمَّع الجهاز في سبع خطوات: القاعدة المغناطيسية للتثبيت على الجدار، ثم الغلاف الخلفي، ثم بطارية الليثيوم بوليمر، ثم لوحة الطاقة بمنفذ USB-C مع الصفارة والمؤشرات الضوئية، ثم لوحة ESP32-CAM بكاميرا OV2640، ثم حلقة العدسة المصنوعة من الألومنيوم، وأخيرًا الغطاء الأمامي من الزجاج المقوّى.")}</p>
+        <Panel title={t("Step-by-step assembly diagram", "مخطط التجميع خطوة بخطوة")}>
+          <a href={assembly.url} target="_blank" rel="noreferrer"><img src={assembly.url} alt="Vision Box assembly diagram: magnetic wall mount, back shell, Li-Po battery, USB-C power board, ESP32-CAM with OV2640 camera, lens ring and front glass cover" loading="lazy" className="w-full" /></a>
+        </Panel>
+      </Reveal>
+
+      <Reveal>
         <h3 className="mb-4 inline-block bg-primary px-1.5 font-mono text-xs font-semibold leading-5 text-primary-foreground" dir="ltr">3D CAD MODEL</h3>
         <p className="mb-4 max-w-3xl text-sm text-muted-foreground">{t(
           "The outer shell was modelled in 3D before building: a 63 × 63 mm body with four corner mounts, a lens opening at the front, side openings for the indicators and the power port, and inside, fixed seats for the camera module and the board.",
@@ -119,6 +131,12 @@ export function VisionBox() {
             </Panel>
           ))}
         </div>
+        <Panel title={t("3D-printable back shell blueprint", "المخطط الهندسي للغلاف الخلفي القابل للطباعة ثلاثية الأبعاد")} className="mt-4">
+          <a href={shellBlueprint.url} target="_blank" rel="noreferrer"><img src={shellBlueprint.url} alt="Vision Box back shell engineering blueprint: front and rear isometric views, cross-section, M2 screw bosses, battery bay, magnetic mount recess, USB-C cutouts, 2.0 mm wall thickness" loading="lazy" className="w-full" /></a>
+          <p className="border-t border-border px-4 py-2.5 text-xs text-muted-foreground">{t(
+            "The master blueprint for 3D printing the back shell: reinforced M2 corner screw bosses, a ribbed battery bay, a deep recess for the magnetic wall mount, USB-C and vent cutouts, and a 2.0 mm wall — 60 × 63 × 53 mm overall.",
+            "المخطط الأساسي لطباعة الغلاف الخلفي بالطابعة ثلاثية الأبعاد: دعامات براغي M2 مقوّاة في الأركان، وحجرة بطارية مضلَّعة، وتجويف عميق للقاعدة المغناطيسية، وفتحات لمنفذ USB-C والتهوية، وسماكة جدار 2.0 ملم — بأبعاد إجمالية 60 × 63 × 53 ملم.")}</p>
+        </Panel>
       </Reveal>
 
       <Reveal>
