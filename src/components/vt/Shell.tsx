@@ -20,6 +20,7 @@ export function Navbar() {
     { to: "/security", label: t("Security", "الأمان") },
   ] as const;
   return (
+    <>
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-3 sm:gap-6 sm:px-6">
         <Link to="/" className="flex min-w-0 shrink-0 items-center gap-2.5" aria-label="VisionTrack AI home">
@@ -49,19 +50,45 @@ export function Navbar() {
           </button>
         </div>
       </div>
+    </header>
       <AnimatePresence>
         {open && (
-          <motion.nav initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} className="overflow-hidden border-t border-border xl:hidden">
-            <div className="px-6 pt-3 sm:hidden"><RoleSwitch /></div>
-            {links.map((l) => (
-              <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="block px-6 py-3 font-mono text-sm uppercase text-muted-foreground" activeProps={{ className: "text-primary" }}>
-                {l.label}
-              </Link>
-            ))}
-          </motion.nav>
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-40 bg-background/60 backdrop-blur-sm xl:hidden"
+              onClick={() => setOpen(false)}
+              aria-hidden
+            />
+            <motion.nav
+              initial={{ x: lang === "ar" ? "-100%" : "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: lang === "ar" ? "-100%" : "100%" }}
+              transition={{ type: "tween", duration: 0.25, ease: "easeOut" }}
+              className={`fixed inset-y-0 z-50 flex w-72 max-w-[85vw] flex-col border-border bg-background shadow-2xl xl:hidden ${lang === "ar" ? "left-0 border-e" : "right-0 border-s"}`}
+              aria-label="Menu"
+            >
+              <div className="flex h-16 items-center justify-between border-b border-border px-5">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{t("Menu", "القائمة")}</span>
+                <button className="grid h-10 w-10 place-items-center text-muted-foreground hover:text-foreground" onClick={() => setOpen(false)} aria-label="Close menu">
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+              <div className="flex-1 overflow-y-auto py-3">
+                {links.map((l) => (
+                  <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="block px-6 py-3.5 font-mono text-sm uppercase tracking-wider text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground" activeProps={{ className: "border-s-2 border-primary bg-primary/5 text-primary" }}>
+                    {l.label}
+                  </Link>
+                ))}
+              </div>
+              <div className="border-t border-border p-5 sm:hidden"><RoleSwitch /></div>
+            </motion.nav>
+          </>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }
 
