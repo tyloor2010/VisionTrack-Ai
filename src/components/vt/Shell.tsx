@@ -30,7 +30,7 @@ export function Navbar() {
         </Link>
         <nav className="ms-auto hidden items-center gap-1 xl:flex" aria-label="Main">
           {links.map((l) => (
-            <Link key={l.to} to={l.to} activeOptions={{ exact: l.to !== "/dashboard" }} className="whitespace-nowrap px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-primary" }}>
+            <Link key={l.to} to={l.to} activeOptions={{ exact: l.to !== "/dashboard" }} className={`whitespace-nowrap px-3 py-2 font-mono text-xs uppercase text-muted-foreground transition-colors hover:text-foreground ${lang === "ar" ? "" : "tracking-wider"}`} activeProps={{ className: "text-primary" }}>
               {l.label}
             </Link>
           ))}
@@ -78,7 +78,7 @@ export function Navbar() {
               </div>
               <div className="flex-1 overflow-y-auto py-3">
                 {links.map((l) => (
-                  <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="block px-6 py-2.5 font-mono text-sm uppercase tracking-wider text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground" activeProps={{ className: "border-s-2 border-primary bg-primary/5 text-primary" }}>
+                  <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className={`block px-6 py-2.5 font-mono text-sm uppercase text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground ${lang === "ar" ? "" : "tracking-wider"}`} activeProps={{ className: "border-s-2 border-primary bg-primary/5 text-primary" }}>
                     {l.label}
                   </Link>
                 ))}
