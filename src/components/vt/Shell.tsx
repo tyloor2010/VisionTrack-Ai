@@ -29,7 +29,7 @@ export function Navbar() {
         </Link>
         <nav className="ms-auto hidden items-center gap-1 xl:flex" aria-label="Main">
           {links.map((l) => (
-            <Link key={l.to} to={l.to} activeOptions={{ exact: l.to !== "/dashboard" }} className="px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-primary" }}>
+            <Link key={l.to} to={l.to} activeOptions={{ exact: l.to !== "/dashboard" }} className="whitespace-nowrap px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-primary" }}>
               {l.label}
             </Link>
           ))}
