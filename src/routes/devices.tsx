@@ -4,6 +4,9 @@ import { VisionBox } from "@/components/vt/VisionBox";
 import { SectionBg } from "@/components/vt/SectionBg";
 import { SectionHead } from "@/components/vt/ui";
 import aerialClip from "@/assets/drone-aerial.webm.asset.json";
+import integrationSnapFly from "@/assets/integration-snap-fly.jpg.asset.json";
+import integrationPayload from "@/assets/integration-payload.jpg.asset.json";
+import integrationAssembly from "@/assets/integration-assembly.webp.asset.json";
 import { media } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
 
@@ -61,6 +64,31 @@ function DevicesPage() {
             sub={t("From the workbench to the search mission: our team-built prototype brings the drone story into VisionTrack's second generation.", "من طاولة العمل إلى مهمة البحث: نموذج أولي صنعه فريقنا ليضيف بُعدًا جويًا إلى الجيل الثاني من VisionTrack.")}
           />
           <DroneShowcase />
+        </div>
+      </section>
+
+      <section id="integration" className="relative isolate scroll-mt-20 overflow-hidden border-t border-border py-16 sm:py-24 hud-grid">
+        <div className="relative mx-auto max-w-7xl px-6">
+          <SectionHead
+            tag={t("Snap-and-fly integration", "الدمج بنظام الركِّب واطير")}
+            title={t("One system. The box flies with the drone.", "نظام واحد. الصندوق يطير مع المسيّرة.")}
+            sub={t("Vision Box is not only a wall unit — a miniaturised version of it snaps onto VTX-1's nose in seconds, with no screws or tools. Spring-loaded rails lock it in place, a tiny two-pin plug powers it from the drone's own battery, and soft dampers keep the picture steady. Snap it on, and the drone gains the same eyes the walls have.", "Vision Box ليس وحدة جدارية فحسب — نسخة مصغَّرة منه تُركَّب على مقدّمة VTX-1 في ثوانٍ، دون براغي أو أدوات. قضبان بنوابض تثبّته في مكانه، وقابس صغير ذو سنَّين يغذّيه بالطاقة من بطارية المسيّرة نفسها، وممتصّات اهتزاز مرنة تحافظ على ثبات الصورة. ركّبه، وتمتلك المسيّرة العيون نفسها التي على الجدران.")}
+          />
+          <div className="grid gap-4 lg:grid-cols-3">
+            {[
+              [integrationSnapFly, t("The snap-and-fly concept", "فكرة الركِّب واطير"), t("The vision module slides into the drone's nose and clicks locked — balanced with the battery so the flight stays level.", "تنزلق وحدة الرؤية في مقدّمة المسيّرة وتُقفَل بنقرة — متوازنة مع البطارية ليبقى الطيران مستويًا.")],
+              [integrationPayload, t("The smart payload system", "نظام الحمولة الذكي"), t("A custom 3D-printed nose shell, shared power and data, vibration damping and air vents over the chips.", "غطاء أمامي مخصّص مطبوع ثلاثي الأبعاد، وطاقة وبيانات مشتركة، وامتصاص للاهتزاز، وفتحات تهوية فوق الرقائق.")],
+              [integrationAssembly, t("Step-by-step mounting", "التركيب خطوة بخطوة"), t("Slide, click, plug, fly — the full quick-release assembly with no screws and no tools.", "ازلق، انقر، وصّل، ثم حلّق — التجميع الكامل بنظام الفك السريع دون براغي أو أدوات.")],
+            ].map(([asset, title, body], i) => (
+              <figure key={i} className="overflow-hidden rounded-sm border border-border bg-card">
+                <a href={(asset as typeof integrationSnapFly).url} target="_blank" rel="noreferrer"><img src={(asset as typeof integrationSnapFly).url} alt={`${title} — Vision Box and VTX-1 drone integration diagram`} loading="lazy" decoding="async" className="w-full" /></a>
+                <figcaption className="border-t border-border px-4 py-2.5">
+                  <p className="text-sm font-bold">{title as string}</p>
+                  <p className="mt-1 text-xs text-muted-foreground">{body as string}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </section>
     </>
