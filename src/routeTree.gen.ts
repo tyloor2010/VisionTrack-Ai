@@ -26,6 +26,7 @@ import { Route as DashboardAnalyticsRouteImport } from './routes/dashboard.analy
 import { Route as DashboardAuditRouteImport } from './routes/dashboard.audit'
 import { Route as DashboardCamerasRouteImport } from './routes/dashboard.cameras'
 import { Route as DashboardCommandBoardRouteImport } from './routes/dashboard.command-board'
+import { Route as DashboardDevicesRouteImport } from './routes/dashboard.devices'
 import { Route as DashboardGovernanceRouteImport } from './routes/dashboard.governance'
 import { Route as DashboardIntegrationsRouteImport } from './routes/dashboard.integrations'
 import { Route as DashboardMapsRouteImport } from './routes/dashboard.maps'
@@ -120,6 +121,11 @@ const DashboardCommandBoardRoute = DashboardCommandBoardRouteImport.update({
   path: '/command-board',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardDevicesRoute = DashboardDevicesRouteImport.update({
+  id: '/devices',
+  path: '/devices',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardGovernanceRoute = DashboardGovernanceRouteImport.update({
   id: '/governance',
   path: '/governance',
@@ -178,6 +184,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/audit': typeof DashboardAuditRoute
   '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
+  '/dashboard/devices': typeof DashboardDevicesRoute
   '/dashboard/governance': typeof DashboardGovernanceRoute
   '/dashboard/integrations': typeof DashboardIntegrationsRoute
   '/dashboard/maps': typeof DashboardMapsRoute
@@ -204,6 +211,7 @@ export interface FileRoutesByTo {
   '/dashboard/audit': typeof DashboardAuditRoute
   '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
+  '/dashboard/devices': typeof DashboardDevicesRoute
   '/dashboard/governance': typeof DashboardGovernanceRoute
   '/dashboard/integrations': typeof DashboardIntegrationsRoute
   '/dashboard/maps': typeof DashboardMapsRoute
@@ -232,6 +240,7 @@ export interface FileRoutesById {
   '/dashboard/audit': typeof DashboardAuditRoute
   '/dashboard/cameras': typeof DashboardCamerasRoute
   '/dashboard/command-board': typeof DashboardCommandBoardRoute
+  '/dashboard/devices': typeof DashboardDevicesRoute
   '/dashboard/governance': typeof DashboardGovernanceRoute
   '/dashboard/integrations': typeof DashboardIntegrationsRoute
   '/dashboard/maps': typeof DashboardMapsRoute
@@ -261,6 +270,7 @@ export interface FileRouteTypes {
     | '/dashboard/audit'
     | '/dashboard/cameras'
     | '/dashboard/command-board'
+    | '/dashboard/devices'
     | '/dashboard/governance'
     | '/dashboard/integrations'
     | '/dashboard/maps'
@@ -287,6 +297,7 @@ export interface FileRouteTypes {
     | '/dashboard/audit'
     | '/dashboard/cameras'
     | '/dashboard/command-board'
+    | '/dashboard/devices'
     | '/dashboard/governance'
     | '/dashboard/integrations'
     | '/dashboard/maps'
@@ -314,6 +325,7 @@ export interface FileRouteTypes {
     | '/dashboard/audit'
     | '/dashboard/cameras'
     | '/dashboard/command-board'
+    | '/dashboard/devices'
     | '/dashboard/governance'
     | '/dashboard/integrations'
     | '/dashboard/maps'
@@ -458,6 +470,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardCommandBoardRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/devices': {
+      id: '/dashboard/devices'
+      path: '/devices'
+      fullPath: '/dashboard/devices'
+      preLoaderRoute: typeof DashboardDevicesRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/governance': {
       id: '/dashboard/governance'
       path: '/governance'
@@ -525,6 +544,7 @@ interface DashboardRouteChildren {
   DashboardAuditRoute: typeof DashboardAuditRoute
   DashboardCamerasRoute: typeof DashboardCamerasRoute
   DashboardCommandBoardRoute: typeof DashboardCommandBoardRoute
+  DashboardDevicesRoute: typeof DashboardDevicesRoute
   DashboardGovernanceRoute: typeof DashboardGovernanceRoute
   DashboardIntegrationsRoute: typeof DashboardIntegrationsRoute
   DashboardMapsRoute: typeof DashboardMapsRoute
@@ -544,6 +564,7 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardAuditRoute: DashboardAuditRoute,
   DashboardCamerasRoute: DashboardCamerasRoute,
   DashboardCommandBoardRoute: DashboardCommandBoardRoute,
+  DashboardDevicesRoute: DashboardDevicesRoute,
   DashboardGovernanceRoute: DashboardGovernanceRoute,
   DashboardIntegrationsRoute: DashboardIntegrationsRoute,
   DashboardMapsRoute: DashboardMapsRoute,

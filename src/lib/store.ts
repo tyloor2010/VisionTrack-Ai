@@ -37,6 +37,20 @@ export type Agency = "police" | "traffic" | "ambulance" | "prosecution";
 export type TaskCol = "todo" | "doing" | "done";
 export type Task = { id: string; caseId: string; agency: Agency; title: Txt; col: TaskCol; at: number };
 export type AuditEntry = { id: number; at: number; role: Role; action: string };
+export type DeviceKind = "drone" | "visionbox" | "tracker";
+export type DeviceStatus = "active" | "idle" | "charging" | "offline";
+export type Device = { id: string; kind: DeviceKind; name: Txt; pos: GeoPos; battery: number; status: DeviceStatus; caseId?: string | undefined };
+export const DEVICE_KIND_LABEL: Record<DeviceKind, Txt> = {
+  drone: { en: "VTX-1 drone", ar: "درون VTX-1" },
+  visionbox: { en: "Vision Box", ar: "صندوق الرؤية" },
+  tracker: { en: "Nano Tracker", ar: "النانو تراكر" },
+};
+export const DEVICE_STATUS_LABEL: Record<DeviceStatus, Txt> = {
+  active: { en: "Active", ar: "نشط" },
+  idle: { en: "Idle", ar: "خامل" },
+  charging: { en: "Charging", ar: "قيد الشحن" },
+  offline: { en: "Offline", ar: "غير متصل" },
+};
 export type Note = { id: number; at: number; msg: Txt; kind: "alert" | "info" | "success" | "warning"; read: boolean };
 
 export const ROLE_LABEL: Record<Role, Txt> = {
@@ -154,7 +168,16 @@ export function makeSeed(now: number) {
     { id: "T2", caseId: cases[0]!.id, agency: "traffic", title: { en: "Checkpoint on Ramses St.", ar: "نقطة تفتيش بشارع رمسيس" }, col: "todo", at: now },
     { id: "T3", caseId: cases[2]!.id, agency: "prosecution", title: { en: "Telecom order request", ar: "طلب أمر الاتصالات" }, col: "done", at: now },
   ];
-  return { cases, alerts, units, tasks };
+  const devices: Device[] = [
+    { id: "VTX-1A", kind: "drone", name: { en: "VTX-1 Alpha", ar: "VTX-1 ألفا" }, pos: { lat: 30.051, lng: 31.243 }, battery: 78, status: "active", caseId: cases[0]!.id },
+    { id: "VTX-1B", kind: "drone", name: { en: "VTX-1 Bravo", ar: "VTX-1 برافو" }, pos: { lat: 30.044, lng: 31.236 }, battery: 34, status: "charging" },
+    { id: "VB-01", kind: "visionbox", name: { en: "Vision Box — Tahrir", ar: "صندوق الرؤية — التحرير" }, pos: { lat: 30.0444, lng: 31.2357 }, battery: 92, status: "active" },
+    { id: "VB-02", kind: "visionbox", name: { en: "Vision Box — Ramses", ar: "صندوق الرؤية — رمسيس" }, pos: { lat: 30.0615, lng: 31.2465 }, battery: 61, status: "active" },
+    { id: "VB-03", kind: "visionbox", name: { en: "Vision Box — Corniche", ar: "صندوق الرؤية — الكورنيش" }, pos: { lat: 30.037, lng: 31.2285 }, battery: 0, status: "offline" },
+    { id: "NT-01", kind: "tracker", name: { en: "Nano Tracker — K9 collar", ar: "النانو تراكر — طوق K9" }, pos: { lat: 30.041, lng: 31.226 }, battery: 88, status: "active" },
+    { id: "NT-02", kind: "tracker", name: { en: "Nano Tracker — spare", ar: "النانو تراكر — احتياطي" }, pos: { lat: 30.047, lng: 31.238 }, battery: 55, status: "idle" },
+  ];
+  return { cases, alerts, units, tasks, devices };
 }
 
 /* ================= Store ================= */
@@ -172,6 +195,8 @@ type Actions = {
   setReportSchedule: (schedule: ReportSchedule) => boolean;
   dispatch: (caseId: string, alertId?: string) => void;
   moveTask: (id: string, col: TaskCol) => void;
+  /** Assign a device to a case (or unassign with undefined). Dispatch permission required. */
+  assignDevice: (deviceId: string, caseId: string | undefined) => boolean;
   markAllRead: () => void;
   markRead: (id: number) => void;
   initClock: () => void;
@@ -276,6 +301,29 @@ export const useVT = create<Data & Actions>()(
         set({ tasks: s.tasks.map((x) => (x.id === id ? { ...x, col } : x)) });
         const cl: Record<TaskCol, Txt> = { todo: { en: "To do", ar: "قيد الانتظار" }, doing: { en: "In progress", ar: "قيد التنفيذ" }, done: { en: "Done", ar: "منجزة" } };
         get().emit({ action: `TASK ${id} -> ${col}`, msg: { en: `Task "${tk.title.en}" → ${cl[col].en}`, ar: `المهمة «${tk.title.ar}» ← ${cl[col].ar}` }, caseId: tk.caseId });
+      },
+      assignDevice: (deviceId, caseId) => {
+        const s = get(); const d = s.devices.find((x) => x.id === deviceId);
+        if (!d) return false;
+        if (!can(s.role, "dispatch")) return deny({ en: "Only a field officer or supervisor can assign a device.", ar: "لا يملك إسناد الأجهزة إلا الضابط الميداني أو المشرف." });
+        if (caseId && !s.cases.some((c) => c.id === caseId)) return false;
+        if (d.status === "offline") return deny({ en: `${d.id} is offline and cannot be assigned.`, ar: `الجهاز ${d.id} غير متصل ولا يمكن إسناده.` });
+        set({
+          devices: s.devices.map((x) =>
+            x.id === deviceId
+              ? { ...x, caseId, status: caseId ? "active" : x.status === "active" ? "idle" : x.status }
+              : x,
+          ),
+        });
+        get().emit({
+          action: `DEVICE ${deviceId} ${caseId ? `assigned to ${caseId}` : "unassigned"}`,
+          msg: caseId
+            ? { en: `${d.name.en} assigned to ${caseId}`, ar: `أُسند ${d.name.ar} إلى ${caseId}` }
+            : { en: `${d.name.en} unassigned`, ar: `أُلغي إسناد ${d.name.ar}` },
+          kind: caseId ? "success" : "info",
+          ...(caseId ? { caseId } : {}),
+        });
+        return true;
       },
       initClock: () => { if (get().seq === 1 && get().audit.length === 0) set(fresh(Date.now())); },
       markAllRead: () => set((s) => ({ notes: s.notes.map((n) => ({ ...n, read: true })) })),

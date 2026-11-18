@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { LayoutGrid, FolderOpen, Grid3x3, Users, Megaphone, Settings, ScanSearch, Cctv, Map as MapIcon, BellRing, BarChart3, ScanEye, FileText, ShieldCheck } from "lucide-react";
+import { LayoutGrid, FolderOpen, Grid3x3, Users, Megaphone, Settings, ScanSearch, Cctv, Map as MapIcon, BellRing, BarChart3, ScanEye, FileText, ShieldCheck, Radio } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { PinnedViews } from "@/components/vt/SavedViews";
 import { WatchStrip, EscalationRunner } from "@/components/vt/CaseTools";
@@ -19,6 +19,7 @@ function DashboardLayout() {
     { to: "/dashboard/alerts-composer", i: Megaphone, l: t("Public alert", "تنبيه عام"), exact: false },
     { to: "/dashboard/media", i: ScanSearch, l: t("Media lab", "مختبر الوسائط"), exact: false },
     { to: "/dashboard/cameras", i: Cctv, l: t("Cameras", "الكاميرات"), exact: false },
+    { to: "/dashboard/devices", i: Radio, l: t("Devices", "الأجهزة"), exact: false },
     { to: "/dashboard/maps", i: MapIcon, l: t("Map studio", "استوديو الخرائط"), exact: false },
     { to: "/dashboard/alerts", i: BellRing, l: t("Alert rules", "قواعد التنبيه"), exact: false },
     { to: "/dashboard/analytics", i: BarChart3, l: t("Analytics", "التحليلات"), exact: false },

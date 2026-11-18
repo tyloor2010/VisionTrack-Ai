@@ -24,6 +24,8 @@
 - [ ] 9. Interactive security page and settings (deployment modes, retention timer)
 - [ ] 10. More tests, Demo Guide (?), Judge Mode (Shift+J)
 
+- [x] Dashboard device tracking: VTX-1 drones, Vision Box units, Nano Tracker tags on live map with battery/status/case assignment
+
 ## Modules brief (10 modules, in order)
 - [x] 1. Command palette (Ctrl+K), dashboard search, saved views/filter builder, shortcuts cheat sheet, settings & accessibility center
 - [x] 2. Case tools: notes/@mentions, priority scoring, SLA timers, duplicate merge, handover, watchlist, flyer generator, share links
