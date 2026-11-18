@@ -25,6 +25,8 @@
 - [ ] 10. More tests, Demo Guide (?), Judge Mode (Shift+J)
 
 - [x] Dashboard device tracking: VTX-1 drones, Vision Box units, Nano Tracker tags on live map with battery/status/case assignment
+- [x] Device location history: trail on map for last 2/4/6 hours (simulated)
+- [x] Device assignments saved to the database, shared live with the team
 
 ## Modules brief (10 modules, in order)
 - [x] 1. Command palette (Ctrl+K), dashboard search, saved views/filter builder, shortcuts cheat sheet, settings & accessibility center

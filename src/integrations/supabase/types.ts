@@ -14,7 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      device_assignments: {
+        Row: {
+          case_id: string | null
+          device_id: string
+          updated_at: string
+        }
+        Insert: {
+          case_id?: string | null
+          device_id: string
+          updated_at?: string
+        }
+        Update: {
+          case_id?: string | null
+          device_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
