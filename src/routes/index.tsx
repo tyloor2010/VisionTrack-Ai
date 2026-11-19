@@ -15,6 +15,7 @@ import { LiveDemo } from "@/components/vt/LiveDemo";
 import { Counter, Panel, Reveal, SectionHead, btnClass, inputClass, Btn } from "@/components/vt/ui";
 import { media } from "@/data/mock";
 import { useLang } from "@/lib/i18n";
+import { submitContact } from "@/lib/contact.functions";
 
 export const Route = createFileRoute("/")({
   staticData: { sitemap: true },
@@ -368,6 +369,28 @@ function Roadmap() {
 function Team() {
   const { t } = useLang();
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (sending) return;
+    const form = e.currentTarget;
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    };
+    setSending(true);
+    setFailed(false);
+    try {
+      await submitContact({ data });
+      setSent(true);
+    } catch {
+      setFailed(true);
+    } finally {
+      setSending(false);
+    }
+  };
   return (
     <section className="relative isolate overflow-hidden border-t border-border py-24">
       <SectionBg video={media.nycGif} poster={media.nightCv} />
@@ -377,11 +400,12 @@ function Team() {
           {sent ? (
             <p className="font-mono text-success">✓ {t("Message received. We'll be in touch.", "وصلتنا رسالتك، وسنتواصل معك قريبًا.")}</p>
           ) : (
-            <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
-              <input required aria-label="Name" placeholder={t("Name / organization", "الاسم / الجهة")} className={inputClass} />
-              <input required type="email" aria-label="Email" placeholder={t("Email", "البريد الإلكتروني")} className={inputClass} />
-              <textarea required aria-label="Message" rows={4} placeholder={t("Message", "الرسالة")} className={inputClass} />
-              <Btn type="submit">{t("Send", "إرسال")}</Btn>
+            <form className="space-y-4" onSubmit={onSubmit}>
+              <input required name="name" maxLength={100} aria-label="Name" placeholder={t("Name / organization", "الاسم / الجهة")} className={inputClass} />
+              <input required name="email" type="email" maxLength={255} aria-label="Email" placeholder={t("Email", "البريد الإلكتروني")} className={inputClass} />
+              <textarea required name="message" maxLength={2000} aria-label="Message" rows={4} placeholder={t("Message", "الرسالة")} className={inputClass} />
+              {failed && <p className="font-mono text-xs text-destructive">{t("Something went wrong — please try again.", "حدث خطأ ما — حاول مرة أخرى.")}</p>}
+              <Btn type="submit" disabled={sending}>{sending ? t("Sending…", "جارٍ الإرسال…") : t("Send", "إرسال")}</Btn>
             </form>
           )}
         </div>

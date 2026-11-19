@@ -15,6 +15,13 @@
       "when": 1794975104550,
       "tag": "0001_lock_device_assignments",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795085181087,
+      "tag": "0002_create_contact_submissions",
+      "breakpoints": true
     }
   ]
 }
