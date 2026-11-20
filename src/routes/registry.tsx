@@ -53,7 +53,7 @@ function Registry() {
         <div className="space-y-4">
           {list.map((p, k) => (
             <Panel key={k} className="p-5">
-              <div className="flex items-center justify-between"><h3 className="font-bold">{p.name} · <span dir="ltr">{p.age}</span></h3><span className="border border-primary/50 px-1.5 font-mono text-[10px] text-primary">{p.type || "—"}</span></div>
+              <div className="flex items-center justify-between"><h2 className="font-bold">{p.name} · <span dir="ltr">{p.age}</span></h2><span className="border border-primary/50 px-1.5 font-mono text-[10px] text-primary">{p.type || "—"}</span></div>
               {p.notes && <p className="mt-2 text-sm text-muted-foreground">{p.notes}</p>}
               <ul className="mt-3 flex flex-wrap gap-2 text-xs">{p.places.map((pl) => <li key={pl} className="flex items-center gap-1 border border-border px-2 py-0.5"><MapPin className="h-3 w-3 text-success" />{pl}</li>)}</ul>
               {p.band && <p dir="ltr" className="mt-2 flex items-center gap-1 font-mono text-xs text-muted-foreground"><Watch className="h-3 w-3" />{p.band}</p>}

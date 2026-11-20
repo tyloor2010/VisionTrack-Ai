@@ -7,6 +7,18 @@ import { AlertRulesRunner } from "@/components/vt/AlertRules";
 
 export const Route = createFileRoute("/dashboard")({
   staticData: { sitemap: "exclude-subtree" },
+  head: () => ({
+    meta: [
+      { title: "Command Dashboard — VisionTrack AI" },
+      { name: "description", content: "Demo command center for missing-person cases: case board, camera matches, device map, alerts and audit trail, all with simulated data." },
+      { property: "og:title", content: "Command Dashboard — VisionTrack AI" },
+      { property: "og:description", content: "Demo command center for missing-person cases: case board, camera matches, device map, alerts and audit trail, all with simulated data." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://visiontrackai.site/dashboard" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [{ rel: "canonical", href: "https://visiontrackai.site/dashboard" }],
+  }),
   component: DashboardLayout,
 });
 
