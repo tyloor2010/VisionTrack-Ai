@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { useState, type FormEvent } from "react";
-import { Upload, ShieldCheck, Check, Loader2 } from "lucide-react";
+import { Upload, ShieldCheck } from "lucide-react";
 import { Btn, Panel, SectionHead, inputClass } from "@/components/vt/ui";
 import { SearchMap } from "@/components/vt/SearchMap";
 import { SectionBg } from "@/components/vt/SectionBg";
@@ -56,33 +55,17 @@ function useSubmit() {
   const [step, setStep] = useState(-1);
   const submit = (e: FormEvent) => {
     e.preventDefault();
-    setStep(0);
-    [1, 2, 3, 4].forEach((s) => setTimeout(() => setStep(s), s * 900));
+    setStep(4);
   };
   return { step, submit, reset: () => setStep(-1) };
 }
 
-function Verification({ step, onReset }: { step: number; onReset: () => void }) {
+function Verification({ onReset }: { step: number; onReset: () => void }) {
   const { t } = useLang();
-  const checks = [t("Image quality & duplicates", "جودة الصورة والتكرار"), t("Location & time consistency", "اتساق الموقع والوقت"), t("Image authenticity — tamper/deepfake score 0.04 (low)", "أصالة الصورة — مؤشر التلاعب/التزييف 0.04 (منخفض)"), t("Sender reputation — no spam history", "سمعة المُرسِل — لا سجل لبلاغات وهمية")];
   return (
-    <Panel className="p-8" title={t("Verification", "التحقق")}>
-      <div className="flex items-center gap-3 text-sm text-muted-foreground"><ShieldCheck className="h-5 w-5 text-success" />{t("Submission checked before reaching authorities.", "يُراجَع كل بلاغ قبل إحالته إلى الجهات المختصة.")}</div>
-      <ul className="mt-6 space-y-3 font-mono text-sm">
-        {checks.map((c, i) => (
-          <motion.li key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.2 }} className="flex items-center gap-3">
-            {step > i ? <Check className="h-4 w-4 text-success" /> : <Loader2 className="h-4 w-4 animate-spin text-primary" />}
-            <span className={step > i ? "text-foreground" : "text-muted-foreground"}>{c}</span>
-          </motion.li>
-        ))}
-      </ul>
-      {step >= 4 && (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-8 border border-success/50 bg-success/10 p-4">
-          <p className="font-mono text-sm uppercase text-success">✓ {t("Demo complete — nothing was sent", "انتهى العرض التجريبي — لم يُرسَل شيء")}</p>
-          <p dir="ltr" className="mt-1 font-mono text-xs text-muted-foreground">REF #VT-{Math.floor(Math.random() * 9000 + 1000)}</p>
-          <Btn variant="ghost" size="sm" className="mt-3" onClick={onReset}>{t("New report", "بلاغ جديد")}</Btn>
-        </motion.div>
-      )}
+    <Panel className="p-8" title={t("Demo only", "عرض تجريبي فقط")}>
+      <div className="flex items-start gap-3 text-sm text-muted-foreground"><ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-warning" />{t("This form is a demonstration. Your report was not sent to anyone — not to reviewers and not to the authorities. In a real emergency, call the police (122) right away.", "هذا النموذج للعرض فقط. لم يُرسَل بلاغك إلى أي جهة، لا إلى المراجعين ولا إلى السلطات. في حالات الطوارئ الحقيقية اتصل بالشرطة (122) فورًا.")}</div>
+      <Btn variant="ghost" size="sm" className="mt-6" onClick={onReset}>{t("Back to the form", "العودة إلى النموذج")}</Btn>
     </Panel>
   );
 }
