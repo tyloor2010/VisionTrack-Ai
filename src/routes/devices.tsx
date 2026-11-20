@@ -41,8 +41,9 @@ function DevicesPage() {
         <SectionBg video={media.walkGif} poster={media.streetCv} />
         <div className="relative mx-auto max-w-7xl">
           <SectionHead
+            as="h1"
             tag={t("Our devices", "أجهزتنا")}
-            title={t("Built by us, for the search.", "من صنعنا، من أجل البحث.")}
+            title={t("VisionTrack AI devices for missing-person searches", "أجهزة VisionTrack AI للبحث عن المفقودين")}
             sub={t("Three pieces of hardware carry VisionTrack AI into the street: a small wall unit that watches a corner around the clock, a drone that searches from above, and a pocket tracker that stays with the person.", "ثلاث قطع من العتاد تنقل VisionTrack AI إلى الشارع: وحدة جدارية صغيرة تراقب الناصية على مدار الساعة، ومسيّرة تبحث من الأعلى، ومتتبّع جيبي يبقى مع الشخص.")}
           />
         </div>

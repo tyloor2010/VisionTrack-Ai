@@ -78,7 +78,7 @@ function Verification({ step, onReset }: { step: number; onReset: () => void }) 
       </ul>
       {step >= 4 && (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-8 border border-success/50 bg-success/10 p-4">
-          <p className="font-mono text-sm uppercase text-success">✓ {t("Forwarded for human review", "أُحيل البلاغ للمراجعة البشرية")}</p>
+          <p className="font-mono text-sm uppercase text-success">✓ {t("Demo complete — nothing was sent", "انتهى العرض التجريبي — لم يُرسَل شيء")}</p>
           <p dir="ltr" className="mt-1 font-mono text-xs text-muted-foreground">REF #VT-{Math.floor(Math.random() * 9000 + 1000)}</p>
           <Btn variant="ghost" size="sm" className="mt-3" onClick={onReset}>{t("New report", "بلاغ جديد")}</Btn>
         </motion.div>

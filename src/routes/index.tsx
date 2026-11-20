@@ -114,6 +114,7 @@ function Hero() {
             ⚠ {t("Golden Hours protocol", "بروتوكول الساعات الذهبية")}
           </div>
           <h1 className="text-6xl font-extrabold leading-[0.92] tracking-tighter sm:text-8xl lg:text-9xl">
+            <span className="mb-4 block text-base font-bold tracking-normal text-primary sm:text-lg">{t("VisionTrack AI — AI-assisted missing-person search", "VisionTrack AI — بحث مدعوم بالذكاء الاصطناعي عن المفقودين")}</span>
             {t("Every Minute", "كل دقيقة")}<br /><span className="hand-underline">{t("Counts.", "تُحدث فارقًا.")}</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg font-medium text-foreground/80 sm:text-xl">
