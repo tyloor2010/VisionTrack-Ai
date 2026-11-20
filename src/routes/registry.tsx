@@ -33,7 +33,7 @@ function Registry() {
   };
   return (
     <section className="mx-auto max-w-6xl px-6 py-16">
-      <SectionHead tag={t("Safe registry", "السجل الآمن")} title={t("Register before it happens.", "سجّل قبل أن يقع الأمر.")} sub={t("Voluntary and family-managed. If a registered person goes missing, one button opens a ready case.", "تسجيل طوعي تديره الأسرة. إذا فُقد أحد المسجّلين، يكفي زر واحد لفتح حالة جاهزة.")} />
+      <SectionHead as="h1" tag={t("Safe registry", "السجل الآمن")} title={t("Register before it happens.", "سجّل قبل أن يقع الأمر.")} sub={t("Voluntary and family-managed. If a registered person goes missing, one button opens a ready case.", "تسجيل طوعي تديره الأسرة. إذا فُقد أحد المسجّلين، يكفي زر واحد لفتح حالة جاهزة.")} />
       <div className="grid gap-6 lg:grid-cols-2">
         <Panel title={t("Add a profile", "إضافة ملف")}>
           <form onSubmit={add} className="space-y-3 p-5">

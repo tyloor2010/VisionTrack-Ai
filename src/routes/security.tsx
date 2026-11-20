@@ -43,7 +43,7 @@ function Security() {
   const arch = [t("Cameras / Edge", "الكاميرات / الطرفيات"), t("Secure gateway", "بوابة آمنة"), t("AI engine", "محرك الذكاء الاصطناعي"), t("Command dashboard", "لوحة القيادة")];
   return (
     <section className="mx-auto max-w-6xl space-y-16 px-6 py-16">
-      <SectionHead tag={t("Security", "الأمان")} title={t("Built to be trusted.", "مصمَّم ليكون جديرًا بالثقة.")} sub={t("Every result is a potential match that a person must review.", "كل نتيجة هي تطابق محتمل لا بد أن يراجعه إنسان.")} />
+      <SectionHead as="h1" tag={t("Security", "الأمان")} title={t("Built to be trusted.", "مصمَّم ليكون جديرًا بالثقة.")} sub={t("Every result is a potential match that a person must review.", "كل نتيجة هي تطابق محتمل لا بد أن يراجعه إنسان.")} />
       <div><h2 className="mb-4 font-mono text-sm uppercase tracking-widest text-muted-foreground">{t("Responsible AI & privacy", "الذكاء الاصطناعي المسؤول والخصوصية")}</h2><Grid items={ai} /></div>
       <div><h2 className="mb-4 font-mono text-sm uppercase tracking-widest text-muted-foreground">{t("Deployment & security", "النشر والأمان")}</h2><Grid items={dep} /></div>
       <div>

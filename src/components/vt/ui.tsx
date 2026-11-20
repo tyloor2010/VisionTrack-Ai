@@ -55,13 +55,14 @@ export function Counter({ to, decimals = 0, suffix = "", prefix = "" }: { to: nu
   );
 }
 
-export function SectionHead({ tag, title, sub }: { tag: string; title: string; sub?: string }) {
+export function SectionHead({ tag, title, sub, as = "h2" }: { tag: string; title: string; sub?: string; as?: "h1" | "h2" }) {
+  const H = as;
   return (
     <Reveal className="mb-12 max-w-2xl">
       <div dir="ltr" className="mb-4 inline-block bg-primary px-1.5 font-mono text-xs font-semibold leading-5 text-primary-foreground">
         {tag}
       </div>
-      <h2 className="text-4xl font-extrabold tracking-tight sm:text-6xl">{title}</h2>
+      <H className="text-4xl font-extrabold tracking-tight sm:text-6xl">{title}</H>
       {sub && <p className="mt-4 text-lg text-muted-foreground">{sub}</p>}
     </Reveal>
   );
