@@ -122,8 +122,9 @@ function Hero() {
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             <Link to="/demo" className={btnClass("primary", "lg")}>{t("Launch Live Demo", "جرّب العرض الحي")}</Link>
-            <Link to="/report" className={btnClass("outline", "lg")}>{t("Report a Missing Person", "أبلِغ عن شخص مفقود")}</Link>
+            <Link to="/report" className={btnClass("outline", "lg")}>{t("Try the Report Demo", "جرّب نموذج البلاغ التجريبي")}</Link>
           </div>
+          <p className="mt-3 max-w-xl text-sm text-muted-foreground">{t("Demo only: reports are not sent to our team or the authorities. For a real emergency in Egypt, call the police on 122.", "للعرض التجريبي فقط: لا تُرسَل البلاغات إلى فريقنا أو السلطات. في حالات الطوارئ الحقيقية في مصر، اتصل بالشرطة على الرقم 122.")}</p>
         </motion.div>
         <HudText className="mt-12" lines={["SYSTEM STATUS: ONLINE", `ACCURACY: ${n.acc}%`, `CAMERAS: ${n.cams} ACTIVE`, `FRAMES: ${n.frames.toLocaleString("en")}`, "MODEL: VISIONTRACK v2"]} />
       </div>

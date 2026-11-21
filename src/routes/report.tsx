@@ -11,12 +11,12 @@ export const Route = createFileRoute("/report")({
   staticData: { sitemap: true },
   head: () => ({
     meta: [
-      { title: "Report a Missing Person or Sighting — VisionTrack AI" },
-      { name: "description", content: "File a report or pass on a sighting: a photo, when and where the person was last seen, and what they wore. Every submission is checked by a person before it reaches authorities." },
+      { title: "Missing-Person Report Demo — VisionTrack AI" },
+      { name: "description", content: "Explore a simulated missing-person or sighting report. No report is sent to our team or the authorities. For a real emergency in Egypt, call the police on 122." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://visiontrackai.site/report" },
-      { property: "og:title", content: "Report a Sighting or Missing Person — VisionTrack AI" },
-      { property: "og:description", content: "Citizen sightings and family reports, verified before reaching authorities." },
+      { property: "og:title", content: "Missing-Person Report Demo — VisionTrack AI" },
+      { property: "og:description", content: "Try a simulated report. Nothing is sent to our team or the authorities. In a real emergency in Egypt, call the police on 122." },
       { property: "og:image", content: "https://visiontrackai.site/og-logo.png" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: "https://visiontrackai.site/og-logo.png" },
@@ -34,14 +34,14 @@ function ReportPage() {
     <section className="relative isolate overflow-hidden px-4 py-14">
       <SectionBg video={media.video} poster={media.nightCv} position="object-[50%_70%]" />
       <div className="relative mx-auto max-w-4xl">
-        <SectionHead as="h1" tag={t("Reporting", "الإبلاغ")} title={t("Help us find them faster.", "ساعدنا للوصول إليهم في وقتٍ أسرع.")} sub={t("This is a demo — no data is sent anywhere.", "هذه نسخة تجريبية، ولن تُرسَل أي بيانات.")} />
+        <SectionHead as="h1" tag={t("Report demo", "نموذج بلاغ تجريبي")} title={t("Try a simulated report.", "جرّب نموذج بلاغ محاكى.")} sub={t("Demo only: nothing is sent to our team or the authorities. Use fictional details. For a real emergency in Egypt, call the police on 122.", "للعرض التجريبي فقط: لا تُرسَل أي بيانات إلى فريقنا أو السلطات. استخدم بيانات افتراضية. في حالات الطوارئ الحقيقية في مصر، اتصل بالشرطة على الرقم 122.")} />
       </div>
       <div className="relative mx-auto mt-6 max-w-4xl sm:px-0">
       <div className="mb-6 flex gap-2" role="tablist">
         {(["sighting", "missing"] as const).map((k) => (
           <button key={k} role="tab" aria-selected={tab === k} onClick={() => setTab(k)}
             className={`flex-1 border px-4 py-3 font-mono text-xs uppercase tracking-wider ${tab === k ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground"}`}>
-            {k === "sighting" ? t("Submit a sighting", "إبلاغ عن مشاهدة") : t("Report a missing person", "أبلِغ عن شخص مفقود")}
+            {k === "sighting" ? t("Sighting demo", "نموذج مشاهدة تجريبي") : t("Missing-person demo", "نموذج مفقود تجريبي")}
           </button>
         ))}
       </div>
@@ -112,7 +112,7 @@ function SightingForm() {
         <PinPicker />
         <input required type="datetime-local" aria-label="Time" className={inputClass} />
         <textarea required rows={3} aria-label="Description" placeholder={t("What did you see? Clothing, direction…", "ماذا رأيت؟ الملابس، الاتجاه…")} className={inputClass} />
-        <Btn type="submit" className="w-full">{t("Submit sighting", "إرسال المشاهدة")}</Btn>
+        <Btn type="submit" className="w-full">{t("Preview demo confirmation", "معاينة التأكيد التجريبي")}</Btn>
       </form>
     </Panel>
   );
@@ -143,7 +143,7 @@ function MissingForm() {
           <input id="missing-consent" required type="checkbox" className="mt-1 accent-[var(--primary)]" />
           {t("I consent to sharing this information with authorized authorities for the purpose of this search.", "أوافق على مشاركة هذه البيانات مع الجهات المختصة لغرض البحث.")}
         </label>
-        <Btn type="submit" className="sm:col-span-2">{t("Submit report", "إرسال البلاغ")}</Btn>
+        <Btn type="submit" className="sm:col-span-2">{t("Preview demo confirmation", "معاينة التأكيد التجريبي")}</Btn>
       </form>
     </Panel>
   );
