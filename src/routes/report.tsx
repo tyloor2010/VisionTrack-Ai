@@ -139,8 +139,8 @@ function MissingForm() {
           <option>{t("Other", "أخرى")}</option>
         </select>
         <input required type="tel" aria-label="Contact phone" placeholder={t("Contact phone", "رقم التواصل")} className={`${inputClass} sm:col-span-2`} />
-        <label className="flex items-start gap-3 text-sm text-muted-foreground sm:col-span-2">
-          <input required type="checkbox" className="mt-1 accent-[var(--primary)]" />
+        <label htmlFor="missing-consent" className="flex items-start gap-3 text-sm text-muted-foreground sm:col-span-2">
+          <input id="missing-consent" required type="checkbox" className="mt-1 accent-[var(--primary)]" />
           {t("I consent to sharing this information with authorized authorities for the purpose of this search.", "أوافق على مشاركة هذه البيانات مع الجهات المختصة لغرض البحث.")}
         </label>
         <Btn type="submit" className="sm:col-span-2">{t("Submit report", "إرسال البلاغ")}</Btn>

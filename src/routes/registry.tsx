@@ -39,14 +39,14 @@ function Registry() {
           <form onSubmit={add} className="space-y-3 p-5">
             <label className="flex h-24 cursor-pointer items-center justify-center gap-2 border border-dashed border-border text-sm text-muted-foreground"><Upload className="h-4 w-4" />{t("Upload a recent photo", "ارفع صورة حديثة")}<input type="file" accept="image/*" className="sr-only" /></label>
             <div className="grid grid-cols-2 gap-3">
-              <input required className={inputClass} placeholder={t("Name", "الاسم")} value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} />
-              <input required className={inputClass} placeholder={t("Age", "العمر")} value={f.age} onChange={(e) => setF({ ...f, age: e.target.value })} />
+              <input required aria-label={t("Name", "الاسم")} className={inputClass} placeholder={t("Name", "الاسم")} value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} />
+              <input required aria-label={t("Age", "العمر")} className={inputClass} placeholder={t("Age", "العمر")} value={f.age} onChange={(e) => setF({ ...f, age: e.target.value })} />
             </div>
-            <input className={inputClass} placeholder={t("Condition (e.g. autism, Alzheimer's)", "الحالة (مثل التوحّد أو الزهايمر)")} value={f.type} onChange={(e) => setF({ ...f, type: e.target.value })} />
-            <textarea className={`${inputClass} h-20`} placeholder={t("Medical notes and how they behave when lost", "ملاحظات طبية وكيف يتصرف عند الضياع")} value={f.notes} onChange={(e) => setF({ ...f, notes: e.target.value })} />
-            <input className={inputClass} placeholder={t("Familiar / safe places, separated by commas", "أماكن مألوفة أو آمنة، تفصل بينها فواصل")} value={f.places} onChange={(e) => setF({ ...f, places: e.target.value })} />
-            <input className={inputClass} placeholder={t("GPS bracelet ID (optional)", "رقم سوار التتبّع (اختياري)")} value={f.band} onChange={(e) => setF({ ...f, band: e.target.value })} />
-            <label className="flex items-start gap-2 text-xs text-muted-foreground"><input required type="checkbox" checked={f.consent} onChange={(e) => setF({ ...f, consent: e.target.checked })} className="mt-0.5 accent-[var(--primary)]" />{t("I am the legal guardian and consent to storing this profile. I can delete it at any time.", "أقرّ بأنني الوصي القانوني وأوافق على حفظ هذا الملف، ويحق لي حذفه في أي وقت.")}</label>
+            <input aria-label={t("Condition (e.g. autism, Alzheimer's)", "الحالة (مثل التوحّد أو الزهايمر)")} className={inputClass} placeholder={t("Condition (e.g. autism, Alzheimer's)", "الحالة (مثل التوحّد أو الزهايمر)")} value={f.type} onChange={(e) => setF({ ...f, type: e.target.value })} />
+            <textarea aria-label={t("Medical notes and how they behave when lost", "ملاحظات طبية وكيف يتصرف عند الضياع")} className={`${inputClass} h-20`} placeholder={t("Medical notes and how they behave when lost", "ملاحظات طبية وكيف يتصرف عند الضياع")} value={f.notes} onChange={(e) => setF({ ...f, notes: e.target.value })} />
+            <input aria-label={t("Familiar / safe places, separated by commas", "أماكن مألوفة أو آمنة، تفصل بينها فواصل")} className={inputClass} placeholder={t("Familiar / safe places, separated by commas", "أماكن مألوفة أو آمنة، تفصل بينها فواصل")} value={f.places} onChange={(e) => setF({ ...f, places: e.target.value })} />
+            <input aria-label={t("GPS bracelet ID (optional)", "رقم سوار التتبّع (اختياري)")} className={inputClass} placeholder={t("GPS bracelet ID (optional)", "رقم سوار التتبّع (اختياري)")} value={f.band} onChange={(e) => setF({ ...f, band: e.target.value })} />
+            <label htmlFor="registry-consent" className="flex items-start gap-2 text-xs text-muted-foreground"><input id="registry-consent" required type="checkbox" checked={f.consent} onChange={(e) => setF({ ...f, consent: e.target.checked })} className="mt-0.5 accent-[var(--primary)]" />{t("I am the legal guardian and consent to storing this profile. I can delete it at any time.", "أقرّ بأنني الوصي القانوني وأوافق على حفظ هذا الملف، ويحق لي حذفه في أي وقت.")}</label>
             <Btn type="submit">{t("Save profile", "حفظ الملف")}</Btn>
           </form>
         </Panel>
