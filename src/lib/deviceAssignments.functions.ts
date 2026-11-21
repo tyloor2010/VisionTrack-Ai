@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const DEVICE_IDS = ["VTX-1A", "VTX-1B", "VB-01", "VB-02", "VB-03", "NT-01", "NT-02"] as const;
 
@@ -11,6 +12,7 @@ export const listDeviceAssignments = createServerFn({ method: "GET" }).handler(a
 });
 
 export const setDeviceAssignment = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .validator((d: unknown) =>
     z.object({
       deviceId: z.enum(DEVICE_IDS),
